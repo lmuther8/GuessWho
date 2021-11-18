@@ -10,7 +10,7 @@ const http = require('http');
 var fs = require('fs');
 
 //Everyone must use own port > 9000
-port=9001
+port=9018
 
 partners=[];
 // Loading the index file . html displayed to the client
@@ -94,7 +94,7 @@ io.sockets.on('connection', function(socket) {
 		name: message.name,
 		text: message.text
 	    });
-	    
+
 	}
     });
 });
