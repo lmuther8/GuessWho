@@ -14,6 +14,8 @@ socket.on('message', function(message) {
 	    console.log("Not logged in!");
 	    return;
 	}
+
+  //comment
 	var names=message.partners;
 	console.log(names);
 	var name=message.name;;
@@ -25,7 +27,7 @@ socket.on('message', function(message) {
 	}
 	groupList=groupList.slice(0,-2);
 	document.getElementById('members').innerHTML =
-	    "<b>Chat Group:</b> "+"<font color='blue'>"+groupList+"</font>"; 
+	    "<b>Chat Group:</b> "+"<font color='blue'>"+groupList+"</font>";
     }
     if (message.operation == 'leave') {
 	if (state=="off") {
@@ -38,7 +40,7 @@ socket.on('message', function(message) {
 	    groupList+=message.partners[n]+", ";
 	}
 	groupList=groupList.slice(0,-2);
-	document.getElementById('members').innerHTML = "<b>Chat Group:</b> "+"<font color='blue'>"+groupList+"</font>"; 
+	document.getElementById('members').innerHTML = "<b>Chat Group:</b> "+"<font color='blue'>"+groupList+"</font>";
     }
     // A text message: {operation: 'mess', name: clientname, text: message}
     if (message.operation == 'mess') {
@@ -73,7 +75,7 @@ document.getElementById('send-btn').addEventListener("click", sendText);
 document.getElementById('message').addEventListener("keydown", (e)=> {
     if (e.code == "Enter") {
 	sendText();
-    }   
+    }
 });
 
 // Call function on page exit
@@ -84,7 +86,7 @@ window.onbeforeunload = leaveSession;
 function sendText() {
     var message = document.getElementById('message').value;
     document.getElementById('message').value = "";
-    
+
     socket.emit('message', {
 	operation: "mess",
 	name: myname,
@@ -105,5 +107,3 @@ function leaveSession(){
     document.getElementById('status').style.display = 'none';
 
 }
-
-
