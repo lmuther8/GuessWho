@@ -10,7 +10,7 @@ function getBoard() {
     fetch(Url+'/board', {
 	method: 'get'
     })
-	.then (response => response.text() )
+	.then (response => response.json() )
         // .then (data => buildTable(data))
         .then (data => console.log(data))
 	.catch(error => {
