@@ -29,11 +29,11 @@ function openSQL() {
 
 var con = openSQL();
 
-// List all records
-// url/list
+
 app.get('/board', function (req, res) {
-    // Get a list of all records
+    //Make a board
     query = "SELECT * FROM Faculty";
+    console.log(query);
     con.query(query, function(err,result,fields) {
 	     if (err) throw err;
 	     console.log(result)
