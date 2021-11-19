@@ -43,4 +43,3 @@ table += "<tr><td>"+d[i]["First Name"]+"</td><td>"+d[i]["Last Name"]+"</td><td>"
   //
 	// return result;
   //   }
-}
