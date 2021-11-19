@@ -26,7 +26,7 @@ function buildTable(list) {
     } else {
 	var aLen = a.length;
 	for (var i = 1; i < aLen; i+=5) {
-	    result += "<tr><td class='first'>"+a[i]+"</td><td class='last'>"+a[i+1]+"</td><td class='phone'>"+a[i+2]+"</td><td class='type'>"+a[i+3]+"</td>";
+	    result += "<tr><td class='professor'>"+a[i]+"</td><td class='professor'>"+a[i+1]+"</td><td class='professor'>"+a[i+2]+"</td><td class='type'>"+a[i+3]+"</td>";
 	}
 	result += "</table>";
 
