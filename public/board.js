@@ -20,9 +20,8 @@ function getBoard() {
 // Build output table from comma delimited list
 function buildTable(list) {
   var table = '<table class="w3-table-all w3-hoverable" border="2"><tr><th></th><th>First Name</th><th>Last Name</th><th>URL</th>';
-  l = list["results"];
 
-  for (var i = 0; i < l.length; i++) {
+  for (var i = 0; i < list.length; i++) {
 table += "<tr><td>"+d[i]["First Name"]+"</td><td>"+d[i]["Last Name"]+"</td><td>"+d[i]["URL"]+"</td>";
   }
   table += "</table>";
