@@ -33,9 +33,8 @@ var con = openSQL();
 // url/list
 app.get('/board', function (req, res) {
     // Get a list of all records
-    query = "SELECT * FROM Faculty";
-    console.log(query)
     con.query(query, function(err,result,fields) {
+        query = "SELECT * FROM Faculty";
 	     if (err) throw err;
 	     console.log(result)
 	     res.end( JSON.stringify(result));
