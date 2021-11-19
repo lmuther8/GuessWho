@@ -12,10 +12,11 @@ function getBoard() {
     })
 	.then (response => response.json() )
         // .then (data => buildTable(data))
-        .then (data => console.log(data))
+        .then (data => data)
 	.catch(error => {
 	    {alert("Error: Something went wrong:"+error);}
 	})
+  console.log(data)
 }
 
 // Build output table from comma delimited list
