@@ -38,7 +38,8 @@ app.get('/board', function (req, res) {
 	     if (err) throw err;
        console.log('Board')
 	     console.log(result)
-	     res.end( JSON.stringify(result));
+	     //res.end( JSON.stringify(result));
+       res.end('Hello');
     })
 })
 
