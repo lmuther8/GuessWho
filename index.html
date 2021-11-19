@@ -25,15 +25,19 @@
       <button type="button" id="leave" >Leave</button><br />
       <span id="members"></span>
     </span>
-    <p>
 
+    <div class="container">
+      <h2>Chat box</h2>
+      <div class="scrollabletextbox" id="chatBox"></div>
+      <p>
+        <span id="chatinput">
+          <textarea id="message" class="form-control" rows="1" cols="60" placeholder="message"></textarea><br />
+          <input type="button" value="Send" id="send-btn" />
+        </span>
+      </p>
 
-    <h2>Chat box</h2>
-    <div class="scrollabletextbox" id="chatBox"></div>
-    <span id="chatinput">
-    <textarea id="message" class="form-control" rows="1" cols="60" placeholder="message"></textarea><br />
-    <input type="button" value="Send" id="send-btn" /></p>
-    </span>
+    </div>
+
 
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
