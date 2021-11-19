@@ -1,5 +1,5 @@
-
-
+const port=9018
+const Url='http://jimskon.com:'+port
 
 document.getElementById('board').addEventListener("click", getBoard);
 
