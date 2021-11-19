@@ -29,6 +29,9 @@ function openSQL() {
 
 var con = openSQL();
 
+app.get('/', function (req, res) {
+    res.sendFile( __dirname + "/public/" + "index.html" );
+})
 
 app.get('/board', function (req, res) {
     //get board pieces
@@ -130,5 +133,4 @@ io.sockets.on('connection', function(socket) {
 });
 
 app.listen(port);
-server.listen(port);
 console.log("Listening on port: "+port);
