@@ -16,17 +16,22 @@
 
   <body>
     <div class="container">
-      <h1>Guess Who: Kenyon Professors Edition</h1>
-      <div id="register">
-      Enter a name to register:<br />
-      <input type="text" id="yourname" class="form-control" placeholder="Your Name">
-      <button type="button" id="name-btn" >Join</button>
+      
+      <div class="header">
+        <h1>Guess Who: Kenyon Professors Edition</h1>
+        <div id="register">
+          Enter a name to register:<br />
+          <input type="text" id="yourname" class="form-control" placeholder="Your Name">
+          <button type="button" id="name-btn" >Join</button>
+        </div>
+
+        <span id="status">
+          <span id="user"></span>
+          <button type="button" id="leave" >Leave</button><br />
+          <span id="members"></span>
+        </span>
       </div>
-      <span id="status">
-        <span id="user"></span>
-        <button type="button" id="leave" >Leave</button><br />
-        <span id="members"></span>
-      </span>
+
       <div class="row">
         <div class="col-sm-8">
           <h2>Game Board</h2>
@@ -45,6 +50,7 @@
           </p>
         </div>
       </div>
+
     </div>
 
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
