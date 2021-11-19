@@ -16,7 +16,6 @@ function getBoard() {
 	.catch(error => {
 	    {alert("Error: Something went wrong:"+error);}
 	})
-  console.log(data)
 }
 
 // Build output table from comma delimited list
