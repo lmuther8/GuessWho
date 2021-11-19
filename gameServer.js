@@ -33,7 +33,7 @@ var con = openSQL();
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + "/public/" + "GuessWho.html");
+    res.sendFile(__dirname + "/public/" + "guessWho.html");
 })
 
 
