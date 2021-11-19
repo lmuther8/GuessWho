@@ -32,3 +32,4 @@ function buildTable(list) {
 
 	return result;
     }
+}
