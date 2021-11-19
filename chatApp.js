@@ -36,6 +36,7 @@ app.get('/board', function (req, res) {
     console.log(query);
     con.query(query, function(err,result,fields) {
 	     if (err) throw err;
+       console.log('Board')
 	     console.log(result)
 	     res.end( JSON.stringify(result));
     })
