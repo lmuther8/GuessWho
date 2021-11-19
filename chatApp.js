@@ -9,7 +9,8 @@ const mysql = require('mysql2');
 const fs = require('fs');
 
 //Everyone must use own port > 9000
-port=9018
+const port=9018
+const Url='http://jimskon.com:'+port
 
 
 function openSQL() {
