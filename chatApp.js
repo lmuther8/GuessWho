@@ -30,12 +30,12 @@ function openSQL() {
 var con = openSQL();
 
 app.get('/board', function (req, res) {
-    //Make a board
+    //get board pieces
     query = "SELECT * FROM Faculty";
     console.log(query);
     con.query(query, function(err,result,fields) {
-        query = "SELECT * FROM Faculty";
 	     if (err) throw err;
+       console.log('Board')
 	     console.log(result)
 	     res.end( JSON.stringify(result));
     })
@@ -128,5 +128,6 @@ io.sockets.on('connection', function(socket) {
     });
 });
 
+app.listen(port);
 server.listen(port);
 console.log("Listening on port: "+port);
