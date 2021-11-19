@@ -10,7 +10,7 @@ function getBoard() {
     fetch(Url+'/board', {
 	method: 'get'
     })
-	.then (response => response.text() )
+	.then (response => response.json() )
         .then (data => buildTable(data))
 	.catch(error => {
 	    {alert("Error: Something went wrong:"+error);}
