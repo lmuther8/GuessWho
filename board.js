@@ -1,4 +1,6 @@
 
+var port=9018;
+const Url='http://jimskon.com:'+port;
 
 
 document.getElementById('board').addEventListener("click", getBoard);
@@ -9,7 +11,7 @@ function getBoard() {
 	method: 'get'
     })
 	.then (response => response.text() )
-        .then (data => processResults(data))
+        .then (data => data)
 	.catch(error => {
 	    {alert("Error: Something went wrong:"+error);}
 	})
