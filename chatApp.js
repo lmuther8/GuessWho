@@ -81,7 +81,7 @@ var server = http.createServer(function(req, res) {
 console.log("Loaded index file");
 // Loading socket.io
 const { Server } = require("socket.io");
-const io = new Server(app);
+const io = new Server(server);
 //var io = require('socket.io').listen(server);
 
 // When a client connects, we note it in the console
