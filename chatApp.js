@@ -29,13 +29,11 @@ function openSQL() {
 
 var con = openSQL();
 
-<<<<<<< HEAD
 app.get('/', function (req, res) {
     res.sendFile( __dirname + "/public/" + "index.html" );
 })
 
-=======
->>>>>>> 34830f6e05ff6d50583683988c99df6500edae19
+
 app.get('/board', function (req, res) {
     //get board pieces
     query = "SELECT * FROM Faculty";
