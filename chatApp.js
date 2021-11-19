@@ -15,10 +15,10 @@ port=9018
 function openSQL() {
     // Login to MySQL
     var con = mysql.createConnection({
-    	host: "localhost",
-    	user: "muther1",
-    	password: "S218237",
-    	database: "muther1"
+      host: "localhost",
+      user: "cohen3",
+      password: "S217164",
+      database: "Faculty"
         });
         con.connect(function(err) {
             if (err) throw err;
@@ -30,7 +30,7 @@ var con = openSQL();
 
 // List all records
 // url/list
-app.get('/list', function (req, res) {
+app.get('/board', function (req, res) {
     // Get a list of all records
     query = "SELECT * FROM Faculty";
     con.query(query, function(err,result,fields) {
