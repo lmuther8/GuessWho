@@ -3,10 +3,8 @@
 
 document.getElementById('board').addEventListener("click", getBoard);
 
-function getBoard(results) {
-    // Look up the record and display it
-    document.getElementsByClassName('editdata')[0].style.display = 'none';
-
+function getBoard() {
+    console.log('getting board')
     fetch(Url+'/board', {
 	method: 'get'
     })
