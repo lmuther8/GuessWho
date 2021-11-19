@@ -11,14 +11,10 @@ function getBoard() {
 	method: 'get'
     })
 	.then (response => response.text() )
-        .then (data => data)
+        .then (data => buildTable(data))
 	.catch(error => {
 	    {alert("Error: Something went wrong:"+error);}
 	})
-}
-
-function processResults(data){
-  
 }
 
 // Build output table from comma delimited list
@@ -31,15 +27,8 @@ function buildTable(list) {
     } else {
 	var aLen = a.length;
 	for (var i = 1; i < aLen; i+=5) {
-<<<<<<< Updated upstream
-	    result += "<tr><td class='professor'>"+a[i]+"</td><td class='professor'>"+a[i+1]+"</td><td class='professor'>"+a[i+2]+"</td><td class='type'>"+a[i+3]+"</td>";
-=======
-	    result += "<tr><td class='first'>"+a[i]+"</td><td class='last'>"+a[i+1]+"</td><td class='phone'>"+a[i+2]+"</td><td class='type'>"+a[i+3]+"</td>";
->>>>>>> Stashed changes
-	}
+	    result += "<tr><td class='professor'>"+a[i]+"</td><td class='professor'>"+a[i+1]+"</td><td class='professor'>"+a[i+2]+"</td><td class='type'>"+a[i+3]+"</td>";	}
 	result += "</table>";
 
 	return result;
     }
-=======
-document.getElementById('board').addEventListener("click", getBoard);
