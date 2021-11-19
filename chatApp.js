@@ -50,34 +50,34 @@ app.get('/board', function (req, res) {
 
 partners=[];
 // Loading the index file . html displayed to the client
-var server = http.createServer(function(req, res) {
-  var url = req.url;
-  // If no path, get the index.html
-  if (url == "/") url = "/index.html";
-  // get the file extension (needed for Content-Type)
-  var ext = url.split('.').pop();
-  console.log(url + "  :  " + ext);
-  // convert file type to correct Content-Type
-  var mimeType = 'html'; // default
-  switch (ext) {
-    case 'css':
-      mimeType = 'css';
-      break;
-    case 'png':
-      mimeType = 'png';
-      break;
-    case 'jpg':
-      mimeType = 'jpeg';
-      break;
-  }
+// var server = http.createServer(function(req, res) {
+//   var url = req.url;
+//   // If no path, get the index.html
+//   if (url == "/") url = "/index.html";
+//   // get the file extension (needed for Content-Type)
+//   var ext = url.split('.').pop();
+//   console.log(url + "  :  " + ext);
+//   // convert file type to correct Content-Type
+//   var mimeType = 'html'; // default
+//   switch (ext) {
+//     case 'css':
+//       mimeType = 'css';
+//       break;
+//     case 'png':
+//       mimeType = 'png';
+//       break;
+//     case 'jpg':
+//       mimeType = 'jpeg';
+//       break;
+//   }
   // Send the requested file
-  fs.readFile('.' + url, 'utf-8', function(error, content) {
-    res.writeHead(200, {
-      "Content-Type": "text/" + mimeType
-    });
-    res.end(content);
-  });
-});
+//   fs.readFile('.' + url, 'utf-8', function(error, content) {
+//     res.writeHead(200, {
+//       "Content-Type": "text/" + mimeType
+//     });
+//     res.end(content);
+//   });
+// });
 
 console.log("Loaded index file");
 // Loading socket.io
