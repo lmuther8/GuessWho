@@ -29,7 +29,6 @@ function openSQL() {
 
 var con = openSQL();
 
-
 app.get('/board', function (req, res) {
     //Make a board
     query = "SELECT * FROM Faculty";
