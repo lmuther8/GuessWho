@@ -11,8 +11,7 @@ function getBoard() {
 	method: 'get'
     })
 	.then (response => response.text() )
-        // .then (data => buildTable(data))
-        .then (data => data)
+        .then (data => buildTable(data))
 	.catch(error => {
 	    {alert("Error: Something went wrong:"+error);}
 	})
