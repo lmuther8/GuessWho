@@ -7,6 +7,7 @@ const app = express();
 const http = require('http');
 const mysql = require('mysql2');
 const fs = require('fs');
+const server = http.createServer(app);
 
 //Everyone must use own port > 9000
 const port=9018
@@ -134,5 +135,5 @@ io.sockets.on('connection', function(socket) {
     });
 });
 
-app.listen(port);
+server.listen(port);
 console.log("Listening on port: "+port);
