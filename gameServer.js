@@ -105,5 +105,5 @@ io.sockets.on('connection', function(socket) {
 });
 
 server.listen(port, () => {
-  console.log('Server started at 7001');
+  console.log('Server started at '+port);
 });
