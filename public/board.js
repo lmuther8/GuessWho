@@ -25,9 +25,10 @@ function buildTable(list) {
 table += "<tr><td>"+list[i]["First Name"]+"</td><td>"+list[i]["Last Name"]+"</td><td>"+list[i]["URL"]+"</td>";
   }
   table += "</table>";
-
-  return table;
+  document.getElementById('gameBoard').innerHTML=table
+  return null;
 }
+
 
   //   var a = list.split(",");
   //   if (a.length < 1) {
