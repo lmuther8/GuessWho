@@ -132,5 +132,5 @@ io.sockets.on('connection', function(socket) {
     });
 });
 
-server.listen(port);
+app.listen(port);
 console.log("Listening on port: "+port);
