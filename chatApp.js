@@ -32,11 +32,10 @@ var con = openSQL();
 app.get('/board', function (req, res) {
     //get board pieces
     query = "SELECT * FROM Faculty";
-    console.log(query);
+    // console.log(query);
     con.query(query, function(err,result,fields) {
 	     if (err) throw err;
-       console.log('Board')
-	     console.log(result)
+	     // console.log(result)
 	     res.end( JSON.stringify(result));
     })
 })
