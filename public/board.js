@@ -22,7 +22,7 @@ function buildTable(list) {
   var table = '<table class="w3-table-all w3-hoverable" border="2"><tr><th></th><th>First Name</th><th>Last Name</th><th>URL</th>';
 
   for (var i = 0; i < list.length; i++) {
-table += "<tr><td>"+d[i]["First Name"]+"</td><td>"+d[i]["Last Name"]+"</td><td>"+d[i]["URL"]+"</td>";
+table += "<tr><td>"+list[i]["First Name"]+"</td><td>"+list[i]["Last Name"]+"</td><td>"+list[i]["URL"]+"</td>";
   }
   table += "</table>";
 
