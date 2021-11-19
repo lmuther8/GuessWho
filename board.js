@@ -12,6 +12,7 @@ function getBoard() {
     })
 	.then (response => response.text() )
         .then (data => buildTable(data))
+          console.log(data)
 	.catch(error => {
 	    {alert("Error: Something went wrong:"+error);}
 	})
