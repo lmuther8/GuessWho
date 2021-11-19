@@ -1,6 +1,7 @@
 
 
 
+<<<<<<< Updated upstream
 document.getElementById('board').addEventListener("click", getBoard);
 
 function getBoard() {
@@ -17,6 +18,9 @@ function getBoard() {
 
 
 // Build output table from comma delimited list
+=======
+<<<<<<< HEAD
+>>>>>>> Stashed changes
 function buildTable(list) {
     var a = list.split(",");
     if (a.length < 1) {
@@ -26,10 +30,15 @@ function buildTable(list) {
     } else {
 	var aLen = a.length;
 	for (var i = 1; i < aLen; i+=5) {
+<<<<<<< Updated upstream
 	    result += "<tr><td class='professor'>"+a[i]+"</td><td class='professor'>"+a[i+1]+"</td><td class='professor'>"+a[i+2]+"</td><td class='type'>"+a[i+3]+"</td>";
+=======
+	    result += "<tr><td class='first'>"+a[i]+"</td><td class='last'>"+a[i+1]+"</td><td class='phone'>"+a[i+2]+"</td><td class='type'>"+a[i+3]+"</td>";
+>>>>>>> Stashed changes
 	}
 	result += "</table>";
 
 	return result;
     }
+>>>>>>> Stashed changes
 }
