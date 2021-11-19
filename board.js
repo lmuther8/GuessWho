@@ -1,7 +1,6 @@
 
 
 
-<<<<<<< Updated upstream
 document.getElementById('board').addEventListener("click", getBoard);
 
 function getBoard() {
@@ -16,11 +15,11 @@ function getBoard() {
 	})
 }
 
+function processResults(data){
+  
+}
 
 // Build output table from comma delimited list
-=======
-<<<<<<< HEAD
->>>>>>> Stashed changes
 function buildTable(list) {
     var a = list.split(",");
     if (a.length < 1) {
@@ -40,21 +39,5 @@ function buildTable(list) {
 
 	return result;
     }
-<<<<<<< Updated upstream
-=======
 =======
 document.getElementById('board').addEventListener("click", getBoard);
-
-function getBoard() {
-    console.log('getting board')
-    fetch(Url+'/board', {
-	method: 'get'
-    })
-	.then (response => response.text() )
-        .then (data => processResults(data))
-	.catch(error => {
-	    {alert("Error: Something went wrong:"+error);}
-	})
->>>>>>> 6e45b26b900016ac3fd9adf73c55acd388e52862
->>>>>>> Stashed changes
-}
