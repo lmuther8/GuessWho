@@ -5,12 +5,40 @@
 const express = require('express');
 const app = express();
 const http = require('http');
-//const server = http.createServer(app)
-
-var fs = require('fs');
+const mysql = require('mysql2');
+const fs = require('fs');
 
 //Everyone must use own port > 9000
 port=9018
+
+
+function openSQL() {
+    // Login to MySQL
+    var con = mysql.createConnection({
+    	host: "localhost",
+    	user: "muther1",
+    	password: "S218237",
+    	database: "muther1"
+        });
+        con.connect(function(err) {
+            if (err) throw err;
+        });
+        return con;
+}
+
+var con = openSQL();
+
+// List all records
+// url/list
+app.get('/list', function (req, res) {
+    // Get a list of all records
+    query = "SELECT * FROM Faculty";
+    con.query(query, function(err,result,fields) {
+	     if (err) throw err;
+	     console.log(result)
+	     res.end( JSON.stringify(result));
+    })
+})
 
 partners=[];
 // Loading the index file . html displayed to the client

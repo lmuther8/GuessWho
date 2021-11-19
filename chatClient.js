@@ -59,14 +59,10 @@ document.getElementById('name-btn').addEventListener("click", (e) => {
     state="on";
     document.getElementById('register').style.display = 'none';
     document.getElementById('status').style.display = 'block';
-    document.getElementById('user').innerHTML =
-	"<b>Name:</b> <font color='blue'>"+myname+"</font>";
+    document.getElementById('user').innerHTML = "<b>Name:</b> <font color='blue'>"+myname+"</font>";
     document.getElementById('chatinput').style.display = 'block';
     // Action if they push the send message button or enter
-    socket.emit('message', {
-	operation: "join",
-	name: myname
-    });
+    socket.emit('message', {operation: "join",name: myname});
 })
 document.getElementById('leave').addEventListener("click", leaveSession);
 document.getElementById('send-btn').addEventListener("click", sendText);
