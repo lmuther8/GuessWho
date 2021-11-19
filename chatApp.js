@@ -71,13 +71,13 @@ partners=[];
 //       break;
 //   }
   // Send the requested file
-  fs.readFile('.' + url, 'utf-8', function(error, content) {
-    res.writeHead(200, {
-      "Content-Type": "text/" + mimeType
-    });
-    res.end(content);
-  });
-});
+//   fs.readFile('.' + url, 'utf-8', function(error, content) {
+//     res.writeHead(200, {
+//       "Content-Type": "text/" + mimeType
+//     });
+//     res.end(content);
+//   });
+// });
 
 console.log("Loaded index file");
 // Loading socket.io
