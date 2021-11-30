@@ -54,8 +54,7 @@ h2, h3, p {
 }
 
 .mainMenu a:hover {
-  transform: scale(1.1);
-  transition: all ease 500ms;
+  font-size:6px;
   /* animation: pulse 1s linear;
   animation-timing-function: linear; */
 }
