@@ -42,7 +42,7 @@ h2, h3, p {
           filter: grayscale(100%);
 }
 
-.mainMenu h2{
+.mainMenu text{
   font-size: 72px;
   font-family: "Monaco", monospace;
   color: white;
@@ -52,7 +52,7 @@ h2, h3, p {
                 -1px -1px 0 #000;
 }
 
-.mainMenu a {
+/* .mainMenu a {
 
 } */
 
