@@ -54,30 +54,9 @@ h2, h3, p {
 }
 
 .mainMenu a:hover {
-<<<<<<< HEAD
-  animation: slidein 1s infinite;
-  animation-timing-function: linear;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
-
-@keyframes slidein {
-  from {
-    transform: translateX(0%);
-  }
-
-  to {
-    transform: translateX(100%);
-  }
-=======
   font-size:80px;
   /* animation: pulse 1s linear;
   animation-timing-function: linear; */
->>>>>>> 51d60d8304eb055beef8b8e4a4895b732b42a246
 }
 /*
 @keyframes pulse {
