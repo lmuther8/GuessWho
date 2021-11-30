@@ -54,5 +54,12 @@ h2, h3, p {
 }
 
 .mainMenu a:hover {
-  transform: scale(1.1);
+  animation: pulse 1s infite;
+  animation-timing-function: linear;
 }
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1);
+  100% { transform: scale(1); }
+  }
