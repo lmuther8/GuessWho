@@ -57,7 +57,6 @@ h2, h3, p {
 } */
 
 .mainMenu a:hover {
-  font-size:6px; 
-  /* transform: scale(1.1);
-  transition: all 500ms ease; */
+  transform: scale(1.1);
+  transition: all 500ms ease;
 }
