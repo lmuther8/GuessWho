@@ -10,7 +10,7 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="game.css">
+    <link rel="stylesheet" type="text/css" href="guessWho.css">
 
   </head>
 
@@ -33,21 +33,15 @@
       </div>
 
       <div class="row">
-        <div class="col-sm-8">
-          <h2>Game Board</h2>
-          <div class="container" id="gameBoard">
-            <button type="button" id="board">Start</button>
-          </div>
+        <div class="col-sm-6">
+          <a href="/localplay">
+            <button type="button" class="btn btn-primary">Play Local</button>
+          </a>
         </div>
-        <div class="col-sm-4">
-          <h2>Chat box</h2>
-          <div class="scrollabletextbox" id="chatBox"></div>
-          <p>
-            <span id="chatinput">
-              <textarea id="message" class="form-control" rows="1" cols="60" placeholder="message"></textarea><br />
-              <input type="button" value="Send" id="send-btn" />
-            </span>
-          </p>
+        <div class="col-sm-6">
+          <a href="/play">
+            <button type="button" class="btn btn-success">Play Local</button>
+          </a>
         </div>
       </div>
 

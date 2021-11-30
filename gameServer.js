@@ -33,9 +33,16 @@ var con = openSQL();
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
+    res.sendFile(__dirname + "/public/" + "home.html");
+})
+
+app.get('/play', function (req, res) {
     res.sendFile(__dirname + "/public/" + "game.html");
 })
 
+app.get('/localplay', function (req, res) {
+    res.sendFile(__dirname + "/public/" + "localGame.html");
+})
 
 app.get('/board', function (req, res) {
     //get board pieces
@@ -105,5 +112,5 @@ io.sockets.on('connection', function(socket) {
 });
 
 server.listen(port, () => {
-  console.log('Server started at '+port);
+  console.log('Example app listening at http://jimskon:${port}');
 });
