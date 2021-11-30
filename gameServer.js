@@ -112,5 +112,5 @@ io.sockets.on('connection', function(socket) {
 });
 
 server.listen(port, () => {
-  console.log('Example app listening at http://jimskon:${port}');
+  console.log(`Example app listening at http://jimskon:${port}`);
 });
