@@ -3,6 +3,14 @@ h2, h3, p {
     font-family: Verdana, sans-serif;
 }
 
+body {
+  background-image:url("https://image.freepik.com/free-vector/background-questions-mark-help-symbol-white-color-yellow-background_110633-305.jpg");
+}
+
+.container {
+  background-color: white;
+}
+
 .small {
     font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
     font-size: 60%;
@@ -19,7 +27,7 @@ h2, h3, p {
 .scrollabletextbox {
     background-color: #e6b3ff;
     height: 300px;
-    width: 400px;
+    width: 100%;
     font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
     font-size: 82%;
     overflow:scroll;
@@ -63,3 +71,28 @@ h2, h3, p {
   0%,100% { transform: scale(1); }
   50% { transform: scale(1.2);}
 } */
+
+.center {
+  padding: 5px;
+}
+
+.main {
+  box-shadow: 0 0 15px 5px black;
+  align-items: center;
+  vertical-align: center;
+}
+
+.guesses {
+  margin: 10px;
+  width: 100%;
+  padding-left: 10px;
+  border-style: solid;
+}
+
+.leftbar {
+  vertical-align: center;
+}
+
+.title {
+  vertical-align: top;
+}
