@@ -1,9 +1,14 @@
 
-var port=9018;
+var port=9004;
 const Url='http://jimskon.com:'+port;
 
 
-document.getElementById('board').addEventListener("click", getBoard);
+document.getElementById('board').addEventListener("click", getGameLayout);
+
+function getGameLayout(){
+  getBoard()
+  buildGuessMenu()
+}
 
 function getBoard() {
     console.log('getting board')
@@ -26,10 +31,6 @@ function buildBoard(list) {
   board += "</div>";
   document.getElementById('gameBoard').innerHTML=board
 
-
-  var guessData = '<div class="row">Guesses: </div>';
-  document.getElementById('guesses').innerHTML=guessData;
-
   var pieces = document.querySelectorAll(".gamepiece");
   console.log(pieces)
   pieces.forEach(function(piece) {
@@ -44,4 +45,9 @@ function buildBoard(list) {
   })
 
   return null;
+}
+
+function buildGuessMenu() {
+  var guessData = '<div class="row">Guesses: </div>';
+  document.getElementById('guesses').innerHTML=guessData;
 }
