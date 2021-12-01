@@ -40,26 +40,23 @@ function buildBoard(list) {
   console.log(pieces)
   pieces.forEach(function(piece) {
   	piece.addEventListener('click', function() {
-
-      //pick character at start of game
-      if(!pickedChar){
-        //get name of character picked
-        //var hiddenChar= piece.innerHTML.substr(0, piece.innerHTML.indexOf(' '));
-        //var hiddenChar = piece.innerHTML;
-        //console.log(hiddenChar);
-        //console.log(piece);
-        console.log(piece.innerHTML);
-        displayhiddenChar(piece.innerHTML);
-        document.getElementById('pickChar').innerHTML='';
-        pickedChar=true;
-      }
-
       if (piece.classList.contains('gamepiece-grey')) {
         piece.classList.remove('gamepiece-grey');
       }
   		else {
         piece.classList.add('gamepiece-grey');
   	  }
+
+      //pick character at start of game
+      if(!pickedChar){
+        //get name of character picked
+        console.log(piece.innerHTML);
+        displayhiddenChar(piece.innerHTML);
+        document.getElementById('pickChar').innerHTML='';
+        piece.classList.remove('gamepiece-grey');
+        pickedChar=true;
+      }
+
     })
   })
 
@@ -67,11 +64,11 @@ function buildBoard(list) {
 }
 
 function displayhiddenChar(hiddenChar) {
-  var hiddenChar = '<div class="gamepiece">'+hiddenChar+'</div>';
-  document.getElementById('hiddenChar').innerHTML=hiddenChar;
+  //remove hover ability??
+  document.getElementById('hiddenChar').innerHTML='<div class="gamepiece center">'+hiddenChar+'</div>';
 }
 
 function buildGuessMenu() {
-  var guessData = '<div class="row">Guesses: </div>';
+  var guessData = '<div class="guesses">Guesses Left: </div>';
   document.getElementById('guesses').innerHTML=guessData;
 }
