@@ -45,7 +45,7 @@ h2, h3, p {
 .mainMenu a{
   font-size: 72px;
   font-family: "Monaco", monospace;
-  color: white;
+  color: BlueViolet;
   text-shadow: -1px 1px 2px #000,
                 1px 1px 2px #000,
                 1px -1px 0 #000,
