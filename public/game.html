@@ -24,15 +24,19 @@
       </div>
 
       <div class="row">
+        <div class="col-sm-1">
+          <div id="hiddenChar"></div>
+        </div>
         <div class="col-sm-8">
           <h2>Game Board</h2>
+          <div class="container" id="pickChar">
+          </div>
           <div class="container" id="gameBoard">
             <button type="button" id="board">Start</button>
           </div>
-          <div id="guesses">
-          </div>
+          <div id="guesses"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div id="register">
             Enter a name to register:<br />
             <input type="text" id="yourname" class="form-control" placeholder="Your Name">
