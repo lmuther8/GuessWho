@@ -1,5 +1,5 @@
 // Simple multi client chat
-// Jim Skon, 2018
+// Jim Skon, 2021
 // Kenyon College
 // Run: node chatApp.js
 const express = require('express');
