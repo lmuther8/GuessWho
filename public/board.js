@@ -26,6 +26,10 @@ function buildBoard(list) {
   board += "</div>";
   document.getElementById('gameBoard').innerHTML=board
 
+
+  var guessData = '<div class="row">Guesses: </div>';
+  document.getElementById('guesses').innerHTML=guessData;
+
   var pieces = document.querySelectorAll(".gamepiece");
   console.log(pieces)
   pieces.forEach(function(piece) {
