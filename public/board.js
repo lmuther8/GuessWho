@@ -1,5 +1,5 @@
 
-var port=9018;
+var port=9004;
 const Url='http://jimskon.com:'+port;
 var pickedChar = false;
 
@@ -49,7 +49,7 @@ function buildBoard(list) {
 
       //pick character at start of game
       if(!pickedChar){
-        //get name of character picked
+        //get info about character picked
         console.log(piece.innerHTML);
         displayhiddenChar(piece.innerHTML);
         document.getElementById('pickChar').innerHTML='';
