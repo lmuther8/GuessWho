@@ -12,6 +12,7 @@ body {
 .container {
   background-color: white;
   width: 100%;
+  background-color: rgba(45, 32, 96, 0.4);
 }
 
 .small {
@@ -77,6 +78,7 @@ body {
 
 .center {
   padding: 5px;
+  align-items: center;
 }
 
 .main {
@@ -84,19 +86,34 @@ body {
   align-items: center;
   vertical-align: center;
   width: 100%;
+  opacity: 1.0;
 }
 
 .guesses {
   margin: 10px;
   width: 100%;
-  padding-left: 10px;
-  border-style: solid;
+  background-color: #dbdbdb;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.guess-search {
+  padding: 10px;
 }
 
 .leftbar {
   vertical-align: center;
+  background-color: #dbdbdb;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .title {
   vertical-align: top;
+}
+
+.board {
+  background-color: #dbdbdb;
+  padding: 10px;
+  border-radius: 10px;
 }

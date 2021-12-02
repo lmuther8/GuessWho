@@ -2,6 +2,7 @@
 var port=9004;
 const Url='http://jimskon.com:'+port;
 var pickedChar = false;
+var guesses = 3;
 
 document.getElementById('board').addEventListener("click", getGameLayout);
 
@@ -24,7 +25,7 @@ function getBoard() {
 }
 
 function buildBoard(list) {
-  var pick = '<div class="row">Select a character for your opponent to guess:</div>';
+  var pick = '<div class="row center">Select a character for your opponent to guess:</div>';
   document.getElementById('pickChar').innerHTML=pick;
 
   var board = '<div class="row">';
@@ -65,10 +66,15 @@ function buildBoard(list) {
 
 function displayhiddenChar(hiddenChar) {
   //remove hover ability??
-  document.getElementById('hiddenChar').innerHTML='<div class="center">Opponent`s hidden character:</div><div class="gamepiece center">'+hiddenChar+'</div>';
+  document.getElementById('hiddenChar').innerHTML='<div class="center leftbar">Opponent`s hidden character:</div><div class="gamepiece center">'+hiddenChar+'</div>';
 }
 
 function buildGuessMenu() {
-  var guessData = '<div class="guesses">Guesses Left: </div>';
+  var guessData = '<div class="row">';
+  guessData += '<div class="col-sm-4 guesses">Guesses Left: '+guesses+'</div>';
+  guessData += '<div class="col-sm-2"></div>';
+  guessData += '<div class="col-sm-3 guess-search"><input type="text" placeholder="Guess"></div>';
+  guessData += '<div class="col-sm-1 guess-search"><button type="button">Guess</button></div>';
+  guessData += '</div>';
   document.getElementById('guesses').innerHTML=guessData;
 }
