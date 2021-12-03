@@ -53,7 +53,7 @@ const databaseLength = 30;
 var idList=[];
 while (idList.length<21){
   var id = getRandomInt(1,databaseLength);
-  if !(id in idList){
+  if (!(id in idList)){
     idList.push(id);
   }
 }
