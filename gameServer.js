@@ -63,11 +63,11 @@ function buildIDList(length){
 }
 
 var idList = buildIDList(databaseLength);
-console.log(idList)
 
 app.get('/board', function (req, res) {
     //get board pieces
-    query = "SELECT * FROM Faculty";
+    query = "SELECT * FROM Faculty ID in "+idList;
+    console.log(query)
     con.query(query, function(err,result,fields) {
 	     if (err) throw err;
 	     res.end( JSON.stringify(result));
