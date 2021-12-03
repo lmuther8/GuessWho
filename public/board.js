@@ -37,7 +37,6 @@ function buildBoard(list) {
   document.getElementById('gameBoard').innerHTML=board
 
   var pieces = document.querySelectorAll(".gamepiece");
-  //var hiddenChar;
   console.log(pieces)
   pieces.forEach(function(piece) {
   	piece.addEventListener('click', function() {
