@@ -37,6 +37,11 @@ body {
     overflow:scroll;
 }
 
+.hiddenChar img {
+  max-width: 100%;
+  border-radius: 1rem;  
+}
+
 .gamepiece img {
   max-width: 100%;
   border-radius: 1rem;

@@ -66,7 +66,7 @@ function buildBoard(list) {
 
 function displayhiddenChar(hiddenChar) {
   //remove hover ability??
-  document.getElementById('hiddenChar').innerHTML='<div class="center leftbar">Opponent`s hidden character:</div><div class="gamepiece center">'+hiddenChar+'</div>';
+  document.getElementById('hiddenChar').innerHTML='<div class="center leftbar">Opponent`s hidden character:</div><div class="hiddenChar center">'+hiddenChar+'</div>';
 }
 
 function buildGuessMenu() {
