@@ -66,7 +66,7 @@ var idList = buildIDList(databaseLength);
 
 app.get('/board', function (req, res) {
     //get board pieces
-    query = "SELECT * FROM Faculty ID in "+idList;
+    query = "SELECT * FROM Faculty WHERE ID in "+idList;
     console.log(query)
     con.query(query, function(err,result,fields) {
 	     if (err) throw err;
