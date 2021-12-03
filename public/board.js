@@ -31,7 +31,7 @@ function buildBoard(list) {
 
   var board = '<div class="row">';
 
-  for (var i = 0; i < list.length; i++) {
+  for (var i = 0; i < list.length+1; i++) {
     board += '<div class="gamepiece col-sm-3">'+list[i]['First']+' '+list[i]['Last']+'<a><img src="'+list[i]['URL']+'"></a></div>';
   }
   board += "</div>";
