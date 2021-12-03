@@ -51,9 +51,13 @@ function getRandomInt(min, max) {
 
 const databaseLength = 30;
 var idList=[];
-for (let i=0; i<databaseLength; i++){
-  idList.push(getRandomInt(1,databaseLength));
+while (idList.length<21){
+  var id = getRandomInt(1,databaseLength);
+  if !(id in idList){
+    idList.push(id);
+  }
 }
+
 console.log(idList);
 
 app.get('/board', function (req, res) {
