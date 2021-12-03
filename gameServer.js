@@ -55,6 +55,7 @@ function buildIDList(length){
   while (idList.length<21){
     var int = getRandomInt(1,databaseLength);
     if (!(int in idList)){
+      console.log('no repeat')
       idList.push(int);
     }
   }
