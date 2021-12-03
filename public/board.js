@@ -6,7 +6,6 @@ var guesses = 3;
 
 document.getElementById('board').addEventListener("click", getGameLayout);
 
-
 function getGameLayout(){
   getBoard()
   buildGuessMenu()
@@ -26,10 +25,10 @@ function getBoard() {
 
 function buildBoard(list) {
   console.log(list, list.length)
-  var pick = '<div class="row center">Select a character for your opponent to guess:</div>';
+  var pick = '<div class="row">Select a character for your opponent to guess:</div>';
   document.getElementById('pickChar').innerHTML=pick;
 
-  var board = '<div class="row">';
+  var board = '<div class="row board">';
 
   for (var i = 0; i < list.length; i++) {
     board += '<div class="gamepiece col-sm-3">'+list[i]['First']+' '+list[i]['Last']+'<a><img src="'+list[i]['URL']+'"></a></div>';
@@ -65,15 +64,15 @@ function buildBoard(list) {
 }
 
 function displayhiddenChar(hiddenChar) {
-  document.getElementById('hiddenChar').innerHTML='<div class="center leftbar">Your Mystery Character:</div><div class="hiddenChar center">'+hiddenChar+'</div>';
+  document.getElementById('hiddenChar').innerHTML='<div class="purple"><div>Your Mystery Character:</div><div class="hiddenChar center">'+hiddenChar+'</div></div>';
 }
 
 function buildGuessMenu() {
-  var guessData = '<div class="row">';
-  guessData += '<div class="col-sm-4 guesses">Guesses Left: '+guesses+'</div>';
+  var guessData = '<div class="row guesses">';
+  guessData += '<div class="col-sm-4">Guesses Left: '+guesses+'</div>';
   guessData += '<div class="col-sm-2"></div>';
-  guessData += '<div class="col-sm-3 guess-search"><input type="text" placeholder="Guess"></div>';
-  guessData += '<div class="col-sm-1 guess-search"><button type="button">Guess</button></div>';
+  guessData += '<div class="col-sm-3"><input type="text" placeholder="Guess"></div>';
+  guessData += '<div class="col-sm-1 left"><button type="button">Guess</button></div>';
   guessData += '</div>';
   document.getElementById('guesses').innerHTML=guessData;
 }
