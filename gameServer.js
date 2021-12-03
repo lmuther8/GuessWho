@@ -54,8 +54,8 @@ function buildIDList(length){
   var idList=[];
   while (idList.length<21){
     var int = getRandomInt(1,databaseLength);
-    if (!(id in idList)){
-      idList.push(id);
+    if (!(int in idList)){
+      idList.push(int);
     }
   }
   return idList;
