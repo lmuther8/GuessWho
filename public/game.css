@@ -54,12 +54,12 @@ h2, h3, p {
 }
 
 .mainMenu a:hover {
-  font-size:90px;
-  /* animation: pulse 1s linear;
+  /* font-size:90px; */
+  animation: pulse 1s linear;
   animation-timing-function: linear; */
 }
-/*
+
 @keyframes pulse {
   0%,100% { transform: scale(1); }
   50% { transform: scale(1.2);}
-} */
+}
