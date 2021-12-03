@@ -52,7 +52,7 @@ function getRandomInt(min, max) {
 const databaseLength = 35;
 function buildIDList(length){
   var idList=[];
-  while (idList.length<22){
+  while (idList.length<21){
     var int = getRandomInt(1,databaseLength);
     if (!(idList.includes(int))){
       idList.push(int);
@@ -66,8 +66,8 @@ var idList = buildIDList(databaseLength);
 
 app.get('/board', function (req, res) {
     //get board pieces
-    // query = "SELECT * FROM Faculty WHERE ID in "+idList;
-    query = "SELECT * FROM Faculty WHERE ID in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)";
+    query = "SELECT * FROM Faculty WHERE ID in "+idList;
+    // query = "SELECT * FROM Faculty WHERE ID in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)";
 
     console.log(query)
     con.query(query, function(err,result,fields) {
