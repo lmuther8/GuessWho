@@ -52,9 +52,9 @@ function getRandomInt(min, max) {
 const databaseLength = 30;
 function buildIDList(length){
   var idList=[];
-  while (idList.length<21){
+  while (idList.length<20){
     var int = getRandomInt(1,databaseLength);
-    if (!(int in idList)){
+    if (!(idList.includes(int))){
       console.log('no repeat')
       idList.push(int);
     }
