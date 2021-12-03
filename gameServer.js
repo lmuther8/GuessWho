@@ -52,7 +52,7 @@ function getRandomInt(min, max) {
 const databaseLength = 35;
 function buildIDList(length){
   var idList=[];
-  while (idList.length<25){
+  while (idList.length<20){
     var int = getRandomInt(1,databaseLength);
     if (!(idList.includes(int))){
       idList.push(int);
