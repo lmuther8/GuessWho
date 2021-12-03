@@ -13,7 +13,7 @@ socket.on('message', function(message) {
 	if (state=="off") {
 	    console.log("Not logged in!");
 	    return;
-      
+
 	}
 
   //comment

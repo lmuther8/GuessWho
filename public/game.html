@@ -15,7 +15,7 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container opacity">
 
       <div class="header my-3 d-flex">
         <div class="mx-auto">
@@ -23,16 +23,20 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-sm-8">
-          <h2>Game Board</h2>
-          <div class="container" id="gameBoard">
-            <button type="button" id="board">Start</button>
-          </div>
-          <div id="guesses">
-          </div>
+      <div class="row main">
+        <div class="col-sm-1">
+          <div class="center" id="hiddenChar"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-8">
+          <h2 class="title">Game Board</h2>
+          <div class="container" id="pickChar">
+          </div>
+          <div class="container board" id="gameBoard">
+            <button type="button center" id="board">Start</button>
+          </div>
+          <div id="guesses"></div>
+        </div>
+        <div class="col-sm-3 center">
           <div id="register">
             Enter a name to register:<br />
             <input type="text" id="yourname" class="form-control" placeholder="Your Name">
@@ -45,7 +49,7 @@
             <span id="members"></span>
           </span>
           <h2>Chat box</h2>
-          <div class="scrollabletextbox" id="chatBox"></div>
+          <div class="scrollabletextbox center" id="chatBox"></div>
           <p>
             <span id="chatinput">
               <textarea id="message" class="form-control" rows="1" cols="60" placeholder="message"></textarea><br />
