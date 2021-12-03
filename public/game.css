@@ -66,9 +66,9 @@ body {
 }
 
 .mainMenu a:hover {
-  /* font-size:90px; */
-  animation: pulse 1s linear;
-  animation-timing-function: linear; */
+  font-size:90px;
+  animation-name: pulse 1s infinite;
+  animation-timing-function: linear;
 }
 
 @keyframes pulse {
