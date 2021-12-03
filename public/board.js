@@ -25,6 +25,7 @@ function getBoard() {
 }
 
 function buildBoard(list) {
+  console.log(list, list.length)
   var pick = '<div class="row center">Select a character for your opponent to guess:</div>';
   document.getElementById('pickChar').innerHTML=pick;
 
@@ -64,8 +65,7 @@ function buildBoard(list) {
 }
 
 function displayhiddenChar(hiddenChar) {
-  //remove hover ability??
-  document.getElementById('hiddenChar').innerHTML='<div class="center leftbar">Opponent`s hidden character:</div><div class="gamepiece center">'+hiddenChar+'</div>';
+  document.getElementById('hiddenChar').innerHTML='<div class="center leftbar">Your Mystery Character:</div><div class="hiddenChar center">'+hiddenChar+'</div>';
 }
 
 function buildGuessMenu() {

@@ -37,6 +37,11 @@ body {
     overflow:scroll;
 }
 
+.hiddenChar img {
+  max-width: 100%;
+  border-radius: 1rem;  
+}
+
 .gamepiece img {
   max-width: 100%;
   border-radius: 1rem;
@@ -67,53 +72,11 @@ body {
 
 .mainMenu a:hover {
   font-size:90px;
-  /* animation: pulse 1s linear;
-  animation-timing-function: linear; */
+  animation-name: pulse 1s infinite;
+  animation-timing-function: linear;
 }
-/*
+
 @keyframes pulse {
   0%,100% { transform: scale(1); }
   50% { transform: scale(1.2);}
-} */
-
-.center {
-  padding: 5px;
-  align-items: center;
-}
-
-.main {
-  box-shadow: 0 0 15px 5px black;
-  align-items: center;
-  vertical-align: center;
-  width: 100%;
-  opacity: 1.0;
-}
-
-.guesses {
-  margin: 10px;
-  width: 100%;
-  background-color: #dbdbdb;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.guess-search {
-  padding: 10px;
-}
-
-.leftbar {
-  vertical-align: center;
-  background-color: #dbdbdb;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.title {
-  vertical-align: top;
-}
-
-.board {
-  background-color: #dbdbdb;
-  padding: 10px;
-  border-radius: 10px;
 }
