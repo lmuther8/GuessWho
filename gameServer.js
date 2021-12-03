@@ -13,7 +13,6 @@ const server = http.createServer(app);
 const port=9018
 const Url='http://jimskon.com:'+port
 
-
 function openSQL() {
     // Login to MySQL
     var con = mysql.createConnection({
@@ -43,6 +42,19 @@ app.get('/play', function (req, res) {
 app.get('/localplay', function (req, res) {
     res.sendFile(__dirname + "/public/" + "localGame.html");
 })
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+const databaseLength = 30;
+var idList=[];
+for (let i=0; i<databaseLength; i++){
+  idList.push(getRandomInt(1,databaseLength));
+}
+console.log(idList);
 
 app.get('/board', function (req, res) {
     //get board pieces
