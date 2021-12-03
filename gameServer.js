@@ -61,7 +61,7 @@ function buildIDList(length){
   idList="("+idList.join(",")+")"
   return idList;
 }
-
+console.log(idList)
 var idList = buildIDList(databaseLength);
 
 app.get('/board', function (req, res) {
