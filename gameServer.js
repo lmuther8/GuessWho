@@ -49,11 +49,11 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-const databaseLength = 35;
+const DATABASELENGTH = 35;
 function buildIDList(length){
   var idList=[];
   while (idList.length<21){
-    var int = getRandomInt(1,databaseLength);
+    var int = getRandomInt(1,DATABASELENGTH);
     if (!(idList.includes(int))){
       idList.push(int);
     }
@@ -62,7 +62,7 @@ function buildIDList(length){
   return idList;
 }
 console.log(idList)
-var idList = buildIDList(databaseLength);
+var idList = buildIDList(DATABASELENGTH);
 
 app.get('/board', function (req, res) {
     //get board pieces
