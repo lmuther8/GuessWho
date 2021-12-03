@@ -58,7 +58,7 @@ function buildIDList(length){
       idList.push(int);
     }
   }
-  idList="("+String.join(idList,",")+")"
+  idList="("+idList.join(",")+")"
   return idList;
 }
 
