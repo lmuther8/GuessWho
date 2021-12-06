@@ -53,7 +53,7 @@ const DATABASELENGTH = 35;
 function buildIDList(length){
   var idList=[];
   while (idList.length<=length){
-    var int = getRandomInt(1,DATABASELENGTH);
+    var int = getRandomInt(0,DATABASELENGTH);
     if (!(idList.includes(int))){
       idList.push(int);
     }
@@ -61,11 +61,10 @@ function buildIDList(length){
   idList="("+idList.join(",")+")"
   return idList;
 }
-console.log(idList)
-var idList = buildIDList(20);
 
 app.get('/board', function (req, res) {
     //get board pieces
+    var idList = buildIDList(20);
     query = "SELECT * FROM Faculty WHERE ID in "+idList;
     // query = "SELECT * FROM Faculty WHERE ID in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)";
     console.log(query)
@@ -89,47 +88,52 @@ io.sockets.on('connection', function(socket) {
     // watch for message from client (JSON)
     socket.on('message', function(message) {
 	// Join message {operation: 'join', name: clientname}
-	if (message.operation == 'join') {
-	    console.log('Client: ' + message.name + " joins");
-	    // Send join message to all other clients
-	    partners.push(message.name);
-	    io.emit('message', {
-		operation: 'join',
-		name: message.name,
-		partners: partners
-	    });
-	}
-	// Join message {operation: 'join', name: clientname}
-	if (message.operation == 'signout') {
-	    console.log('Client: ' + message.name + " leaves");
-	    // Send signout message to all other clients
-	    // Remove from partner list
-	    var index = partners.indexOf(message.name);
-	    if (index !== -1) partners.splice(index, 1);
-	    console.log("P:"+partners+":"+index);
-	    io.emit('message', {
-		operation: 'leave',
-		name: message.name,
-		partners: partners
-	    });
-	}
-	// Message from client {operation: 'mess', name: clientname, test: message}
-	if (message.operation == 'mess') {
-	    console.log('Message: ' + message.text);
-	    // sent back out to everyone
-	    socket.broadcast.emit('message', {
-		operation: 'mess',
-		name: message.name,
-		text: message.text
-	    });
-	    // send back to sender
-	    socket.emit('message', {
-		operation: 'mess',
-		name: message.name,
-		text: message.text
-	    });
+  	if (message.operation == 'join') {
+  	    console.log('Client: ' + message.name + " joins");
+  	    // Send join message to all other clients
+  	    partners.push(message.name);
+  	    io.emit('message', {
+  		operation: 'join',
+  		name: message.name,
+  		partners: partners
+  	    });
+  	}
+  	// Join message {operation: 'join', name: clientname}
+  	if (message.operation == 'signout') {
+  	    console.log('Client: ' + message.name + " leaves");
+  	    // Send signout message to all other clients
+  	    // Remove from partner list
+  	    var index = partners.indexOf(message.name);
+  	    if (index !== -1) partners.splice(index, 1);
+  	    console.log("P:"+partners+":"+index);
+  	    io.emit('message', {
+  		operation: 'leave',
+  		name: message.name,
+  		partners: partners
+  	    });
+  	}
+  	// Message from client {operation: 'mess', name: clientname, test: message}
+  	if (message.operation == 'mess') {
+  	    console.log('Message: ' + message.text);
+  	    // sent back out to everyone
+  	    socket.broadcast.emit('message', {
+  		operation: 'mess',
+  		name: message.name,
+  		text: message.text
+  	    });
+  	    // send back to sender
+  	    socket.emit('message', {
+  		operation: 'mess',
+  		name: message.name,
+  		text: message.text
+  	    });
 
-	}
+  	}
+      });
+    socket.on('gameStart', function() {
+      console.log('gameStart');
+      socket.broadcast.emit('start');
+      socket.emit('start');
     });
 });
 

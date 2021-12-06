@@ -11,8 +11,7 @@ body {
 
 .main {
   background-color: rgba(45, 32, 96, 0.4);
-  box-shadow: 0 0 10px 7px #6d6c6c;
-  margin: 3%;
+  box-shadow: 0 0 10px 7px #6d6c6c;\
   padding: 1%;
 }
 

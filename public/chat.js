@@ -1,7 +1,4 @@
-// Simple Web chat client
-// Jim Skon 2021
-// Kenyon College
-// port must match  port of client and be >8000
+
 var port=9018;
 var socket = io.connect('http://jimskon.com:'+port);
 var state="off";
@@ -93,8 +90,8 @@ function sendText() {
 function leaveSession(){
     state="off";
     socket.emit('message', {
-	operation: "signout",
-	name: myname,
+	     operation: "signout",
+	       name: myname,
     });
     document.getElementById('yourname').value = "";
     document.getElementById('register').style.display = 'block';

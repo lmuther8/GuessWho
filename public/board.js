@@ -1,10 +1,19 @@
-
 var port=9018;
 const Url='http://jimskon.com:'+port;
 var pickedChar = false;
 var guesses = 3;
+var socket = io.connect('http://jimskon.com:'+port);
 
-document.getElementById('board').addEventListener("click", getGameLayout);
+document.getElementById('board').addEventListener("click", (e) =>{
+  socket.emit('gameStart');
+});
+
+socket.on('start', function() {
+  console.log('laying out game');
+  getGameLayout()
+})
+
+//document.getElementById('board').addEventListener("click", getGameLayout);
 
 function getGameLayout(){
   getBoard()
@@ -12,12 +21,12 @@ function getGameLayout(){
 }
 
 function getBoard() {
-    console.log('getting board')
-    fetch(Url+'/board', {
-	method:'get'
-    })
-	.then (response => response.json() )
-        .then (data => buildBoard(data))
+  console.log('getting board')
+  fetch(Url+'/board', {
+	   method:'get'
+  })
+	.then (response => response.json())
+  .then (data => buildBoard(data))
 	.catch(error => {
 	    {alert("Error: Something went wrong:"+error);}
 	})
@@ -46,7 +55,6 @@ function buildBoard(list) {
   		else {
         piece.classList.add('gamepiece-grey');
   	  }
-
       //pick character at start of game
       if(!pickedChar){
         //get info about character picked
@@ -56,10 +64,8 @@ function buildBoard(list) {
         piece.classList.remove('gamepiece-grey');
         pickedChar=true;
       }
-
     })
   })
-
   return null;
 }
 
