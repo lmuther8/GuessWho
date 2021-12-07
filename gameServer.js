@@ -43,32 +43,12 @@ app.get('/localplay', function (req, res) {
     res.sendFile(__dirname + "/public/" + "localGame.html");
 })
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-const databaseLength = 35;
-function buildIDList(length){
-  var idList=[];
-  while (idList.length<21){
-    var int = getRandomInt(1,databaseLength);
-    if (!(idList.includes(int))){
-      idList.push(int);
-    }
-  }
-  idList="("+idList.join(",")+")"
-  return idList;
-}
-
-var idList = buildIDList(databaseLength);
-
+// url/board?find=query
 app.get('/board', function (req, res) {
     //get board pieces
+    var idList = req.query.find;
     query = "SELECT * FROM Faculty WHERE ID in "+idList;
     // query = "SELECT * FROM Faculty WHERE ID in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)";
-
     console.log(query)
     con.query(query, function(err,result,fields) {
 	     if (err) throw err;
@@ -90,47 +70,52 @@ io.sockets.on('connection', function(socket) {
     // watch for message from client (JSON)
     socket.on('message', function(message) {
 	// Join message {operation: 'join', name: clientname}
-	if (message.operation == 'join') {
-	    console.log('Client: ' + message.name + " joins");
-	    // Send join message to all other clients
-	    partners.push(message.name);
-	    io.emit('message', {
-		operation: 'join',
-		name: message.name,
-		partners: partners
-	    });
-	}
-	// Join message {operation: 'join', name: clientname}
-	if (message.operation == 'signout') {
-	    console.log('Client: ' + message.name + " leaves");
-	    // Send signout message to all other clients
-	    // Remove from partner list
-	    var index = partners.indexOf(message.name);
-	    if (index !== -1) partners.splice(index, 1);
-	    console.log("P:"+partners+":"+index);
-	    io.emit('message', {
-		operation: 'leave',
-		name: message.name,
-		partners: partners
-	    });
-	}
-	// Message from client {operation: 'mess', name: clientname, test: message}
-	if (message.operation == 'mess') {
-	    console.log('Message: ' + message.text);
-	    // sent back out to everyone
-	    socket.broadcast.emit('message', {
-		operation: 'mess',
-		name: message.name,
-		text: message.text
-	    });
-	    // send back to sender
-	    socket.emit('message', {
-		operation: 'mess',
-		name: message.name,
-		text: message.text
-	    });
+  	if (message.operation == 'join') {
+  	    console.log('Client: ' + message.name + " joins");
+  	    // Send join message to all other clients
+  	    partners.push(message.name);
+  	    io.emit('message', {
+  		operation: 'join',
+  		name: message.name,
+  		partners: partners
+  	    });
+  	}
+  	// Join message {operation: 'join', name: clientname}
+  	if (message.operation == 'signout') {
+  	    console.log('Client: ' + message.name + " leaves");
+  	    // Send signout message to all other clients
+  	    // Remove from partner list
+  	    var index = partners.indexOf(message.name);
+  	    if (index !== -1) partners.splice(index, 1);
+  	    console.log("P:"+partners+":"+index);
+  	    io.emit('message', {
+  		operation: 'leave',
+  		name: message.name,
+  		partners: partners
+  	    });
+  	}
+  	// Message from client {operation: 'mess', name: clientname, test: message}
+  	if (message.operation == 'mess') {
+  	    console.log('Message: ' + message.text);
+  	    // sent back out to everyone
+  	    socket.broadcast.emit('message', {
+  		operation: 'mess',
+  		name: message.name,
+  		text: message.text
+  	    });
+  	    // send back to sender
+  	    socket.emit('message', {
+  		operation: 'mess',
+  		name: message.name,
+  		text: message.text
+  	    });
 
-	}
+  	}
+      });
+    socket.on('gameStart', function(gameStart) {
+      console.log('gameStart');
+      socket.broadcast.emit('start', {query: gameStart.query});
+      socket.emit('start', {query: gameStart.query});
     });
 });
 

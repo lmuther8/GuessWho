@@ -1,7 +1,4 @@
-// Simple Web chat client
-// Jim Skon 2021
-// Kenyon College
-// port must match  port of client and be >8000
+
 var port=9018;
 var socket = io.connect('http://jimskon.com:'+port);
 var state="off";
@@ -9,49 +6,48 @@ var myname="";
 // Watch for incoming messages from server (chatapp.js)
 socket.on('message', function(message) {
     // A join message: {operation: 'join', name: clientname}
-    if (message.operation == 'join') {
-	if (state=="off") {
-	    console.log("Not logged in!");
-	    return;
+  if (message.operation == 'join') {
+  	if (state=="off") {
+  	    console.log("Not logged in!");
+  	    return;
+  	}
 
-	}
-
-  //comment
-	var names=message.partners;
-	console.log(names);
-	var name=message.name;;
-	document.getElementById('chatBox').innerHTML +=
-	    "<font color='red'>User Joins: </font>" + name + "<br />";
-	var groupList="";
-	for (var n in names) {
-	    groupList+=names[n]+", ";
-	}
-	groupList=groupList.slice(0,-2);
-	document.getElementById('members').innerHTML =
-	    "<b>Chat Group:</b> "+"<font color='blue'>"+groupList+"</font>";
-    }
-    if (message.operation == 'leave') {
-	if (state=="off") {
-	    return;
-	}
-	var name=message.name;
-	document.getElementById('chatBox').innerHTML + name  + "<font color='red'>: has left the room.</font><br />";
-	var groupList="";
-	for (var n in message.partners) {
-	    groupList+=message.partners[n]+", ";
-	}
-	groupList=groupList.slice(0,-2);
-	document.getElementById('members').innerHTML = "<b>Chat Group:</b> "+"<font color='blue'>"+groupList+"</font>";
-    }
-    // A text message: {operation: 'mess', name: clientname, text: message}
-    if (message.operation == 'mess') {
-	if (state=="off") {
-	    return;
-	}
-	document.getElementById('chatBox').innerHTML +=
-	    "<font color='red'>" + message.name + ": </font>" + message.text + "<br />";
-    }
+  	var names=message.partners;
+  	console.log(names);
+  	var name=message.name;;
+  	document.getElementById('chatBox').innerHTML +=
+  	    "<font color='red'>User Joins: </font>" + name + "<br />";
+  	var groupList="";
+  	for (var n in names) {
+  	    groupList+=names[n]+", ";
+  	}
+  	groupList=groupList.slice(0,-2);
+  	document.getElementById('members').innerHTML =
+  	    "<b>Chat Group:</b> "+"<font color='blue'>"+groupList+"</font>";
+  }
+  if (message.operation == 'leave') {
+  	if (state=="off") {
+  	    return;
+  	}
+  	var name=message.name;
+  	document.getElementById('chatBox').innerHTML + name  + "<font color='red'>: has left the room.</font><br />";
+  	var groupList="";
+  	for (var n in message.partners) {
+  	    groupList+=message.partners[n]+", ";
+  	}
+  	groupList=groupList.slice(0,-2);
+  	document.getElementById('members').innerHTML = "<b>Chat Group:</b> "+"<font color='blue'>"+groupList+"</font>";
+      }
+      // A text message: {operation: 'mess', name: clientname, text: message}
+      if (message.operation == 'mess') {
+  	if (state=="off") {
+  	    return;
+  	}
+  	document.getElementById('chatBox').innerHTML +=
+  	    "<font color='red'>" + message.name + ": </font>" + message.text + "<br />";
+      }
 })
+
 document.getElementById('chatinput').style.display = 'none';
 document.getElementById('status').style.display = 'none';
 // Action if they push the join button
@@ -94,8 +90,8 @@ function sendText() {
 function leaveSession(){
     state="off";
     socket.emit('message', {
-	operation: "signout",
-	name: myname,
+	     operation: "signout",
+	       name: myname,
     });
     document.getElementById('yourname').value = "";
     document.getElementById('register').style.display = 'block';

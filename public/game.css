@@ -5,15 +5,15 @@ h2, h3, p {
 
 body {
   background-image:url("https://image.freepik.com/free-vector/background-questions-mark-help-symbol-white-color-yellow-background_110633-305.jpg");
-  width: 100%;
-  margin: 5px;
+  margin: 0 3rem;
+
 }
 
 .main {
-  background-color: rgba(45, 32, 96, 0.4);
+  background-color: rgba(45, 32, 96, 0.6);
   box-shadow: 0 0 10px 7px #6d6c6c;
-  margin: 3%;
-  padding: 1%;
+  border-radius: 1rem;
+  padding: 0 1.5rem;
 }
 
 .small {
@@ -43,14 +43,14 @@ body {
 .board {
   background-color: #524a72;
   padding: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
 }
 
 .purple {
   background-color: #524a72;
   padding: 1rem;
-  border-radius: 0.5rem;
-  margin: 3%;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
 }
 
 /* Guess menu attributes */
@@ -73,7 +73,7 @@ body {
 }
 
 .gamepiece img {
-  max-width: 100%;
+  max-width: 90%;
   border-radius: 1rem;
 }
 
@@ -89,24 +89,36 @@ body {
           filter: grayscale(100%);
 }
 
-.mainMenu a{
+.mainMenu a {
   font-size: 72px;
   font-family: "Monaco", monospace;
   color: BlueViolet;
-  text-shadow: -1px 1px 2px #000,
-                1px 1px 2px #000,
-                1px -1px 0 #000,
-                -1px -1px 0 #000;
-  transition: all 500ms ease;
+  text-decoration: none;
+  text-shadow: -1px 1px 2px #000, 1px 1px 2px #000, 1px -1px 0 #000, -1px -1px 0 #000;
+  transition: all .5s ease;
+  transform: scale(1);
+  animation: pulse 1.5s infinite;
+  border-radius: 1rem;
+  padding: .5rem 1.5rem;
 }
 
 .mainMenu a:hover {
-  font-size:90px;
-  animation-name: pulse 1s infinite;
-  animation-timing-function: linear;
+  font-size: 90px;
 }
 
 @keyframes pulse {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.2);}
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	}
 }
