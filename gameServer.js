@@ -43,28 +43,10 @@ app.get('/localplay', function (req, res) {
     res.sendFile(__dirname + "/public/" + "localGame.html");
 })
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-const DATABASELENGTH = 35;
-function buildIDList(length){
-  var idList=[];
-  while (idList.length<=length){
-    var int = getRandomInt(0,DATABASELENGTH);
-    if (!(idList.includes(int))){
-      idList.push(int);
-    }
-  }
-  idList="("+idList.join(",")+")"
-  return idList;
-}
-
+// url/board?find=query
 app.get('/board', function (req, res) {
     //get board pieces
-    var idList = buildIDList(20);
+    var idList = req.query.find;
     query = "SELECT * FROM Faculty WHERE ID in "+idList;
     // query = "SELECT * FROM Faculty WHERE ID in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)";
     console.log(query)
@@ -130,10 +112,10 @@ io.sockets.on('connection', function(socket) {
 
   	}
       });
-    socket.on('gameStart', function() {
+    socket.on('gameStart', function(gameStart) {
       console.log('gameStart');
-      socket.broadcast.emit('start');
-      socket.emit('start');
+      socket.broadcast.emit('start', {query: gameStart.query});
+      socket.emit('start', {query: gameStart.query});
     });
 });
 
