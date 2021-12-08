@@ -9,6 +9,7 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
     <link rel="stylesheet" type="text/css" href="game.css">
 
@@ -27,8 +28,8 @@
         <div class="col-sm-8">
           <div class="container" id="pickChar">
           </div>
-          <div class="container" id="gameBoard">
-            <button type="button center ml-5 mt-5" id="board">Start</button>
+          <div class="container board" id="gameBoard">
+            <h2>Join The Game To Begin<i class="ml-2 bi bi-arrow-right-square"></i></h2>
           </div>
           <div id="guesses"></div>
         </div>
@@ -37,11 +38,11 @@
             <div id="register">
               Enter a name to register:<br />
               <input type="text" id="yourname" class="form-control" placeholder="Your Name">
-              <button type="button" id="name-btn" >Join</button>
+              <button type="button" id="name-btn">Join</button>
             </div>
             <span id="status">
               <span id="user"></span>
-              <button type="button" id="leave" >Leave</button><br />
+              <button type="button" id="leave">Leave</button><br />
               <span id="members"></span>
             </span>
             <h2>Chat box</h2>

@@ -57,6 +57,8 @@ app.get('/board', function (req, res) {
 })
 
 partners=[];
+player1pick = '';
+player2pick = '';
 
 console.log("Loaded index file");
 // Loading socket.io
@@ -79,6 +81,13 @@ io.sockets.on('connection', function(socket) {
   		name: message.name,
   		partners: partners
   	    });
+        socket.emit('name', {name:message.name})
+        if (partners.length == 1) {
+          socket.emit('playerJoin', {list:partners});
+        }
+        else {
+          socket.broadcast.emit('playerJoin', {list:partners});
+        }
   	}
   	// Join message {operation: 'join', name: clientname}
   	if (message.operation == 'signout') {
@@ -116,6 +125,16 @@ io.sockets.on('connection', function(socket) {
       console.log('gameStart');
       socket.broadcast.emit('start', {query: gameStart.query});
       socket.emit('start', {query: gameStart.query});
+    });
+    socket.on('playerPicked', function(playerPicked) {
+      if (player1pick.length == 0) {
+        player1pick = playerPicked.pick;
+        console.log(`player 2 picked: ${player1pick}`);
+      }
+      else {
+        player2pick = playerPicked.pick;
+        console.log(`player 2 picked: ${player2pick}`);
+      }
     });
 });
 
