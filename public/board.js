@@ -51,7 +51,7 @@ function getBoard(idlist) {
 
 function buildBoard(list) {
   console.log(list, list.length)
-  var pick = '<div class="row">Select a character for your opponent to guess:</div>';
+  var pick = '<div class="row purple">Select a character for your opponent to guess:</div>';
   document.getElementById('pickChar').innerHTML=pick;
 
   var board = '<div class="row board">';
