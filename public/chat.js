@@ -23,7 +23,7 @@ socket.on('message', function(message) {
   	}
   	groupList=groupList.slice(0,-2);
   	document.getElementById('members').innerHTML =
-  	    "<b>Chat Group:</b> "+"<font color='blue'>"+groupList+"</font>";
+  	    "<b>Chat Group:</b> "+"<font color='#ffffff94'>"+groupList+"</font>";
   }
   if (message.operation == 'leave') {
   	if (state=="off") {
@@ -56,7 +56,7 @@ document.getElementById('name-btn').addEventListener("click", (e) => {
     state="on";
     document.getElementById('register').style.display = 'none';
     document.getElementById('status').style.display = 'block';
-    document.getElementById('user').innerHTML = "<b>Name:</b> <font color='blue'>"+myname+"</font>";
+    document.getElementById('user').innerHTML = "<b>Name:</b> <font color='#ffffff94'>"+myname+"</font>";
     document.getElementById('chatinput').style.display = 'block';
     // Action if they push the send message button or enter
     socket.emit('message', {operation: "join",name: myname});

@@ -87,13 +87,13 @@ function buildBoard(list) {
 }
 
 function displayhiddenChar(hiddenChar) {
-  document.getElementById('hiddenChar').innerHTML='<div class="purple"><div>Your Mystery Character:</div><div class="hiddenChar center">'+hiddenChar+'</div></div>';
+  document.getElementById('hiddenChar').innerHTML='<div class="purple"><h6>Your Mystery Character:</h6><div class="hiddenChar center">'+hiddenChar+'</div></div>';
 }
 
 function buildGuessMenu() {
   var guessData = '<div class="row guesses">';
-  guessData += '<div class="col-sm-3">Guesses Left: </div>';
-  guessData += '<div class="col-sm-3" id="guess-count">'+guesses+'</div>';
+  guessData += '<h5 class="col-sm-4">Guesses Left: </h5>';
+  guessData += '<div class="col-sm-2" id="guess-count">'+guesses+'</div>';
   guessData += '<div class="col-sm-4 right"><input type="text" class="form-control" id="guess-input" placeholder="Guess"></div>';
   guessData += '<div class="col-sm-2 left"><button type="button" id="guess-btn">Guess</button></div>';
   guessData += '</div>';
