@@ -92,10 +92,10 @@ function displayhiddenChar(hiddenChar) {
 
 function buildGuessMenu() {
   var guessData = '<div class="row guesses">';
-  guessData += '<div class="col-sm-4">Guesses Left: <div id="guess-count">'+guesses+'</div></div>';
-  guessData += '<div class="col-sm-2"></div>';
-  guessData += '<div class="col-sm-3"><input type="text" id="guess-input" placeholder="Guess"></div>';
-  guessData += '<div class="col-sm-1 left"><button type="button" id="guess-btn">Guess</button></div>';
+  guessData += '<div class="col-sm-3">Guesses Left: </div>';
+  guessData += '<div class="col-sm-3" id="guess-count">'+guesses+'</div>';
+  guessData += '<div class="col-sm-4 right"><input type="text" class="form-control" id="guess-input" placeholder="Guess"></div>';
+  guessData += '<div class="col-sm-2 left"><button type="button" id="guess-btn">Guess</button></div>';
   guessData += '</div>';
   document.getElementById('guesses').innerHTML=guessData;
 
@@ -107,6 +107,9 @@ function makeGuess() {
   console.log("Guess: "+guess1);
 
   guesses--;
+  if(guesses==0){
+
+  }
   document.getElementById('guess-count').innerHTML = guesses;
 
   //send to chat?

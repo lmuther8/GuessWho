@@ -21,6 +21,10 @@ body {
     font-size: 60%;
 }
 
+.right {
+  text-align: right;
+}
+
 /* Text Box attributes */
 .textinput {
     width: 400px;
@@ -51,6 +55,10 @@ body {
   padding: 1rem;
   border-radius: 1rem;
   margin-bottom: 1rem;
+}
+
+.title {
+  color: #ffffff94;
 }
 
 /* Guess menu attributes */
