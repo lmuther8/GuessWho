@@ -3,15 +3,35 @@ const Url='http://jimskon.com:'+port;
 var pickedChar = false;
 var guesses = 3;
 var socket = io.connect('http://jimskon.com:'+port);
+var myname = '';
+var mypick = '';
 
-document.getElementById('board').addEventListener("click", (e) =>{
-  socket.emit('gameStart', {query: buildIDList(20)});
-});
+socket.on('playerJoin', function(playerJoin) {
+  if (playerJoin.list.length == 1) {
+    waitingPLayer();
+  }
+  if (playerJoin.list.length == 2) {
+    socket.emit('gameStart', {query: buildIDList(20)});
+  }
+})
+
+socket.on('name', function(name) {
+  myname = name.name;
+  console.log(myname)
+})
 
 socket.on('start', function(start) {
   var idlist = start.query
   getGameLayout(idlist)
 })
+
+socket.on('guess', function(guess) {
+
+})
+
+function waitingPLayer() {
+  document.getElementById('gameBoard').innerHTML='<h2>Waiting For Another Player</h2>';
+}
 
 function getGameLayout(idlist){
   getBoard(idlist)
@@ -56,7 +76,7 @@ function buildBoard(list) {
   var board = '<div class="row board">';
 
   for (var i = 0; i < list.length; i++) {
-    board += '<div class="gamepiece col-sm-3">'+list[i]['First']+' '+list[i]['Last']+'<a><img src="'+list[i]['URL']+'"></a></div>';
+    board += '<div class="gamepiece col-sm-3" id="'+list[i]['First']+' '+list[i]['Last']+'">'+list[i]['First']+' '+list[i]['Last']+'<a><img src="'+list[i]['URL']+'"></a></div>';
   }
   board += "</div>";
   document.getElementById('gameBoard').innerHTML=board
@@ -74,11 +94,12 @@ function buildBoard(list) {
       //pick character at start of game
       if(!pickedChar){
         //get info about character picked
-        console.log(piece.innerHTML);
+        mypick = piece.id.trim();
         displayhiddenChar(piece.innerHTML);
         document.getElementById('pickChar').innerHTML='';
         piece.classList.remove('gamepiece-grey');
         pickedChar=true;
+        socket.emit('playerPicked',{name:myname, pick:mypick});
       }
     })
   })
