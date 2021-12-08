@@ -13,6 +13,7 @@ socket.on('start', function(start) {
   getGameLayout(idlist)
 })
 
+
 function getGameLayout(idlist){
   getBoard(idlist)
   buildGuessMenu()
@@ -91,10 +92,24 @@ function displayhiddenChar(hiddenChar) {
 
 function buildGuessMenu() {
   var guessData = '<div class="row guesses">';
-  guessData += '<div class="col-sm-4">Guesses Left: '+guesses+'</div>';
+  guessData += '<div class="col-sm-4">Guesses Left: <div id="guess-count">'+guesses+'</div></div>';
   guessData += '<div class="col-sm-2"></div>';
-  guessData += '<div class="col-sm-3"><input type="text" placeholder="Guess"></div>';
-  guessData += '<div class="col-sm-1 left"><button type="button">Guess</button></div>';
+  guessData += '<div class="col-sm-3"><input type="text" id="guess-input" placeholder="Guess"></div>';
+  guessData += '<div class="col-sm-1 left"><button type="button" id="guess-btn">Guess</button></div>';
   guessData += '</div>';
   document.getElementById('guesses').innerHTML=guessData;
+
+  document.getElementById('guess-btn').addEventListener("click", makeGuess);
+}
+
+function makeGuess() {
+  var guess1 = document.getElementById('guess-input').value;
+  console.log("Guess: "+guess1);
+
+  guesses--;
+  document.getElementById('guess-count').innerHTML = guesses;
+
+  //send to chat?
+  //socket.emit('gameStart', {query: guess1});
+
 }
