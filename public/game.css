@@ -22,12 +22,12 @@ body {
     font-size: 60%;
 }
 
-.right {
-  float: right;
+.center {
+  text-align: center;
 }
 
-.left {
-  text-align: left;
+.right {
+  float: right;
 }
 
 /* Text Box attributes */

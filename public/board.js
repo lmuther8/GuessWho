@@ -7,7 +7,9 @@ var myname = '';
 var mypick = '';
 
 socket.on('playerJoin', function(playerJoin) {
+  console.log("waiting player");
   if (playerJoin.list.length == 1) {
+    console.log("waiting player");
     waitingPLayer();
   }
   if (playerJoin.list.length == 2) {
@@ -108,16 +110,16 @@ function buildBoard(list) {
 }
 
 function displayhiddenChar(hiddenChar) {
-  document.getElementById('hiddenChar').innerHTML='<div class="purple"><h6>Your Mystery Character:</h6><div class="hiddenChar center">'+hiddenChar+'</div></div>';
+  document.getElementById('hiddenChar').innerHTML='<div class="purple"><h5 class="center">Mystery Character</h5><div class="hiddenChar center">'+hiddenChar+'</div></div>';
 }
 
 function buildGuessMenu() {
-  var guessData = '<div class="row guesses">';
-  guessData += '<h5 class="col-sm-4">Guesses Left:</h5>';
-  guessData += '<div class="col-sm-2 left" id="guess">'+guesses+'</div>';
-  guessData += '<div class="col-sm-3"><input type="text" id="guess-input" class="form-control" placeholder="Guess"></div>';
-  guessData += '<div class="col-sm-1 left"><button type="button" id="guess-btn" class="btn btn-warning btn-block">Guess</button></div>';
-  guessData += '</div>';
+  var guessData = '<div class="purple">';
+  guessData += '<h5 class="center">Remaining Guesses</h5>';
+  guessData += '<div id="guess" class="center">'+guesses+'</div>';
+  guessData += '<div class="row"><div class="col-sm-9"><input type="text" id="guess-input" class="form-control" placeholder="Guess"></div>';
+  guessData += '<div class="col-sm-3"><button type="button left" id="guess-btn" class="btn btn-warning btn-block right">Guess</button></div>';
+  guessData += '</div></div>';
   document.getElementById('guesses').innerHTML=guessData;
 
   //document.getElementById('guess-btn').addEventListener("click", makeGuess());
