@@ -27,10 +27,6 @@ socket.on('start', function(start) {
   getBoard(idlist)
 })
 
-socket.on('guess', function(guess) {
-
-})
-
 function waitingPLayer() {
   document.getElementById('gameBoard').innerHTML='<h2>Waiting For Another Player</h2>';
 }
@@ -135,6 +131,8 @@ function buildGuessMenu() {
   document.getElementById('guess-btn').addEventListener("click", (e)=> {
       var guess = document.getElementById('guess-input').value;
       console.log(guess);
+
+      socket.emit('makeGuess', {guess: guess});
 
       guesses--;
       document.getElementById('guess').innerHTML = guesses;

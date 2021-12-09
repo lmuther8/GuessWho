@@ -80,6 +80,16 @@ document.getElementById('message').addEventListener("keydown", (e)=> {
     }
 });
 
+socket.on('guess', function(guess) {
+  var message = "Am I "+guess.guess+"?";
+
+  socket.emit('message', {
+    operation: "mess",
+    name: myname,
+    text: message
+  });
+});
+
 // Call function on page exit
 window.onbeforeunload = leaveSession;
 
