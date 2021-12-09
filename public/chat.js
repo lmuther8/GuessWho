@@ -1,5 +1,4 @@
-
-var port=9004;
+var port=9018;
 var socket = io.connect('http://jimskon.com:'+port);
 var state="off";
 var myname="";
@@ -15,8 +14,13 @@ socket.on('message', function(message) {
   	var names=message.partners;
   	console.log(names);
   	var name=message.name;;
-  	document.getElementById('chatBox').innerHTML +=
-  	    "<font color='red'>User Joins: </font>" + name + "<br />";
+    if(message.name==myname){
+      document.getElementById('chatBox').innerHTML +=
+    	    "<font style='color:#524a72;'>User Joins: </font>" + name + "<br />";
+    } else {
+      document.getElementById('chatBox').innerHTML +=
+    	    "<font style='color:#fdf993;'>User Joins: </font>" + name + "<br />";
+    }
   	var groupList="";
   	for (var n in names) {
   	    groupList+=names[n]+", ";
@@ -43,8 +47,13 @@ socket.on('message', function(message) {
   	if (state=="off") {
   	    return;
   	}
-  	document.getElementById('chatBox').innerHTML +=
-  	    "<font color='red'>" + message.name + ": </font>" + message.text + "<br />";
+    if(message.name==myname){
+      document.getElementById('chatBox').innerHTML +=
+    	    "<font style='color:#524a72;'>" + message.name + ": </font>" + message.text + "<br />";
+    } else {
+      document.getElementById('chatBox').innerHTML +=
+    	    "<font style='color:#fdf993;'>" + message.name + ": </font>" + message.text + "<br />";
+    }
       }
 })
 
