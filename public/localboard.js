@@ -1,4 +1,6 @@
 
+document.getElementById('gameBoard').addEventListener('click',
+buildBoard())
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
