@@ -32,13 +32,13 @@
           </div>
         </div>
         <div class="col-sm-4">
-          <div class="purple">
-            <div id="register">
+          <div class="purple row">
+            <div id="register" class="col-10">
               Enter a name to register:<br />
               <input type="text" id="yourname" class="form-control" placeholder="Your Name">
-              <span>
+              <div class="col-2">
                 <button type="button" class="btn btn-warning btn-block" id="name-btn">Join</button>
-              </span>
+              </div>
             </div>
             <span id="status">
               <span id="user"></span>
@@ -52,6 +52,11 @@
                 <textarea id="message" class="form-control" rows="1" cols="60" placeholder="message"></textarea><br />
                 <input type="button" class="btn btn-warning btn-block" value="Send" id="send-btn" />
               </span>
+            </p>
+              <span id="answer">
+                <button type="button" id="yes">Yes</button><button type="button" id="no">No</button>
+              </span>
+            <p>
             </p>
           </div>
           <div id="hiddenChar"></div>
