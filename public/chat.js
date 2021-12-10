@@ -5,6 +5,7 @@ var myname="";
 var turn = false;
 
 document.getElementById('answer').style.display = 'none';
+document.getElementById('waiting').style.display = 'none';
 
 // Watch for incoming messages from server (chatapp.js)
 socket.on('message', function(message) {
@@ -22,7 +23,7 @@ socket.on('message', function(message) {
       document.getElementById('chatinput').style.display = 'block';
     }
     else {
-      document.getElementById('answer').style.display = 'block';
+      document.getElementById('waiting').style.display = 'block';
     }
 
   	var names=message.partners;
@@ -83,12 +84,16 @@ document.getElementById('name-btn').addEventListener("click", (e) => {
     socket.emit('message', {operation: "join",name: myname});
 })
 document.getElementById('leave').addEventListener("click", leaveSession);
-document.getElementById('send-btn').addEventListener("click", sendText);
+document.getElementById('send-btn').addEventListener("click", () => {
+  sendText();
+  document.getElementById('waiting').style.display = 'block';
+});
 
 // Watch for enter on message box
 document.getElementById('message').addEventListener("keydown", (e)=> {
   if (e.code == "Enter") {
 	   sendText();
+     document.getElementById('waiting').style.display = 'block';
   }
 });
 
@@ -122,6 +127,7 @@ function sendText() {
     });
     document.getElementById('answer').style.display = 'block';
     document.getElementById('chatinput').style.display = 'none';
+
 }
 
 function yesText() {
@@ -130,6 +136,7 @@ function yesText() {
       name: myname,
        text: "Yes!"
   });
+  document.getElementById('chatinput').style.display = 'block';
 }
 
 function noText() {
@@ -138,6 +145,7 @@ function noText() {
       name: myname,
        text: "NO!"
   });
+  document.getElementById('chatinput').style.display = 'block';
 }
 
 
