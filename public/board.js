@@ -139,22 +139,27 @@ function startGuessButton() {
           if(!(pickList[i][0]==myname)){
             if(guess==pickList[i][1]){
               console.log("YOU WIN");
-              endGame('win');}}
-        }
+              guessResult('win');
+            } else {
+              console.log("guessWrong board");
+              guessResult('guess wrong');
+            }
+            }
+          }
       })
     })
 
     guesses--;
     document.getElementById('guess').innerHTML = guesses;
     if(guess<0){
-      endGame('lose');
+      guessResult('lose');
     }
 
   });
 
 }
 
-function endGame(result){
+function guessResult(result){
   console.log("MyName:"+myname);
-  socket.emit('gameEnd', {name: myname, end: result});
+  socket.emit('guess', {name: myname, result: result});
 }

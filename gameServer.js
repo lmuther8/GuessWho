@@ -124,6 +124,15 @@ io.sockets.on('connection', function(socket) {
   	    });
 
   	}
+
+    if (message.operation == 'guessMessage') {
+      console.log("guessMessage gamerserver");
+      socket.broadcast.emit('message', {
+    operation: 'guessPrint',
+    name: message.name,
+    text: message.text
+      });
+    }
       });
     socket.on('gameStart', function(gameStart) {
       console.log('gameStart');
@@ -156,10 +165,10 @@ io.sockets.on('connection', function(socket) {
       socket.broadcast.emit('switch');
       socket.emit('switch');
     });
-    socket.on('gameEnd', function(gameEnd) {
-      console.log('gameEnd');
-      socket.broadcast.emit('endMess', {name: gameEnd.name, end: gameEnd.end});
-      socket.emit('endMess', {name: gameEnd.name, end: gameEnd.end});
+    socket.on('guess', function(guess) {
+      console.log('guess gameServer.js');
+      socket.broadcast.emit('guessMess', {name: guess.name, result: guess.result});
+      socket.emit('guessMess', {name: guess.name, result: guess.result});
     });
 });
 

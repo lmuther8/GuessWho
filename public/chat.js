@@ -60,19 +60,23 @@ socket.on('message', function(message) {
   }
       // A text message: {operation: 'mess', name: clientname, text: message}
   if (message.operation == 'mess') {
+    console.log("in mess");
   	if (state=="off") {
   	    return;
   	}
-    if(message.name=='both'){
-      document.getElementById('chatBox').innerHTML +=
-    	    "<h5 class='center' style='color:#524a72;'>" + message.text + "</h5><br />";
-    } else if(message.name==myname){
+    if(message.name==myname){
       document.getElementById('chatBox').innerHTML +=
     	    "<font style='color:#524a72;'>" + message.name + ": </font>" + message.text + "<br />";
     } else {
       document.getElementById('chatBox').innerHTML +=
     	    "<font style='color:#fdf993;'>" + message.name + ": </font>" + message.text + "<br />";
     }
+  }
+
+  if (message.operation=='guessPrint'){
+    console.log("in guessPrint");
+    document.getElementById('chatBox').innerHTML +=
+           "<h5 class='center' style='color:#524a72;'>" + message.text + "</h5><br />";
   }
 })
 
@@ -110,19 +114,22 @@ document.getElementById('yes').addEventListener("click", yesText);
 document.getElementById('no').addEventListener("click", noText);
 
 
-socket.on('endMess', function(guess) {
-  console.log("endMess");
-  if(guess.end=='win'){
+socket.on('guessMess', function(guess) {
+  console.log("guessMess");
+  if(guess.result=='win'){
     console.log('in win');
     var message = "!!!!! "+guess.name+" WINS !!!!!";
-  } else {
+  } else if (guess.result=='lose') {
     console.log('in lose');
     var message = ":( "+guess.name+" loses  :(";
+  } else {
+    console.log('wrong guess');
+    var message = " "+guess.name+" guessed wrong.";
   }
-
+  console.log("abt to emit");
   socket.emit('message', {
-    operation: "mess",
-    name: 'both',
+    operation: "guessMessage",
+    name: guess.name,
     text: message
   });
 });
