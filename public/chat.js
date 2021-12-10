@@ -137,6 +137,7 @@ function yesText() {
        text: "Yes!"
   });
   document.getElementById('chatinput').style.display = 'block';
+  document.getElementById('answer').style.display = 'none';
 }
 
 function noText() {
@@ -146,6 +147,7 @@ function noText() {
        text: "NO!"
   });
   document.getElementById('chatinput').style.display = 'block';
+  document.getElementById('answer').style.display = 'none';
 }
 
 
