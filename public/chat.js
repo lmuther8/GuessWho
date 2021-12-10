@@ -118,10 +118,10 @@ socket.on('guess', function(guess) {
 socket.on('switch', function() {
   if (turn) {
     turn = false;
-    document.getElementById('waiting').style.display = 'block';
   }
   else {
     turn = true;
+    document.getElementById('waiting').style.display = 'none';
     document.getElementById('answer').style.display = 'block';
   }
 });
