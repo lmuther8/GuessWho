@@ -21,6 +21,7 @@ socket.on('message', function(message) {
     }
     if (turn) {
       document.getElementById('chatinput').style.display = 'block';
+      document.getElementById('guessArea').style.display = 'block';
     }
     else {
       document.getElementById('waiting').style.display = 'block';
@@ -73,6 +74,7 @@ socket.on('message', function(message) {
 })
 
 document.getElementById('chatinput').style.display = 'none';
+document.getElementById('guessArea').style.display = 'none';
 document.getElementById('status').style.display = 'none';
 // Action if they push the join button
 document.getElementById('name-btn').addEventListener("click", (e) => {
@@ -141,6 +143,7 @@ function sendText() {
 	       text: message
     });
     document.getElementById('chatinput').style.display = 'none';
+    document.getElementById('guessArea').style.display = 'none';
 
 }
 
@@ -152,6 +155,7 @@ function yesText() {
   });
   document.getElementById('answer').style.display = 'none';
   document.getElementById('chatinput').style.display = 'block';
+  document.getElementById('guessArea').style.display = 'block';
 }
 
 function noText() {
@@ -162,6 +166,7 @@ function noText() {
   });
   document.getElementById('answer').style.display = 'none';
   document.getElementById('chatinput').style.display = 'block';
+  document.getElementById('guessArea').style.display = 'block';
 }
 
 function leaveSession(){
