@@ -3,7 +3,7 @@ const Url='http://jimskon.com:'+port;
 var pickedChar = false;
 var socket = io.connect('http://jimskon.com:'+port);
 
-document.getElementById('startButton').addEventListener('click',(e)=>{socket.emit('localplay')});
+socket.emit('localplay');
 
 socket.on('localWait', function(localWait) {
   if (localWait.numPlayers == 1) {
