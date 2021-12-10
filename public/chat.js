@@ -87,10 +87,14 @@ document.getElementById('send-btn').addEventListener("click", sendText);
 
 // Watch for enter on message box
 document.getElementById('message').addEventListener("keydown", (e)=> {
-    if (e.code == "Enter") {
-	sendText();
-    }
+  if (e.code == "Enter") {
+	   sendText();
+  }
 });
+
+document.getElementById('yes').addEventListener("click", yesText);
+document.getElementById('no').addEventListener("click", noText);
+
 
 socket.on('guess', function(guess) {
   var message = "Am I "+guess.guess+"?";
@@ -112,11 +116,30 @@ function sendText() {
     document.getElementById('message').value = "";
 
     socket.emit('message', {
-	operation: "mess",
-	name: myname,
-	text: message
+	     operation: "mess",
+	      name: myname,
+	       text: message
     });
+    document.getElementById('answer').style.display = 'block';
+    document.getElementById('chatinput').style.display = 'none';
 }
+
+function yesText() {
+  socket.emit('message', {
+     operation: "mess",
+      name: myname,
+       text: "Yes!"
+  });
+}
+
+function noText() {
+  socket.emit('message', {
+     operation: "mess",
+      name: myname,
+       text: "NO!"
+  });
+}
+
 
 function leaveSession(){
     state="off";
