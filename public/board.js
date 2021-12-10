@@ -135,23 +135,27 @@ function startGuessButton() {
           guess=piece.id;
         }
 
+        var win=false;
         for (let i = 0; i < pickList.length; i++) {
           if(!(pickList[i][0]==myname)){
             if(guess==pickList[i][1]){
               console.log("YOU WIN");
               guessResult('win');
-            } else {
-              console.log("guessWrong board");
-              guessResult('guess wrong');
-            }
+              win=true;
             }
           }
+        }
+        if(!win){
+          console.log("guessWrong board");
+          guessResult('guess wrong');
+        }
       })
     })
 
     guesses--;
     document.getElementById('guess').innerHTML = guesses;
-    if(guess<0){
+
+    if(guesses<=0){
       guessResult('lose');
     }
 

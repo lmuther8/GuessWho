@@ -127,9 +127,12 @@ socket.on('guessMess', function(guess) {
     var message = " "+guess.name+" guessed wrong.";
   }
   console.log("abt to emit");
+  console.log(guess.result);
+  console.log(message);
+
   socket.emit('message', {
     operation: "guessMessage",
-    name: guess.name,
+    result: guess.result,
     text: message
   });
 });

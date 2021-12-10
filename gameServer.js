@@ -129,7 +129,7 @@ io.sockets.on('connection', function(socket) {
       console.log("guessMessage gamerserver");
       socket.broadcast.emit('message', {
     operation: 'guessPrint',
-    name: message.name,
+    result: message.result,
     text: message.text
       });
     }
