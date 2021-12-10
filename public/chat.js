@@ -87,6 +87,7 @@ document.getElementById('leave').addEventListener("click", leaveSession);
 document.getElementById('send-btn').addEventListener("click", () => {
   sendText();
   document.getElementById('waiting').style.display = 'block';
+  document.getElementById('answer').style.display = 'none';
 });
 
 // Watch for enter on message box
@@ -94,6 +95,7 @@ document.getElementById('message').addEventListener("keydown", (e)=> {
   if (e.code == "Enter") {
 	   sendText();
      document.getElementById('waiting').style.display = 'block';
+     document.getElementById('answer').style.display = 'none';
   }
 });
 
@@ -125,7 +127,6 @@ function sendText() {
 	      name: myname,
 	       text: message
     });
-    document.getElementById('answer').style.display = 'block';
     document.getElementById('chatinput').style.display = 'none';
 
 }
