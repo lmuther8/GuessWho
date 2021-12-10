@@ -3,6 +3,9 @@ var socket = io.connect('http://jimskon.com:'+port);
 var state="off";
 var myname="";
 var turn = false;
+
+document.getElementById('answer').style.display = 'none';
+
 // Watch for incoming messages from server (chatapp.js)
 socket.on('message', function(message) {
     // A join message: {operation: 'join', name: clientname}
@@ -19,7 +22,7 @@ socket.on('message', function(message) {
       document.getElementById('chatinput').style.display = 'block';
     }
     else {
-      console.log("not turn");
+      document.getElementById('answer').style.display = 'block';
     }
 
   	var names=message.partners;
