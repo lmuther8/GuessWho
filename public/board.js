@@ -1,8 +1,6 @@
 var port=9018;
 const Url='http://jimskon.com:'+port;
 var pickedChar = false;
-var hello;
-});
 var guesses = 3;
 var socket = io.connect('http://jimskon.com:'+port);
 var myname = '';
@@ -131,10 +129,27 @@ function buildGuessMenu() {
   //document.getElementById('guess-btn').addEventListener("click", makeGuess());
 
   document.getElementById('guess-btn').addEventListener("click", (e)=> {
-      var guess = document.getElementById('guess-input').value;
-      console.log(guess);
+      // var guess = document.getElementById('guess-input').value;
+      // console.log(guess);
+      //
+      // socket.emit('makeGuess', {guess: guess});
 
-      socket.emit('makeGuess', {guess: guess});
+      var pieces = document.querySelectorAll(".gamepiece");
+      var guessed=false;
+      pieces.forEach(function(piece) {
+      piece.addEventListener('click', function() {
+      while(!guessed){
+        console.log(piece.id);
+        guessed=true;
+      }
+      })
+      })
+
+      socket.on('playerPicked', function(playerPicked) {
+        myname = name.name;
+        console.log(myname)
+      })
+
 
       guesses--;
       document.getElementById('guess').innerHTML = guesses;
