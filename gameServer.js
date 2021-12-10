@@ -152,6 +152,9 @@ io.sockets.on('connection', function(socket) {
       socket.broadcast.emit('localGameOn', {query: localStart.query});
       socket.emit('localGameOn', {query: localStart.query});
     });
+    socket.on('localLeave',function(localLeave)){
+      localPlayers-=1;
+    }
 });
 
 server.listen(port, () => {

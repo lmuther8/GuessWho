@@ -20,7 +20,7 @@ socket.on('localGameOn', function(localGameOn) {
 window.onbeforeunload = localLeave;
 
 function localLeave() {
-  
+  socket.emit('localLeave')
 }
 
 function getRandomInt(min, max) {
