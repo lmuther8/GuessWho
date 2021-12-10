@@ -131,10 +131,12 @@ function buildGuessMenu() {
 
       var pieces = document.querySelectorAll(".gamepiece");
       var guessed=false;
+      var guessChar;
       pieces.forEach(function(piece) {
         piece.addEventListener('click', function() {
           while(!guessed){
             console.log(piece.id);
+            guessChar=piece.id;
             guessed=true;
           }
         })
