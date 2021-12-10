@@ -156,6 +156,10 @@ io.sockets.on('connection', function(socket) {
       console.log("Someone left")
       localPlayers-=1;
     });
+    socket.on('diconnect',function(){
+      localPlayers-=1;
+      console.log(socket.id);
+    });
 });
 
 server.listen(port, () => {
