@@ -49,7 +49,7 @@ app.get('/board', function (req, res) {
     var idList = req.query.find;
     query = "SELECT * FROM Faculty WHERE ID in "+idList;
     // query = "SELECT * FROM Faculty WHERE ID in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)";
-    //console.log(query)
+    console.log(query)
     con.query(query, function(err,result,fields) {
 	     if (err) throw err;
 	     res.end( JSON.stringify(result));
@@ -77,9 +77,9 @@ io.sockets.on('connection', function(socket) {
   	    // Send join message to all other clients
   	    partners.push(message.name);
   	    io.emit('message', {
-  		operation: 'join',
-  		name: message.name,
-  		partners: partners
+  		      operation: 'join',
+  		      name: message.name,
+  		      partners: partners
   	    });
         socket.emit('name', {name:message.name})
         if (partners.length == 1) {
@@ -135,11 +135,6 @@ io.sockets.on('connection', function(socket) {
         player2pick = playerPicked.pick;
         console.log(`player 2 picked: ${player2pick}`);
       }
-    });
-    socket.on('makeGuess', function(guess) {
-      console.log("makeGuess");
-      socket.broadcast.emit('guess', {guess: guess.guess});
-      socket.emit('guess', {guess: guess.guess});
     });
 });
 
