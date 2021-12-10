@@ -6,9 +6,9 @@ var socket = io.connect('http://jimskon.com:'+port);
 socket.emit('localplay');
 
 socket.on('localWait', function(localWait) {
-  if (localWait.numPlayers == 1) {
+  if (localWait.numPlayers % 2 !=0) {
   }
-  if (localWait.numPlayers == 2) {
+  if (localWait.numPlayers % 2 ==0) {
     socket.emit('localStart', {query: buildIDList(20)});
   }
 })
