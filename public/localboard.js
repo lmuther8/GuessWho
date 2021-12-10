@@ -1,5 +1,21 @@
-document.getElementById('gameBoard').addEventListener('click',
-buildBoard(buildIDList()))
+var port=9018;
+const Url='http://jimskon.com:'+port;
+var pickedChar = false;
+var socket = io.connect('http://jimskon.com:'+port);
+
+document.getElementById('gameBoard').addEventListener('click',socket.emit('localplay'));
+
+socket.on('localWait', function(localWait) {
+  if (localWait.numPlayers == 1) {
+  }
+  if (localWait.numPlayers == 2) {
+    socket.emit('localStart', {query: buildIDList(20)});
+  }
+})
+socket.on('localGameOn', function(localGameOn) {
+  var idlist = localGameOn.query
+  getBoard(idlist)
+})
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -19,7 +35,7 @@ function buildIDList(length){
   return idList;
 }
 
-function getBoard(idlist) { random random
+function getBoard(idlist) {
   console.log('getting board')
   fetch(Url+'/board/?find='+idlist, {
 	   method:'get'

@@ -13,6 +13,8 @@ const server = http.createServer(app);
 const port=9018;
 const Url='http://jimskon.com:'+port
 
+var localPlayers = 0
+
 function openSQL() {
     // Login to MySQL
     var con = mysql.createConnection({
@@ -139,6 +141,15 @@ io.sockets.on('connection', function(socket) {
         player2 = playerPicked.name;
         console.log(`player 2 picked: ${player2pick}`);
       }
+    });
+    socket.on('localplay', function(localplay) {
+      localPlayers+=1;
+      socket.broadcast.emit('localWait',{numPlayers:localPlayers});
+      socket.emit('localWait',{numPlayers:localPlayers}));
+    });
+    socket.on('localStart', function(localStart) {
+      socket.broadcast.emit('localGameOn', {query: localStart.query});
+      socket.emit('localGameOn', {query: localStart.query});
     });
 });
 
