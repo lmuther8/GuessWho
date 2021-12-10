@@ -15,6 +15,12 @@ socket.on('message', function(message) {
       console.log("turn true");
       turn = true;
     }
+    if (turn) {
+      document.getElementById('chatinput').style.display = 'block';
+    }
+    else {
+      console.log("not turn");
+    }
 
   	var names=message.partners;
   	console.log(names);
@@ -72,12 +78,6 @@ document.getElementById('name-btn').addEventListener("click", (e) => {
     document.getElementById('status').style.display = 'block';
     document.getElementById('user').innerHTML = "<b>Name:</b> <font color='#ffffff94'>"+myname+"</font>";
     socket.emit('message', {operation: "join",name: myname});
-    if (turn) {
-      document.getElementById('chatinput').style.display = 'block';
-    }
-    else {
-      console.log("not turn");
-    }
 })
 document.getElementById('leave').addEventListener("click", leaveSession);
 document.getElementById('send-btn').addEventListener("click", sendText);
