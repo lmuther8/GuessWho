@@ -31,11 +31,6 @@ function waitingPLayer() {
   document.getElementById('gameBoard').innerHTML='<h2>Waiting For Another Player</h2>';
 }
 
-// function getGameLayout(idlist){
-//   getBoard(idlist)
-//   buildGuessMenu()
-// }
-
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -126,38 +121,37 @@ function displayhiddenChar(hiddenChar) {
 //   guessData += '</div></div>';
 //   document.getElementById('guesses').innerHTML=guessData;
 
-  //document.getElementById('guess-btn').addEventListener("click", makeGuess());
+//document.getElementById('guess-btn').addEventListener("click", makeGuess());
 
-  document.getElementById('guess-btn').addEventListener("click", (e)=> {
-      // var guess = document.getElementById('guess-input').value;
-      // console.log(guess);
-      //
-      // socket.emit('makeGuess', {guess: guess});
+document.getElementById('guess-btn').addEventListener("click", (e)=> {
+  // var guess = document.getElementById('guess-input').value;
+  // console.log(guess);
+  //
+  // socket.emit('makeGuess', {guess: guess});
 
-      var pieces = document.querySelectorAll(".gamepiece");
-      var guessed=false;
-      pieces.forEach(function(piece) {
-      piece.addEventListener('click', function() {
-      while(!guessed){
-        console.log(piece.id);
-        guessed=true;
-      }
-      })
-      })
+  var pieces = document.querySelectorAll(".gamepiece");
+  var guessed=false;
+  pieces.forEach(function(piece) {
+  piece.addEventListener('click', function() {
+  while(!guessed){
+    console.log(piece.id);
+    guessed=true;
+  }
+  })
+  })
 
-      socket.on('playerPicked', function(playerPicked) {
-        myname = name.name;
-        console.log(myname)
-      })
+  socket.on('playerPicked', function(playerPicked) {
+    myname = name.name;
+    console.log(myname)
+  })
 
 
-      guesses--;
-      document.getElementById('guess').innerHTML = guesses;
-      if(guess<=0){
-        //you lost
-      }
-  });
-}
+  guesses--;
+  document.getElementById('guess').innerHTML = guesses;
+  if(guess<=0){
+    //you lost
+  }
+});
 
 // function makeGuess(){
 //   //var guess = document.getElementById('guess-input').value;
