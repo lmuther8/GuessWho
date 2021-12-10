@@ -153,6 +153,7 @@ io.sockets.on('connection', function(socket) {
       socket.emit('localGameOn', {query: localStart.query});
     });
     socket.on('localLeave',function(localLeave){
+      console.log("Someone left")
       localPlayers-=1;
     });
 });
