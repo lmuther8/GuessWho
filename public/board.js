@@ -117,14 +117,14 @@ function displayhiddenChar(hiddenChar) {
   document.getElementById('hiddenChar').innerHTML='<div class="purple"><h5 class="center">Mystery Character</h5><div class="center" id="'+hiddenChar[0]+' '+hiddenChar[1]+'">'+hiddenChar[0]+' '+hiddenChar[1]+'<div><a><img src="'+hiddenChar[2]+'" style="width: 70%;"></a></div></div></div>';
 }
 
-function buildGuessMenu() {
-  var guessData = '<div class="purple">';
-  guessData += '<h5 class="center">Remaining Guesses</h5>';
-  guessData += '<div id="guess" class="center">'+guesses+'</div>';
-  guessData += '<div class="row"><div class="col-sm-9"><input type="text" id="guess-input" class="form-control" placeholder="Guess"></div>';
-  guessData += '<div class="col-sm-3"><button type="button left" id="guess-btn" class="btn btn-warning btn-block right">Guess</button></div>';
-  guessData += '</div></div>';
-  document.getElementById('guesses').innerHTML=guessData;
+// function buildGuessMenu() {
+//   var guessData = '<div class="purple">';
+//   guessData += '<h5 class="center">Remaining Guesses</h5>';
+//   guessData += '<div id="guess" class="center">'+guesses+'</div>';
+//   guessData += '<div class="row"><div class="col-sm-9"><input type="text" id="guess-input" class="form-control" placeholder="Guess"></div>';
+//   guessData += '<div class="col-sm-3"><button type="button left" id="guess-btn" class="btn btn-warning btn-block right">Guess</button></div>';
+//   guessData += '</div></div>';
+//   document.getElementById('guesses').innerHTML=guessData;
 
   //document.getElementById('guess-btn').addEventListener("click", makeGuess());
 
