@@ -1,4 +1,3 @@
-
 document.getElementById('gameBoard').addEventListener('click',
 buildBoard(buildIDList()))
 
@@ -37,7 +36,7 @@ function buildBoard(list) {
   document.getElementById('pickChar').innerHTML=pick;
 
   var board = '<div class="row board">';
-
+  console.log(list)
   for (var i = 0; i < list.length; i++) {
     board += '<div class="gamepiece col-sm-3" style="margin-bottom: 0.8rem;text-align:center;" id="'+list[i]['First']+' '+list[i]['Last']+'">'+list[i]['First']+' '+list[i]['Last']+'<a><img src="'+list[i]['URL']+'"></a></div>';
   }
