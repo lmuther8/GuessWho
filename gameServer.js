@@ -151,9 +151,13 @@ io.sockets.on('connection', function(socket) {
       socket.broadcast.emit('localGameOn', {query: localStart.query});
       socket.emit('localGameOn', {query: localStart.query});
     });
-    socket.on('localLeave',function(localLeave){
+    socket.on('localLeave',function(localLeave) {
       console.log("Someone left")
       localPlayers-=1;
+    });
+    socket.on('switchTurn', function(switchTurn) {
+      socket.broadcast.emit('switch');
+      socket.emit('switch');
     });
 });
 

@@ -88,6 +88,7 @@ document.getElementById('send-btn').addEventListener("click", () => {
   sendText();
   document.getElementById('waiting').style.display = 'block';
   document.getElementById('answer').style.display = 'none';
+  socket.emit('switchTurn');
 });
 
 // Watch for enter on message box
@@ -96,6 +97,7 @@ document.getElementById('message').addEventListener("keydown", (e)=> {
 	   sendText();
      document.getElementById('waiting').style.display = 'block';
      document.getElementById('answer').style.display = 'none';
+     socket.emit('switchTurn');
   }
 });
 
@@ -111,6 +113,16 @@ socket.on('guess', function(guess) {
     name: myname,
     text: message
   });
+});
+
+socket.on('switch', function(switch) {
+  if (turn) {
+    turn = false
+  }
+  else {
+    turn = true
+    document.getElementById('chatinput').style.display = 'block';
+  }
 });
 
 // Call function on page exit
@@ -150,7 +162,6 @@ function noText() {
   document.getElementById('chatinput').style.display = 'block';
   document.getElementById('answer').style.display = 'none';
 }
-
 
 function leaveSession(){
     state="off";
