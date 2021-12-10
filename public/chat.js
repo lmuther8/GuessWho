@@ -1,4 +1,4 @@
-var port=9018;
+var port=9004;
 var socket = io.connect('http://jimskon.com:'+port);
 var state="off";
 var myname="";
@@ -63,7 +63,10 @@ socket.on('message', function(message) {
   	if (state=="off") {
   	    return;
   	}
-    if(message.name==myname){
+    if(message.name=='both'){
+      document.getElementById('chatBox').innerHTML +=
+    	    "<h5 class='center' style='color:#524a72;'>" + message.text + "</h5><br />";
+    } else if(message.name==myname){
       document.getElementById('chatBox').innerHTML +=
     	    "<font style='color:#524a72;'>" + message.name + ": </font>" + message.text + "<br />";
     } else {
@@ -107,12 +110,19 @@ document.getElementById('yes').addEventListener("click", yesText);
 document.getElementById('no').addEventListener("click", noText);
 
 
-socket.on('guess', function(guess) {
-  var message = "Am I "+guess.guess+"?";
+socket.on('endMess', function(guess) {
+  console.log("endMess");
+  if(guess.end=='win'){
+    console.log('in win');
+    var message = "!!!!! "+guess.name+" WINS !!!!!";
+  } else {
+    console.log('in lose');
+    var message = ":( "+guess.name+" loses  :(";
+  }
 
   socket.emit('message', {
     operation: "mess",
-    name: myname,
+    name: 'both',
     text: message
   });
 });

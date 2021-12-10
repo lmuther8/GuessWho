@@ -10,7 +10,7 @@ const fs = require('fs');
 const server = http.createServer(app);
 
 //Everyone must use own port > 9000
-const port=9018;
+const port=9004;
 const Url='http://jimskon.com:'+port
 
 var localPlayers = 0
@@ -62,6 +62,7 @@ player1 = '';
 player2 = '';
 player1pick = '';
 player2pick = '';
+var pickList=[];
 
 console.log("Loaded index file");
 // Loading socket.io
@@ -130,16 +131,12 @@ io.sockets.on('connection', function(socket) {
       socket.emit('start', {query: gameStart.query});
     });
     socket.on('playerPicked', function(playerPicked) {
-      if (player1pick.length == 0) {
-        player1pick = playerPicked.pick;
-        player1 = playerPicked.name;
-        console.log(`player 2 picked: ${player1pick}`);
-      }
-      else {
-        player2pick = playerPicked.pick;
-        player2 = playerPicked.name;
-        console.log(`player 2 picked: ${player2pick}`);
-      }
+      console.log("playerpicked");
+      pickList.push([playerPicked.name,playerPicked.pick]);
+      console.table(pickList);
+      socket.broadcast.emit('getPick', {picks: pickList});
+      socket.emit('getPick', {picks: pickList});
+
     });
     socket.on('localplay', function(localplay) {
       console.log(localPlayers)
@@ -158,6 +155,11 @@ io.sockets.on('connection', function(socket) {
     socket.on('switchTurn', function(switchTurn) {
       socket.broadcast.emit('switch');
       socket.emit('switch');
+    });
+    socket.on('gameEnd', function(gameEnd) {
+      console.log('gameEnd');
+      socket.broadcast.emit('endMess', {name: gameEnd.name, end: gameEnd.end});
+      socket.emit('endMess', {name: gameEnd.name, end: gameEnd.end});
     });
 });
 
