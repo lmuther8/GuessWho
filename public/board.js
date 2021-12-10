@@ -5,6 +5,8 @@ var guesses = 3;
 var socket = io.connect('http://jimskon.com:'+port);
 var myname = '';
 var mypick = '';
+var pickList = [];
+var guess='';
 
 socket.on('playerJoin', function(playerJoin) {
   console.log("waiting player");
@@ -27,14 +29,14 @@ socket.on('start', function(start) {
   getBoard(idlist)
 })
 
+socket.on('getPick', function(picks) {
+  console.log("getPick");
+  pickList = picks.picks;
+})
+
 function waitingPLayer() {
   document.getElementById('gameBoard').innerHTML='<h2>Waiting For Another Player</h2>';
 }
-
-// function getGameLayout(idlist){
-//   getBoard(idlist)
-//   buildGuessMenu()
-// }
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -67,7 +69,7 @@ function getBoard(idlist) {
 }
 
 function buildBoard(list) {
-  console.log(list, list.length)
+  //console.log(list, list.length)
   var pick = '<h6 class="row purple purple-text">Select a character for your opponent to guess:</h6>';
   document.getElementById('pickChar').innerHTML=pick;
 
@@ -106,7 +108,7 @@ function buildBoard(list) {
         piece.classList.remove('gamepiece-grey');
         pickedChar=true;
         socket.emit('playerPicked',{name:myname, pick:piece.id});
-        buildGuessMenu();
+        startGuessButton();
       }
     })
   })
@@ -117,49 +119,51 @@ function displayhiddenChar(hiddenChar) {
   document.getElementById('hiddenChar').innerHTML='<div class="purple"><h5 class="center">Mystery Character</h5><div class="center" id="'+hiddenChar[0]+' '+hiddenChar[1]+'">'+hiddenChar[0]+' '+hiddenChar[1]+'<div><a><img src="'+hiddenChar[2]+'" style="width: 70%;"></a></div></div></div>';
 }
 
-function buildGuessMenu() {
-  var guessData = '<div class="purple">';
-  guessData += '<h5 class="center">Remaining Guesses</h5>';
-  guessData += '<div id="guess" class="center">'+guesses+'</div>';
-  guessData += '<div class="row"><div class="col-sm-9"><input type="text" id="guess-input" class="form-control" placeholder="Guess"></div>';
-  guessData += '<div class="col-sm-3"><button type="button left" id="guess-btn" class="btn btn-warning btn-block right">Guess</button></div>';
-  guessData += '</div></div>';
-  document.getElementById('guesses').innerHTML=guessData;
-
-  //document.getElementById('guess-btn').addEventListener("click", makeGuess());
+function startGuessButton() {
 
   document.getElementById('guess-btn').addEventListener("click", (e)=> {
-      // var guess = document.getElementById('guess-input').value;
-      // console.log(guess);
-      //
-      // socket.emit('makeGuess', {guess: guess});
 
-      var pieces = document.querySelectorAll(".gamepiece");
-      var guessed=false;
-      pieces.forEach(function(piece) {
+    var pieces = document.querySelectorAll(".gamepiece");
+    var guessed=false;
+    pieces.forEach(function(piece) {
       piece.addEventListener('click', function() {
-      while(!guessed){
-        console.log(piece.id);
-        guessed=true;
-      }
-      })
-      })
+        console.log("clicked");
 
-      socket.on('playerPicked', function(playerPicked) {
-        myname = name.name;
-        console.log(myname)
+        while(!guessed){
+          console.log(piece.id);
+          guessed=true;
+          guess=piece.id;
+        }
+
+        var win=false;
+        for (let i = 0; i < pickList.length; i++) {
+          if(!(pickList[i][0]==myname)){
+            if(guess==pickList[i][1]){
+              console.log("YOU WIN");
+              guessResult('win');
+              win=true;
+            }
+          }
+        }
+        if(!win){
+          console.log("guessWrong board");
+          guessResult('guess wrong');
+        }
       })
+    })
 
+    guesses--;
+    document.getElementById('guess').innerHTML = guesses;
 
-      guesses--;
-      document.getElementById('guess').innerHTML = guesses;
-      if(guess<=0){
-        //you lost
-      }
+    if(guesses<=0){
+      guessResult('lose');
+    }
+
   });
+
 }
 
-// function makeGuess(){
-//   //var guess = document.getElementById('guess-input').value;
-//   console.log("Guess:"+guess);
-// }
+function guessResult(result){
+  console.log("MyName:"+myname);
+  socket.emit('guess', {name: myname, result: result});
+}
