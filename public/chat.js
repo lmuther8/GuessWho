@@ -88,7 +88,6 @@ document.getElementById('send-btn').addEventListener("click", () => {
   sendText();
   document.getElementById('waiting').style.display = 'block';
   document.getElementById('answer').style.display = 'none';
-  socket.emit('switchTurn');
 });
 
 // Watch for enter on message box
@@ -97,7 +96,6 @@ document.getElementById('message').addEventListener("keydown", (e)=> {
 	   sendText();
      document.getElementById('waiting').style.display = 'block';
      document.getElementById('answer').style.display = 'none';
-     socket.emit('switchTurn');
   }
 });
 
@@ -149,8 +147,8 @@ function yesText() {
       name: myname,
        text: "Yes!"
   });
-  document.getElementById('chatinput').style.display = 'block';
   document.getElementById('answer').style.display = 'none';
+  socket.emit('switchTurn');
 }
 
 function noText() {
@@ -159,8 +157,8 @@ function noText() {
       name: myname,
        text: "NO!"
   });
-  document.getElementById('chatinput').style.display = 'block';
   document.getElementById('answer').style.display = 'none';
+  socket.emit('switchTurn');
 }
 
 function leaveSession(){
