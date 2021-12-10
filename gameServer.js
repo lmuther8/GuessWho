@@ -145,7 +145,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('localplay', function(localplay) {
       localPlayers+=1;
       socket.broadcast.emit('localWait',{numPlayers:localPlayers});
-      socket.emit('localWait',{numPlayers:localPlayers}));
+      socket.emit('localWait',{numPlayers:localPlayers});
     });
     socket.on('localStart', function(localStart) {
       socket.broadcast.emit('localGameOn', {query: localStart.query});
