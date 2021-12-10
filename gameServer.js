@@ -57,6 +57,8 @@ app.get('/board', function (req, res) {
 })
 
 partners=[];
+player1 = '';
+player2 = '';
 player1pick = '';
 player2pick = '';
 
@@ -129,10 +131,12 @@ io.sockets.on('connection', function(socket) {
     socket.on('playerPicked', function(playerPicked) {
       if (player1pick.length == 0) {
         player1pick = playerPicked.pick;
+        player1 = playerPicked.name;
         console.log(`player 2 picked: ${player1pick}`);
       }
       else {
         player2pick = playerPicked.pick;
+        player2 = playerPicked.name;
         console.log(`player 2 picked: ${player2pick}`);
       }
     });
