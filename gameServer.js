@@ -143,6 +143,7 @@ io.sockets.on('connection', function(socket) {
       }
     });
     socket.on('localplay', function(localplay) {
+      console.log(localPlayers)
       localPlayers+=1;
       socket.broadcast.emit('localWait',{numPlayers:localPlayers});
       socket.emit('localWait',{numPlayers:localPlayers});
