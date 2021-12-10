@@ -17,6 +17,12 @@ socket.on('localGameOn', function(localGameOn) {
   getBoard(idlist)
 })
 
+window.onbeforeunload = localLeave;
+
+function localLeave() {
+  
+}
+
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
