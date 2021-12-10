@@ -70,10 +70,9 @@ document.getElementById('name-btn').addEventListener("click", (e) => {
     document.getElementById('register').style.display = 'none';
     document.getElementById('status').style.display = 'block';
     document.getElementById('user').innerHTML = "<b>Name:</b> <font color='#ffffff94'>"+myname+"</font>";
+    socket.emit('message', {operation: "join",name: myname});
     if (turn) {
       document.getElementById('chatinput').style.display = 'block';
-      // Action if they push the send message button or enter
-      socket.emit('message', {operation: "join",name: myname});
     }
     else {
       console.log("not turn");
