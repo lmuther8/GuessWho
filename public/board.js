@@ -137,18 +137,18 @@ function buildGuessMenu() {
       var pieces = document.querySelectorAll(".gamepiece");
       var guessed=false;
       pieces.forEach(function(piece) {
-      piece.addEventListener('click', function() {
-      while(!guessed){
-        console.log(piece.id);
-        guessed=true;
-      }
-      })
+        piece.addEventListener('click', function() {
+          while(!guessed){
+            console.log(piece.id);
+            guessed=true;
+          }
+        })
       })
 
-      socket.on('playerPicked', function(playerPicked) {
-        myname = name.name;
-        console.log(myname)
-      })
+      // socket.on('playerPicked', function(playerPicked) {
+      //   myname = name.name;
+      //   console.log(myname)
+      // })
 
 
       guesses--;
