@@ -33,7 +33,6 @@ function getBoard(idlist) {
 }
 
 function buildBoard(list) {
-  console.log(list, list.length)
   var pick = '<h6 class="row purple purple-text">Select a character for your opponent to guess:</h6>';
   document.getElementById('pickChar').innerHTML=pick;
 
