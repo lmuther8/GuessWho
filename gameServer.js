@@ -50,7 +50,6 @@ app.get('/board', function (req, res) {
     //get board pieces
     var idList = req.query.find;
     query = "SELECT * FROM Faculty WHERE ID in "+idList;
-    // query = "SELECT * FROM Faculty WHERE ID in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)";
     console.log(query)
     con.query(query, function(err,result,fields) {
 	     if (err) throw err;
@@ -73,6 +72,7 @@ const io = new Server(server);
 // When a client connects, we note it in the console
 io.sockets.on('connection', function(socket) {
     console.log('A client is connected!');
+    console.log(socket.id);
     // watch for message from client (JSON)
     socket.on('message', function(message) {
 	// Join message {operation: 'join', name: clientname}
