@@ -115,7 +115,7 @@ socket.on('guess', function(guess) {
   });
 });
 
-socket.on('switch', function(switch) {
+socket.on('switch', function() {
   if (turn) {
     turn = false;
   }
