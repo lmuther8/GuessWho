@@ -117,10 +117,10 @@ socket.on('guess', function(guess) {
 
 socket.on('switch', function(switch) {
   if (turn) {
-    turn = false
+    turn = false;
   }
   else {
-    turn = true
+    turn = true;
     document.getElementById('chatinput').style.display = 'block';
   }
 });
