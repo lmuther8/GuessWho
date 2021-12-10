@@ -12,7 +12,14 @@ socket.on('message', function(message) {
   	    return;
   	}
     if (message.partners.length == 1) {
+      console.log("turn true");
       turn = true;
+    }
+    if (turn) {
+      document.getElementById('chatinput').style.display = 'block';
+    }
+    else {
+      console.log("not turn");
     }
 
   	var names=message.partners;
@@ -70,14 +77,7 @@ document.getElementById('name-btn').addEventListener("click", (e) => {
     document.getElementById('register').style.display = 'none';
     document.getElementById('status').style.display = 'block';
     document.getElementById('user').innerHTML = "<b>Name:</b> <font color='#ffffff94'>"+myname+"</font>";
-    if (turn) {
-      document.getElementById('chatinput').style.display = 'block';
-      // Action if they push the send message button or enter
-      socket.emit('message', {operation: "join",name: myname});
-    }
-    else {
-      console.log("not turn");
-    }
+    socket.emit('message', {operation: "join",name: myname});
 })
 document.getElementById('leave').addEventListener("click", leaveSession);
 document.getElementById('send-btn').addEventListener("click", sendText);
