@@ -2,6 +2,7 @@ var port=9018;
 var socket = io.connect('http://jimskon.com:'+port);
 var state="off";
 var myname="";
+var turn = false;
 // Watch for incoming messages from server (chatapp.js)
 socket.on('message', function(message) {
     // A join message: {operation: 'join', name: clientname}
@@ -10,6 +11,9 @@ socket.on('message', function(message) {
   	    console.log("Not logged in!");
   	    return;
   	}
+    if (message.partners.length == 1) {
+      turn = true;
+    }
 
   	var names=message.partners;
   	console.log(names);
@@ -41,9 +45,9 @@ socket.on('message', function(message) {
   	}
   	groupList=groupList.slice(0,-2);
   	document.getElementById('members').innerHTML = "<b>Chat Group:</b> "+"<font color='blue'>"+groupList+"</font>";
-      }
+  }
       // A text message: {operation: 'mess', name: clientname, text: message}
-      if (message.operation == 'mess') {
+  if (message.operation == 'mess') {
   	if (state=="off") {
   	    return;
   	}
@@ -54,7 +58,7 @@ socket.on('message', function(message) {
       document.getElementById('chatBox').innerHTML +=
     	    "<font style='color:#fdf993;'>" + message.name + ": </font>" + message.text + "<br />";
     }
-      }
+  }
 })
 
 document.getElementById('chatinput').style.display = 'none';
@@ -66,9 +70,14 @@ document.getElementById('name-btn').addEventListener("click", (e) => {
     document.getElementById('register').style.display = 'none';
     document.getElementById('status').style.display = 'block';
     document.getElementById('user').innerHTML = "<b>Name:</b> <font color='#ffffff94'>"+myname+"</font>";
-    document.getElementById('chatinput').style.display = 'block';
-    // Action if they push the send message button or enter
-    socket.emit('message', {operation: "join",name: myname});
+    if (turn) {
+      document.getElementById('chatinput').style.display = 'block';
+      // Action if they push the send message button or enter
+      socket.emit('message', {operation: "join",name: myname});
+    }
+    else {
+      console.log("not turn");
+    }
 })
 document.getElementById('leave').addEventListener("click", leaveSession);
 document.getElementById('send-btn').addEventListener("click", sendText);
