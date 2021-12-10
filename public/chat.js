@@ -12,6 +12,7 @@ socket.on('message', function(message) {
   	    return;
   	}
     if (message.partners.length == 1) {
+      console.log("turn true");
       turn = true;
     }
 
