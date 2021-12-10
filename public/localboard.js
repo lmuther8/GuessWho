@@ -19,7 +19,7 @@ function buildIDList(length){
   return idList;
 }
 
-function getBoard(idlist) {
+function getBoard(idlist) { random random
   console.log('getting board')
   fetch(Url+'/board/?find='+idlist, {
 	   method:'get'
