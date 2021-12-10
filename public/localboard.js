@@ -20,6 +20,7 @@ socket.on('localGameOn', function(localGameOn) {
 window.onbeforeunload = localLeave;
 
 function localLeave() {
+  console.log('local leave emitted')
   socket.emit('localLeave')
 }
 
