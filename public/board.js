@@ -1,4 +1,4 @@
-var port=9018;
+var port=9004;
 const Url='http://jimskon.com:'+port;
 var pickedChar = false;
 var guesses = 3;
@@ -116,7 +116,7 @@ function buildBoard(list) {
 }
 
 function displayhiddenChar(hiddenChar) {
-  document.getElementById('hiddenChar').innerHTML='<div class="purple"><h5 class="center">Mystery Character</h5><div class="center" id="'+hiddenChar[0]+' '+hiddenChar[1]+'">'+hiddenChar[0]+' '+hiddenChar[1]+'<div><a><img src="'+hiddenChar[2]+'" style="width: 70%;"></a></div></div></div>';
+  document.getElementById('hiddenChar').innerHTML='<div class="purple"><h5 class="center">Mystery Character</h5><div class="center" id="'+hiddenChar[0]+' '+hiddenChar[1]+'">'+hiddenChar[0]+' '+hiddenChar[1]+'<div><a><img src="'+hiddenChar[2]+'" style="width: 70%;border-radius: 1rem;"></a></div></div></div>';
 }
 
 function startGuessButton() {

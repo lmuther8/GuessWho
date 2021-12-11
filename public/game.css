@@ -204,3 +204,15 @@ button{
 .btn-warning {
   background-color: #c39b52;
 }
+
+.rightRapper {
+  margin: 0px; /* remove all margins to fit two divs in the container */
+  display: inline-block; /* display block elements in one line */
+  width: 48%;
+}
+
+.leftRapper {
+  margin: 0px;
+  display: inline-block;
+  width: 48%;
+}
