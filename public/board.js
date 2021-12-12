@@ -9,12 +9,10 @@ var pickList = [];
 var guess='';
 
 socket.on('playerJoin', function(playerJoin) {
-  console.log("waiting player");
   if (playerJoin.list.length == 1) {
     console.log("waiting player");
     waitingPLayer();
-  }
-  if (playerJoin.list.length == 2) {
+  } else if (playerJoin.list.length == 2) {
     socket.emit('gameStart', {query: buildIDList(20)});
   }
 })

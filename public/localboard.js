@@ -3,18 +3,23 @@ const Url='http://jimskon.com:'+port;
 var pickedChar = false;
 var socket = io.connect('http://jimskon.com:'+port);
 
-socket.emit('localplay');
+document.getElementById('btn-space').addEventListener('click', function() {
+  socket.emit('message', {operation: "localJoin"});
+  document.getElementById('btn-space').innerHTML='';
+})
 
-socket.on('localWait', function(localWait) {
-  if (localWait.numPlayers % 2 !=0) {
-  }
-  if (localWait.numPlayers % 2 ==0) {
+socket.on('localJoin', function(localJoin) {
+  if (localJoin.players %2 != 0) {
+    console.log("waiting player");
+    waitingPLayer();
+  } else {
     socket.emit('localStart', {query: buildIDList(20)});
   }
 })
-socket.on('localGameOn', function(localGameOn) {
-  var idlist = localGameOn.query
-  getBoard(idlist)
+
+socket.on('localStart', function(localStart) {
+  var idlist = localStart.query
+  getBoard(idlist);
 })
 
 socket.on('disconnect',function(){
@@ -22,6 +27,10 @@ socket.on('disconnect',function(){
   socket.emit('localLeave');
 });
 
+
+function waitingPLayer() {
+  document.getElementById('gameBoard').innerHTML='<h2>Waiting For Another Player To Start</h2>';
+}
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);

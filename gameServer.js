@@ -13,7 +13,7 @@ const server = http.createServer(app);
 const port=9018;
 const Url='http://jimskon.com:'+port
 
-var localPlayers = 0
+//var localPlayers = 0
 
 function openSQL() {
     // Login to MySQL
@@ -58,10 +58,7 @@ app.get('/board', function (req, res) {
 })
 
 partners=[];
-player1 = '';
-player2 = '';
-player1pick = '';
-player2pick = '';
+var localPlayers=0;
 var pickList=[];
 
 console.log("Loaded index file");
@@ -93,6 +90,21 @@ io.sockets.on('connection', function(socket) {
           socket.broadcast.emit('playerJoin', {list:partners});
         }
   	}
+    if (message.operation == 'localJoin') {
+        console.log("Client: joins");
+
+        localPlayers+=1;
+        io.emit('message', {
+            operation: 'localJoin',
+            players: localPlayers
+        });
+        if (localPlayers %2 !=0) {
+          socket.emit('localJoin', {players: localPlayers});
+        }
+        else {
+          socket.broadcast.emit('localJoin', {players: localPlayers});
+        }
+    }
   	// Join message {operation: 'join', name: clientname}
   	if (message.operation == 'signout') {
   	    console.log('Client: ' + message.name + " leaves");
@@ -170,19 +182,10 @@ io.sockets.on('connection', function(socket) {
       socket.emit('getPick', {picks: pickList});
 
     });
-    socket.on('localplay', function(localplay) {
-      console.log(localPlayers)
-      localPlayers+=1;
-      socket.broadcast.emit('localWait',{numPlayers:localPlayers});
-      socket.emit('localWait',{numPlayers:localPlayers});
-    });
     socket.on('localStart', function(localStart) {
-      socket.broadcast.emit('localGameOn', {query: localStart.query});
-      socket.emit('localGameOn', {query: localStart.query});
-    });
-    socket.on('localLeave',function(localLeave) {
-      console.log("Someone left")
-      localPlayers-=1;
+      console.log('localStart');
+      socket.broadcast.emit('localStart', {query: localStart.query});
+      socket.emit('localStart', {query: localStart.query});
     });
     socket.on('switchTurn', function(switchTurn) {
       socket.broadcast.emit('switch');
