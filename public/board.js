@@ -129,11 +129,18 @@ function startGuessButton() {
       piece.addEventListener('click', function() {
         console.log("clicked");
 
-        while(!guessed){
-          console.log(piece.id);
-          guessed=true;
-          guess=piece.id;
-        }
+
+        var pieces = document.querySelectorAll(".gamepiece");
+        var guessed=false;
+        pieces.forEach(function(piece) {
+          piece.classList.add('guessing');
+          piece.addEventListener('click', function() {
+            while(!guessed){
+              console.log(piece.id);
+              guessed=true;
+            }
+          })
+        })
 
 
         for (let i = 0; i < pickList.length; i++) {
