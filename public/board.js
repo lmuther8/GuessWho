@@ -1,4 +1,4 @@
-var port=9004;
+var port=9018;
 const Url='http://jimskon.com:'+port;
 var pickedChar = false;
 var guesses = 3;
@@ -129,18 +129,11 @@ function startGuessButton() {
       piece.addEventListener('click', function() {
         console.log("clicked");
 
-
-        var pieces = document.querySelectorAll(".gamepiece");
-        var guessed=false;
-        pieces.forEach(function(piece) {
-          piece.classList.add('guessing');
-          piece.addEventListener('click', function() {
-            while(!guessed){
-              console.log(piece.id);
-              guessed=true;
-            }
-          })
-        })
+        while(!guessed){
+          console.log(piece.id);
+          guessed=true;
+          guess=piece.id;
+        }
 
 
         for (let i = 0; i < pickList.length; i++) {
