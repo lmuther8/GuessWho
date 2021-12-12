@@ -62,6 +62,7 @@ player1 = '';
 player2 = '';
 player1pick = '';
 player2pick = '';
+var pickList=[];
 
 console.log("Loaded index file");
 // Loading socket.io
@@ -123,6 +124,15 @@ io.sockets.on('connection', function(socket) {
   	    });
 
   	}
+
+    if (message.operation == 'guessMessage') {
+      console.log("guessMessage gamerserver");
+      socket.broadcast.emit('message', {
+    operation: 'guessPrint',
+    result: message.result,
+    text: message.text
+      });
+    }
       });
     socket.on('gameStart', function(gameStart) {
       console.log('gameStart');
@@ -130,16 +140,12 @@ io.sockets.on('connection', function(socket) {
       socket.emit('start', {query: gameStart.query});
     });
     socket.on('playerPicked', function(playerPicked) {
-      if (player1pick.length == 0) {
-        player1pick = playerPicked.pick;
-        player1 = playerPicked.name;
-        console.log(`player 2 picked: ${player1pick}`);
-      }
-      else {
-        player2pick = playerPicked.pick;
-        player2 = playerPicked.name;
-        console.log(`player 2 picked: ${player2pick}`);
-      }
+      console.log("playerpicked");
+      pickList.push([playerPicked.name,playerPicked.pick]);
+      console.table(pickList);
+      socket.broadcast.emit('getPick', {picks: pickList});
+      socket.emit('getPick', {picks: pickList});
+
     });
     socket.on('localplay', function(localplay) {
       console.log(localPlayers)
@@ -158,6 +164,11 @@ io.sockets.on('connection', function(socket) {
     socket.on('switchTurn', function(switchTurn) {
       socket.broadcast.emit('switch');
       socket.emit('switch');
+    });
+    socket.on('guess', function(guess) {
+      console.log('guess gameServer.js');
+      socket.broadcast.emit('guessMess', {name: guess.name, result: guess.result});
+      socket.emit('guessMess', {name: guess.name, result: guess.result});
     });
 });
 

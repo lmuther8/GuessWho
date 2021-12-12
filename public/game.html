@@ -56,20 +56,14 @@
             </p>
             <p>
               <span id="answer">
-                <button type="button" id="yes">Yes</button><button type="button" id="no">No</button>
+                <button type="button" id="yes" class="btn btn-warning btn-block leftRapper">Yes</button>
+                <button type="button" id="no" class="btn btn-warning rightRapper">No</button>
               </span>
             </p>
             <p>
-              <div class="purple" id="guessArea">
+              <div id="guessArea">
                   <h5 class="center pb-1">Remaining Guesses: <span id="guess">3</span></h5>
-                  <div class="row">
-                    <div class="col-sm-9">
-                      <input type="text" id="guess-input" class="form-control" placeholder="Guess">
-                    </div>
-                    <div class="col-sm-3">
-                      <button type="button left" id="guess-btn" class="btn btn-warning btn-block right">Guess</button>
-                    </div>
-                    </div>
+                  <input type="button" class="btn btn-warning btn-block" value="Guess" id="guess-btn"/>
               </div>
             </p>
           </div>
