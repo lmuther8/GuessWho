@@ -135,19 +135,19 @@ function startGuessButton() {
           guess=piece.id;
         }
 
-        var win=false;
+
         for (let i = 0; i < pickList.length; i++) {
+          //console.log("in for loop. pickList: "+pickList[i][0]+" my name: "+myname);
           if(!(pickList[i][0]==myname)){
+            //console.log("before 2nd if st. picklist: "+pickList[i][1]+" my guess: "+guess);
             if(guess==pickList[i][1]){
               console.log("YOU WIN");
               guessResult('win');
-              win=true;
+            } else {
+              console.log("guessWrong board");
+              guessResult('guess wrong');
             }
           }
-        }
-        if(!win){
-          console.log("guessWrong board");
-          guessResult('guess wrong');
         }
       })
     })
@@ -165,5 +165,6 @@ function startGuessButton() {
 
 function guessResult(result){
   console.log("MyName:"+myname);
+  console.log("MyResult:"+result);
   socket.emit('guess', {name: myname, result: result});
 }

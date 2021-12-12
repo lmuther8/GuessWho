@@ -116,23 +116,26 @@ document.getElementById('no').addEventListener("click", noText);
 
 socket.on('guessMess', function(guess) {
   console.log("guessMess");
+  console.log(guess.result);
   if(guess.result=='win'){
     console.log('in win');
     var message = "!!!!! "+guess.name+" WINS !!!!!";
   } else if (guess.result=='lose') {
     console.log('in lose');
     var message = ":( "+guess.name+" loses  :(";
-  } else {
+  } else if (guess.result=='guess wrong'){
     console.log('wrong guess');
     var message = " "+guess.name+" guessed wrong.";
+  } else {
+    console.log("Error");
   }
   console.log("abt to emit");
   console.log(guess.result);
   console.log(message);
 
   socket.emit('message', {
-    operation: "guessMessage",
-    result: guess.result,
+    operation: "mess",
+    name: guess.result,
     text: message
   });
 });

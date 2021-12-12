@@ -10,7 +10,7 @@ const fs = require('fs');
 const server = http.createServer(app);
 
 //Everyone must use own port > 9000
-const port=9018;
+const port=9004;
 const Url='http://jimskon.com:'+port
 
 var localPlayers = 0
@@ -110,32 +110,55 @@ io.sockets.on('connection', function(socket) {
   	// Message from client {operation: 'mess', name: clientname, test: message}
   	if (message.operation == 'mess') {
   	    console.log('Message: ' + message.text);
-  	    // sent back out to everyone
-  	    socket.broadcast.emit('message', {
-  		operation: 'mess',
-  		name: message.name,
-  		text: message.text
-  	    });
-  	    // send back to sender
-  	    socket.emit('message', {
-  		operation: 'mess',
-  		name: message.name,
-  		text: message.text
-  	    });
+
+        if(message.name=='win' || message.name=='lose' || message.name=='guess wrong'){
+          console.log("win,lose,or guess wrong");
+          // socket.broadcast.emit('message', {
+          // operation: 'guessPrint',
+          // result: message.result,
+          // text: message.text
+          //   });
+            // sent back out to everyone
+          socket.broadcast.emit('message', {
+          operation: 'guessPrint',
+          name: message.name,
+          text: message.text
+            });
+            // send back to sender
+          socket.emit('message', {
+          operation: 'guessPrint',
+          name: message.name,
+          text: message.text
+            });
+        } else {
+          // sent back out to everyone
+          socket.broadcast.emit('message', {
+        operation: 'mess',
+        name: message.name,
+        text: message.text
+          });
+          // send back to sender
+          socket.emit('message', {
+        operation: 'mess',
+        name: message.name,
+        text: message.text
+          });
+        }
 
   	}
 
-    if (message.operation == 'guessMessage') {
-      console.log("guessMessage gamerserver");
-      socket.broadcast.emit('message', {
-    operation: 'guessPrint',
-    result: message.result,
-    text: message.text
-      });
-    }
+    // if (message.operation == 'guessMessage') {
+    //   console.log("guessMessage gamerserver");
+    //   socket.broadcast.emit('message', {
+    // operation: 'guessPrint',
+    // result: message.result,
+    // text: message.text
+    //   });
+    // }
       });
     socket.on('gameStart', function(gameStart) {
       console.log('gameStart');
+      pickList=[];
       socket.broadcast.emit('start', {query: gameStart.query});
       socket.emit('start', {query: gameStart.query});
     });
@@ -167,6 +190,7 @@ io.sockets.on('connection', function(socket) {
     });
     socket.on('guess', function(guess) {
       console.log('guess gameServer.js');
+      console.log("result:"+guess.result);
       socket.broadcast.emit('guessMess', {name: guess.name, result: guess.result});
       socket.emit('guessMess', {name: guess.name, result: guess.result});
     });
