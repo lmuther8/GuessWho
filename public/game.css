@@ -136,8 +136,31 @@ body {
   padding: .5rem 1.5rem;
 }
 
+.mainMenu
+
+.guessing img {
+  transition: all .5s ease;
+  animation: pulse-white 1.5s infinite;
+}
+
 .mainMenu a:hover {
   font-size: 90px;
+}
+@keyframes pulse-white {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgb(236, 179, 255, .7);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 10px rgb(236, 179, 255, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgb(236, 179, 255, 0);
+	}
 }
 
 @keyframes pulse {

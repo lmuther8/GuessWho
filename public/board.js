@@ -132,12 +132,13 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
   var pieces = document.querySelectorAll(".gamepiece");
   var guessed=false;
   pieces.forEach(function(piece) {
-  piece.addEventListener('click', function() {
-  while(!guessed){
-    console.log(piece.id);
-    guessed=true;
-  }
-  })
+    piece.classList.add('guessing');
+    piece.addEventListener('click', function() {
+      while(!guessed){
+        console.log(piece.id);
+        guessed=true;
+      }
+    })
   })
 
   socket.on('playerPicked', function(playerPicked) {
