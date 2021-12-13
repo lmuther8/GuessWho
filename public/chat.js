@@ -17,7 +17,7 @@ socket.on('message', function(message) {
   	    console.log("Not logged in!");
   	    return;
   	}
-    room=str(message.room)
+    room=String(message.room)
     if (message.partners.length == 1) {
       console.log("turn true");
       turn = true;
