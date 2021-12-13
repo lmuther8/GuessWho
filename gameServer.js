@@ -71,6 +71,7 @@ const io = new Server(server);
 
 // When a client connects, we note it in the console
 io.sockets.on('connection', function(socket) {
+  socket.join(String(room));
     console.log('A client is connected!');
     // watch for message from client (JSON)
 

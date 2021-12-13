@@ -12,7 +12,7 @@ var room="";
 
 
 socket.on('playerJoin', function(playerJoin) {
-  if (playerJoin.list.length %2 != 0) {
+  if (playerJoin.list.length % 2 != 0) {
     console.log("waiting player");
     waitingPLayer();
   } else {
