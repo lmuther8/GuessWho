@@ -71,7 +71,6 @@ const io = new Server(server);
 
 // When a client connects, we note it in the console
 io.sockets.on('connection', function(socket) {
-  socket.join(String(room));
     console.log('A client is connected!');
     // watch for message from client (JSON)
 
@@ -189,15 +188,15 @@ io.sockets.on('connection', function(socket) {
       console.log('gameStart');
       pickList=[];
       console.log(typeof(gameStart.room));
-      socket.broadcast.to(gameStart.room).emit('start', {query: gameStart.query});
       socket.to(gameStart.room).emit('start', {query: gameStart.query});
+      socket.broadcast.to(gameStart.room).emit('start', {query: gameStart.query});
     });
     socket.on('playerPicked', function(playerPicked) {
       console.log("playerpicked");
       pickList.push([playerPicked.name,playerPicked.pick]);
       console.table(pickList);
-      socket.broadcast.to(playerPicked.room).emit('getPick', {name: playerPicked.name, pick: playerPicked.pick});
       socket.to(playerPicked.room).emit('getPick', {name: playerPicked.name, pick: playerPicked.pick});
+      socket.broadcast.to(playerPicked.room).emit('getPick', {name: playerPicked.name, pick: playerPicked.pick});
 
     });
     socket.on('switchTurn', function(switchTurn) {
