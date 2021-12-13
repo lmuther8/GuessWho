@@ -57,9 +57,6 @@ app.get('/board', function (req, res) {
     })
 })
 
-
-localGame={room#: p1, p2}
-onlineGame={room#:p1,p2, }
 partners=[];
 localPartners=[];
 var localPlayers=0;
