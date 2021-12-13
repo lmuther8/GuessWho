@@ -180,10 +180,10 @@ io.sockets.on('connection', function(socket) {
         // name: message.name,
         // text: message.text
         //   });
-        // }
+     }
 
   	}
-      });
+  });
     socket.on('gameStart', function(gameStart) {
       console.log('gameStart');
       pickList=[];
