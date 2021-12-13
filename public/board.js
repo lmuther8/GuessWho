@@ -34,18 +34,18 @@ socket.on('getPick', function(picks) {
 
 socket.on('losePrint', function(losePrint) {
   if(myname!=losePrint.winner){
-    document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 color="white">'+losePrint.winner+' guessed correctly.</h3><h1 style="text-align: center;">YOU LOSE</h1><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
+    document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 style="color:white;>'+losePrint.winner+' guessed correctly.</h3><h1 style="text-align: center;">YOU LOSE</h1><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
   }
 })
 
 socket.on('winPrint', function(winPrint) {
   if(myname!=winPrint.loser){
-    document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 color="white">'+winPrint.loser+' used up all guesses.</h3><h1 style="text-align: center;">!!! YOU WIN !!!</h1><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
+    document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 style="color:white;">'+winPrint.loser+' used up all guesses.</h3><h1 style="text-align: center;">!!! YOU WIN !!!</h1><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
   }
 })
 
 socket.on('disconnected', function(disconnected) {
-  document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 color="white">Your opponent left the game.</h3><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
+  document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 style="color:white;>Your opponent left the game.</h3><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
 })
 
 function waitingPLayer() {
@@ -160,7 +160,7 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
   pieces.forEach(function(piece) {
     piece.classList.add('guessing');
     piece.addEventListener('click', function() {
-      console.log("clicked");
+    console.log("clicked");
 
       while(!guessed){
         console.log(piece.id);
