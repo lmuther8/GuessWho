@@ -45,7 +45,7 @@ socket.on('winPrint', function(winPrint) {
 })
 
 socket.on('disconnected', function(disconnected) {
-  document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 color="white">Your opponent left the game.</h3><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
+  document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 style="color:white;">Your opponent left the game.</h3><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
 })
 
 function waitingPLayer() {
