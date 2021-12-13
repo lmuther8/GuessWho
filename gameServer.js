@@ -195,35 +195,35 @@ io.sockets.on('connection', function(socket) {
       console.log("playerpicked");
       pickList.push([playerPicked.name,playerPicked.pick]);
       console.table(pickList);
-      socket.to(playerPicked.room).broadcast.emit('getPick', {name: playerPicked.name, pick: playerPicked.pick});
+      socket.broadcast.to(playerPicked.room).emit('getPick', {name: playerPicked.name, pick: playerPicked.pick});
       socket.to(playerPicked.room).emit('getPick', {picks: pickList});
 
     });
     socket.on('switchTurn', function(switchTurn) {
-      socket.to(switchTurn.room).broadcast.emit('switch');
+      socket.broadcast.to(switchTurn.room).emit('switch');
       socket.to(switchTurn.room).emit('switch');
     });
     socket.on('guessWrong', function(guess) {
-      socket.to(guess.room).broadcast.emit('guessMess', {name: guess.name});
+      socket.broadcast.to(guess.room).emit('guessMess', {name: guess.name});
       socket.to(guess.room).emit('guessMess', {name: guess.name});
     });
     socket.on('lose', function(guess) {
       console.log('lose');
-      socket.to(guess.room).broadcast.emit('losePrint', {winner: guess.winner});
+      socket.broadcast.to(guess.room).emit('losePrint', {winner: guess.winner});
       socket.to(guess.room).emit('losePrint', {winner: guess.winner});
     });
     socket.on('win', function(win) {
       console.log('win');
-      socket.to(win.room).broadcast.emit('winPrint', {loser: win.loser});
+      socket.broadcast.to(win.room).emit('winPrint', {loser: win.loser});
       socket.to(win.room).emit('winPrint', {loser: win.loser});
     });
     socket.on('noMoves', function(noMoves) {
-      socket.to(noMoves.room).broadcast.emit('movesEnd', {failer: noMoves.name});
+      socket.broadcast.to(noMoves.room).emit('movesEnd', {failer: noMoves.name});
       socket.to(noMoves.room).emit('movesEnd', {failer: noMoves.name});
     });
     socket.on('localStart', function(localStart) {
       console.log('localStart');
-      socket.to(localStart.room).broadcast.emit('localStart', {query: localStart.query});
+      socket.broadcast.to(localStart.room).emit('localStart', {query: localStart.query});
       socket.to(localStart.room).emit('localStart', {query: localStart.query});
     });
 });
