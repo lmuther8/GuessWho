@@ -3,6 +3,8 @@ var socket = io.connect('http://jimskon.com:'+port);
 var state="off";
 var myname="";
 var turn = false;
+var room = ""
+var opponentPick=""
 
 document.getElementById('answer').style.display = 'none';
 document.getElementById('waiting').style.display = 'none';
@@ -15,6 +17,7 @@ socket.on('message', function(message) {
   	    console.log("Not logged in!");
   	    return;
   	}
+    room=str(message.room)
     if (message.partners.length == 1) {
       console.log("turn true");
       turn = true;
@@ -88,14 +91,14 @@ document.getElementById('name-btn').addEventListener("click", (e) => {
     document.getElementById('register').style.display = 'none';
     document.getElementById('status').style.display = 'block';
     document.getElementById('user').innerHTML = "<b>Name:</b> <font color='#ffffff94'>"+myname+"</font>";
-    socket.emit('message', {operation: "join",name: myname});
+    socket.emit('message', {operation: "join",name: myname, room:room});
 })
 document.getElementById('leave').addEventListener("click", leaveSession);
 document.getElementById('send-btn').addEventListener("click", () => {
   sendText();
   document.getElementById('waiting').style.display = 'block';
   document.getElementById('answer').style.display = 'none';
-  socket.emit('switchTurn');
+  socket.to(room).emit('switchTurn',{room:room});
 });
 
 // Watch for enter on message box
@@ -104,7 +107,7 @@ document.getElementById('message').addEventListener("keydown", (e)=> {
 	   sendText();
      document.getElementById('waiting').style.display = 'block';
      document.getElementById('answer').style.display = 'none';
-     socket.emit('switchTurn');
+     socket.to(room).emit('switchTurn', {room:room});
   }
 });
 
@@ -118,10 +121,11 @@ socket.on('guessMess', function(guess) {
   console.log("abt to emit");
   console.log(message);
 
-  socket.emit('message', {
+  socket.to(room).emit('message', {
     operation: "mess",
     name: 'wrong guess',
-    text: message
+    text: message,
+    room:room
   });
 });
 
@@ -145,10 +149,11 @@ function sendText() {
     var message = document.getElementById('message').value;
     document.getElementById('message').value = "";
 
-    socket.emit('message', {
+    socket.to(room).emit('message', {
 	     operation: "mess",
 	      name: myname,
-	       text: message
+	       text: message,
+         room:room
     });
     document.getElementById('chatinput').style.display = 'none';
     document.getElementById('guessArea').style.display = 'none';
@@ -156,10 +161,11 @@ function sendText() {
 }
 
 function yesText() {
-  socket.emit('message', {
+  socket.to(room).emit('message', {
      operation: "mess",
       name: myname,
-       text: "Yes!"
+       text: "Yes!",
+       room:room
   });
   document.getElementById('answer').style.display = 'none';
   document.getElementById('chatinput').style.display = 'block';
@@ -167,10 +173,11 @@ function yesText() {
 }
 
 function noText() {
-  socket.emit('message', {
+  socket.to(room).emit('message', {
      operation: "mess",
       name: myname,
-       text: "NO!"
+       text: "NO!",
+       room:room
   });
   document.getElementById('answer').style.display = 'none';
   document.getElementById('chatinput').style.display = 'block';
@@ -179,9 +186,10 @@ function noText() {
 
 function leaveSession(){
     state="off";
-    socket.emit('message', {
+    socket.to(room).emit('message', {
 	     operation: "signout",
 	       name: myname,
+         room:room
     });
     document.getElementById('yourname').value = "";
     document.getElementById('register').style.display = 'block';

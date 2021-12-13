@@ -57,10 +57,14 @@ app.get('/board', function (req, res) {
     })
 })
 
+
+localGame={room#: p1, p2}
+onlineGame={room#:p1,p2, }
 partners=[];
 localPartners=[];
 var localPlayers=0;
 var pickList=[];
+var room=1;
 
 console.log("Loaded index file");
 // Loading socket.io
@@ -72,23 +76,29 @@ const io = new Server(server);
 io.sockets.on('connection', function(socket) {
     console.log('A client is connected!');
     // watch for message from client (JSON)
+
     socket.on('message', function(message) {
 	// Join message {operation: 'join', name: clientname}
   	if (message.operation == 'join') {
-  	    console.log('Client: ' + message.name + " joins");
-  	    // Send join message to all other clients
+        socket.join(str(room));
+        console.log('Client: ' + message.name + " joins");
+        // Send join message to all other clients
   	    partners.push(message.name);
   	    io.emit('message', {
   		      operation: 'join',
   		      name: message.name,
-  		      partners: partners
+  		      partners: partners,
+            room: str(room)
   	    });
-        socket.emit('name', {name:message.name})
+        socket.emit('name', {name:message.name,room:str(room)})
         if (partners.length == 1) {
           socket.emit('playerJoin', {list:partners});
         }
         else {
           socket.broadcast.emit('playerJoin', {list:partners});
+          room++;
+          partners=[]
+
         }
   	}
     if (message.operation == 'localJoin') {
@@ -176,55 +186,47 @@ io.sockets.on('connection', function(socket) {
         }
 
   	}
-    // if (message.operation == 'guessMessage') {
-    //   console.log("guessMessage gamerserver");
-    //   socket.broadcast.emit('message', {
-    // operation: 'guessPrint',
-    // result: message.result,
-    // text: message.text
-    //   });
-    // }
       });
     socket.on('gameStart', function(gameStart) {
       console.log('gameStart');
       pickList=[];
-      socket.broadcast.emit('start', {query: gameStart.query});
-      socket.emit('start', {query: gameStart.query});
+      socket.to(gameStart.room).broadcast.emit('start', {query: gameStart.query});
+      socket.to(gameStart.room).emit('start', {query: gameStart.query});
     });
     socket.on('playerPicked', function(playerPicked) {
       console.log("playerpicked");
       pickList.push([playerPicked.name,playerPicked.pick]);
       console.table(pickList);
-      socket.broadcast.emit('getPick', {picks: pickList});
-      socket.emit('getPick', {picks: pickList});
+      socket.to(playerPicked.room).broadcast.emit('getPick', {name: playerPicked.name, pick: playerPicked.pick});
+      socket.to(playerPicked.room).emit('getPick', {picks: pickList});
 
     });
     socket.on('switchTurn', function(switchTurn) {
-      socket.broadcast.emit('switch');
-      socket.emit('switch');
+      socket.to(switchTurn.room).broadcast.emit('switch');
+      socket.to(switchTurn.room).emit('switch');
     });
     socket.on('guessWrong', function(guess) {
-      socket.broadcast.emit('guessMess', {name: guess.name});
-      socket.emit('guessMess', {name: guess.name});
+      socket.to(guess.room).broadcast.emit('guessMess', {name: guess.name});
+      socket.to(guess.room).emit('guessMess', {name: guess.name});
     });
     socket.on('lose', function(guess) {
       console.log('lose');
-      socket.broadcast.emit('losePrint', {winner: guess.winner});
-      socket.emit('losePrint', {winner: guess.winner});
+      socket.to(guess.room).broadcast.emit('losePrint', {winner: guess.winner});
+      socket.to(guess.room).emit('losePrint', {winner: guess.winner});
     });
     socket.on('win', function(win) {
       console.log('win');
-      socket.broadcast.emit('winPrint', {loser: win.loser});
-      socket.emit('winPrint', {loser: win.loser});
+      socket.to(win.room).broadcast.emit('winPrint', {loser: win.loser});
+      socket.to(win.room).emit('winPrint', {loser: win.loser});
     });
     socket.on('noMoves', function(noMoves) {
-      socket.broadcast.emit('movesEnd', {failer: noMoves.name});
-      socket.emit('movesEnd', {failer: noMoves.name});
+      socket.to(noMoves.room).broadcast.emit('movesEnd', {failer: noMoves.name});
+      socket.to(noMoves.room).emit('movesEnd', {failer: noMoves.name});
     });
     socket.on('localStart', function(localStart) {
       console.log('localStart');
-      socket.broadcast.emit('localStart', {query: localStart.query});
-      socket.emit('localStart', {query: localStart.query});
+      socket.to(localStart.room).broadcast.emit('localStart', {query: localStart.query});
+      socket.to(localStart.room).emit('localStart', {query: localStart.query});
     });
 });
 

@@ -4,6 +4,7 @@ var pickedChar = false;
 var socket = io.connect('http://jimskon.com:'+port);
 var myid;
 
+
 document.getElementById('btn-space').addEventListener('click', function() {
   socket.emit('message', {operation: "localJoin"});
   document.getElementById('btn-space').innerHTML='';
