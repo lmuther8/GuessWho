@@ -91,10 +91,10 @@ io.sockets.on('connection', function(socket) {
         if (partners.length == 1) {
           socket.emit('playerJoin', {list:partners});
         }
-        else {
+        else { // makes a new room when third, fifth, etc. joins
           socket.broadcast.emit('playerJoin', {list:partners});
           room++;
-          partners=[]
+          // partners=[]
 
         }
   	}
