@@ -187,6 +187,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('gameStart', function(gameStart) {
       console.log('gameStart');
       pickList=[];
+      console.log(gameStart.room);
       socket.to(gameStart.room).broadcast.emit('start', {query: gameStart.query});
       socket.to(gameStart.room).emit('start', {query: gameStart.query});
     });
