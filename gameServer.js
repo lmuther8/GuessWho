@@ -94,7 +94,7 @@ io.sockets.on('connection', function(socket) {
         else { // makes a new room when third, fifth, etc. joins
           socket.broadcast.emit('playerJoin', {list:partners});
           room++;
-          // partners=[]
+          partners=[]
 
         }
   	}

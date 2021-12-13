@@ -27,6 +27,7 @@ socket.on('name', function(name) {
 })
 
 socket.on('start', function(start) {
+  console.log(start.query)
   var idlist = start.query
   getBoard(idlist)
 })
