@@ -156,31 +156,31 @@ io.sockets.on('connection', function(socket) {
           // text: message.text
           //   });
             // sent back out to everyone
-          socket.broadcast.to(message.room).emit('message', {
+          io.sockets.to(message.room).emit('message', {
           operation: 'guessPrint',
           name: message.name,
           text: message.text
             });
-            // send back to sender
-          socket.to(message.room).emit('message', {
-          operation: 'guessPrint',
-          name: message.name,
-          text: message.text
-            });
+          //   // send back to sender
+          // socket.to(message.room).emit('message', {
+          // operation: 'guessPrint',
+          // name: message.name,
+          // text: message.text
+          //   });
         } else {
           // sent back out to everyone
-          socket.broadcast.to(message.room).emit('message', {
+          io.sockets.to(message.room).emit('message', {
         operation: 'mess',
         name: message.name,
         text: message.text
           });
-          // send back to sender
-          socket.to(message.room).emit('message', {
-        operation: 'mess',
-        name: message.name,
-        text: message.text
-          });
-        }
+        //   // send back to sender
+        //   socket.to(message.room).emit('message', {
+        // operation: 'mess',
+        // name: message.name,
+        // text: message.text
+        //   });
+        // }
 
   	}
       });
@@ -189,8 +189,7 @@ io.sockets.on('connection', function(socket) {
       pickList=[];
       console.log(typeof(gameStart.room));
       io.sockets.to(gameStart.room).emit('start', {query: gameStart.query});
-      // socket.to(gameStart.room).emit('start', {query: gameStart.query});
-      // socket.broadcast.to(gameStart.room).emit('start', {query: gameStart.query});
+
     });
     socket.on('playerPicked', function(playerPicked) {
       console.log("playerpicked");
