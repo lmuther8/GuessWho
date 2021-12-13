@@ -1,4 +1,4 @@
-var port=9004;
+var port=9018;
 const Url='http://jimskon.com:'+port;
 var pickedChar = false;
 var socket = io.connect('http://jimskon.com:'+port);
