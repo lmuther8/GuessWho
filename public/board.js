@@ -158,6 +158,7 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
   var pieces = document.querySelectorAll(".gamepiece");
   var guessed=false;
   pieces.forEach(function(piece) {
+    piece.classList.add('guessing');
     piece.addEventListener('click', function() {
       console.log("clicked");
 
