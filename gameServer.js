@@ -77,7 +77,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('message', function(message) {
 	// Join message {operation: 'join', name: clientname}
   	if (message.operation == 'join') {
-        socket.join(str(room));
+        socket.join(String(room));
         console.log('Client: ' + message.name + " joins");
         // Send join message to all other clients
   	    partners.push(message.name);
@@ -85,9 +85,9 @@ io.sockets.on('connection', function(socket) {
   		      operation: 'join',
   		      name: message.name,
   		      partners: partners,
-            room: str(room)
+            room: String(room)
   	    });
-        socket.emit('name', {name:message.name,room:str(room)})
+        socket.emit('name', {name:message.name,room:String(room)})
         if (partners.length == 1) {
           socket.emit('playerJoin', {list:partners});
         }
