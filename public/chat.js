@@ -98,7 +98,7 @@ document.getElementById('send-btn').addEventListener("click", () => {
   sendText();
   document.getElementById('waiting').style.display = 'block';
   document.getElementById('answer').style.display = 'none';
-  socket.to(room).emit('switchTurn',{room:room});
+  socket.emit('switchTurn',{room:room});
 });
 
 // Watch for enter on message box
@@ -107,7 +107,7 @@ document.getElementById('message').addEventListener("keydown", (e)=> {
 	   sendText();
      document.getElementById('waiting').style.display = 'block';
      document.getElementById('answer').style.display = 'none';
-     socket.to(room).emit('switchTurn', {room:room});
+     socket.emit('switchTurn', {room:room});
   }
 });
 
@@ -121,7 +121,7 @@ socket.on('guessMess', function(guess) {
   console.log("abt to emit");
   console.log(message);
 
-  socket.to(room).emit('message', {
+  socket.emit('message', {
     operation: "mess",
     name: 'wrong guess',
     text: message,
@@ -149,7 +149,7 @@ function sendText() {
     var message = document.getElementById('message').value;
     document.getElementById('message').value = "";
 
-    socket.to(room).emit('message', {
+    socket.emit('message', {
 	     operation: "mess",
 	      name: myname,
 	       text: message,
@@ -161,7 +161,7 @@ function sendText() {
 }
 
 function yesText() {
-  socket.to(room).emit('message', {
+  socket.emit('message', {
      operation: "mess",
       name: myname,
        text: "Yes!",
@@ -173,7 +173,7 @@ function yesText() {
 }
 
 function noText() {
-  socket.to(room).emit('message', {
+  socket.emit('message', {
      operation: "mess",
       name: myname,
        text: "NO!",
@@ -186,7 +186,7 @@ function noText() {
 
 function leaveSession(){
     state="off";
-    socket.to(room).emit('message', {
+    socket.emit('message', {
 	     operation: "signout",
 	       name: myname,
          room:room

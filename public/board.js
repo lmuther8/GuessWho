@@ -16,7 +16,7 @@ socket.on('playerJoin', function(playerJoin) {
     console.log("waiting player");
     waitingPLayer();
   } else {
-    socket.to(room).emit('gameStart', {query: buildIDList(20), room: room});
+    socket.emit('gameStart', {query: buildIDList(20), room: room});
   }
 })
 
@@ -127,7 +127,7 @@ function buildBoard(list) {
         document.getElementById('pickChar').innerHTML='';
         piece.classList.remove('gamepiece-grey');
         pickedChar=true;
-        socket.to(room).emit('playerPicked',{name:myname, pick:piece.id, room:room});
+        socket.emit('playerPicked',{name:myname, pick:piece.id, room:room});
       }
     })
   })
@@ -140,14 +140,14 @@ function displayhiddenChar(hiddenChar) {
 
 function guessResult(){
   console.log("MyName:"+myname);
-  socket.to(room).emit('guessWrong', {name: myname,room:room});
+  socket.emit('guessWrong', {name: myname,room:room});
 }
 
 function gameOver() {
   console.log('game over');
   document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h1>!!! YOU WIN !!!</h1><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
   //display to loser:
-  socket.to(room).emit('lose', {winner: myname,room:room});
+  socket.emit('lose', {winner: myname,room:room});
 }
 
 function guessNum() {
@@ -156,7 +156,7 @@ function guessNum() {
   document.getElementById('guess').innerHTML = guesses;
   if(guesses==0){
     document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 color="white">You used up all guesses.</h3><h1>YOU LOSE</h1><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
-    socket.to(room).emit('win', {loser: myname, room:room});
+    socket.emit('win', {loser: myname, room:room});
   }
 }
 
