@@ -78,7 +78,7 @@ io.sockets.on('connection', function(socket) {
 	// Join message {operation: 'join', name: clientname}
   	if (message.operation == 'join') {
         socket.join(String(room));
-        console.log('Client: ' + message.name + " joins");
+        console.log('Client: ' + message.name + " joins room: " + room);
         // Send join message to all other clients
   	    partners.push(message.name);
   	    io.emit('message', {
