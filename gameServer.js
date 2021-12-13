@@ -188,7 +188,7 @@ io.sockets.on('connection', function(socket) {
       console.log('gameStart');
       pickList=[];
       console.log(typeof(gameStart.room));
-      socket.to(1).broadcast.emit('start', {query: gameStart.query});
+      socket.broadcast.to(gameStart.room).emit('start', {query: gameStart.query});
       socket.to(gameStart.room).emit('start', {query: gameStart.query});
     });
     socket.on('playerPicked', function(playerPicked) {
