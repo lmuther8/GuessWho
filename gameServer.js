@@ -156,26 +156,26 @@ io.sockets.on('connection', function(socket) {
           // text: message.text
           //   });
             // sent back out to everyone
-          socket.broadcast.emit('message', {
+          socket.broadcast.to(message.room).emit('message', {
           operation: 'guessPrint',
           name: message.name,
           text: message.text
             });
             // send back to sender
-          socket.emit('message', {
+          socket.to(message.room).emit('message', {
           operation: 'guessPrint',
           name: message.name,
           text: message.text
             });
         } else {
           // sent back out to everyone
-          socket.broadcast.emit('message', {
+          socket.broadcast.to(message.room).emit('message', {
         operation: 'mess',
         name: message.name,
         text: message.text
           });
           // send back to sender
-          socket.emit('message', {
+          socket.to(message.room).emit('message', {
         operation: 'mess',
         name: message.name,
         text: message.text
