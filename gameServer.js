@@ -196,7 +196,7 @@ io.sockets.on('connection', function(socket) {
       pickList.push([playerPicked.name,playerPicked.pick]);
       console.table(pickList);
       socket.broadcast.to(playerPicked.room).emit('getPick', {name: playerPicked.name, pick: playerPicked.pick});
-      socket.to(playerPicked.room).emit('getPick', {picks: pickList});
+      socket.to(playerPicked.room).emit('getPick', {name: playerPicked.name, pick: playerPicked.pick});
 
     });
     socket.on('switchTurn', function(switchTurn) {
