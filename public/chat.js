@@ -198,3 +198,60 @@ function leaveSession(){
     document.getElementById('status').style.display = 'none';
 
 }
+
+var port=9018;
+const Url='http://jimskon.com:'+port;
+var pickedChar = false;
+var guesses = 3;
+var socket = io.connect('http://jimskon.com:'+port);
+var myname = '';
+var mypick = '';
+var pickList = [];
+var guess='';
+var opponentPick="";
+var room="";
+
+
+socket.on('playerJoin', function(playerJoin) {
+  if (playerJoin.list.length % 2 != 0) {
+    console.log("waiting player");
+    waitingPLayer();
+  } else {
+    socket.emit('gameStart', {query: buildIDList(20), room: room});
+  }
+})
+
+socket.on('name', function(name) {
+  myname = name.name;
+  room=name.room;
+  console.log(myname)
+})
+
+socket.on('start', function(start) {
+  console.log("here")
+  var idlist = start.query
+  getBoard(idlist)
+})
+
+socket.on('getPick', function(picks) {
+  console.log("getPick");
+  if (picks.name!=myname) {
+    opponentPick = picks.pick
+  }
+})
+
+socket.on('losePrint', function(losePrint) {
+  if(myname!=losePrint.winner){
+    document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 color="white">'+losePrint.winner+' guessed correctly.</h3><h1 style="text-align: center;">YOU LOSE</h1><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
+  }
+})
+
+socket.on('winPrint', function(winPrint) {
+  if(myname!=winPrint.loser){
+    document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 color="white">'+winPrint.loser+' used up all guesses.</h3><h1 style="text-align: center;">!!! YOU WIN !!!</h1><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
+  }
+})
+
+socket.on('disconnected', function(disconnected) {
+  document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 color="white">Your opponent left the game.</h3><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
+})
