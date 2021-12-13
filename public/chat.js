@@ -200,16 +200,16 @@ function leaveSession(){
 }
 
 // var port=9018;
-// const Url='http://jimskon.com:'+port;
-// var pickedChar = false;
-// var guesses = 3;
+const Url='http://jimskon.com:'+port;
+var pickedChar = false;
+var guesses = 3;
 // var socket = io.connect('http://jimskon.com:'+port);
-// var myname = '';
-// var mypick = '';
-// var pickList = [];
-// var guess='';
-// var opponentPick="";
-// var room="";
+var myname = '';
+var mypick = '';
+var pickList = [];
+var guess='';
+var opponentPick="";
+var room="";
 
 
 socket.on('playerJoin', function(playerJoin) {
