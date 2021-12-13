@@ -166,6 +166,7 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
         console.log(piece.id);
         guessed=true;
         guess=piece.id;
+        piece.classList.remove('guessing');
       }
 
       for (let i = 0; i < pickList.length; i++) {
