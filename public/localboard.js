@@ -110,7 +110,7 @@ function buildBoard(list) {
         document.getElementById('pickChar').innerHTML='';
         piece.classList.remove('gamepiece-grey');
         pickedChar=true;
-        socket.emit('playerPicked',{name:myname, pick:piece.id});
+        //socket.emit('playerPicked',{name:myname, pick:piece.id});
         buildGuessMenu();
       }
     })

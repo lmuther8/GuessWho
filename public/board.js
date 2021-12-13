@@ -44,6 +44,10 @@ socket.on('winPrint', function(winPrint) {
   }
 })
 
+socket.on('disconnected', function(disconnected) {
+  document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 color="white">Your opponent left the game.</h3><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
+})
+
 function waitingPLayer() {
   document.getElementById('gameBoard').innerHTML='<h2>Waiting For Another Player</h2>';
 }
@@ -118,7 +122,6 @@ function buildBoard(list) {
         piece.classList.remove('gamepiece-grey');
         pickedChar=true;
         socket.emit('playerPicked',{name:myname, pick:piece.id});
-        startGuessButton();
       }
     })
   })
@@ -126,45 +129,7 @@ function buildBoard(list) {
 }
 
 function displayhiddenChar(hiddenChar) {
-  document.getElementById('hiddenChar').innerHTML='<div class="purple"><h5 class="center">Mystery Character</h5><div class="center" id="'+hiddenChar[0]+' '+hiddenChar[1]+'">'+hiddenChar[0]+' '+hiddenChar[1]+'<div><a><img src="'+hiddenChar[2]+'" style="width: 70%;border-radius: 1rem;"></a></div></div></div>';
-}
-
-function startGuessButton() {
-
-  document.getElementById('guess-btn').addEventListener("click", (e)=> {
-
-    var pieces = document.querySelectorAll(".gamepiece");
-    var guessed=false;
-    pieces.forEach(function(piece) {
-      piece.addEventListener('click', function() {
-        console.log("clicked");
-
-        while(!guessed){
-          console.log(piece.id);
-          guessed=true;
-          guess=piece.id;
-        }
-
-        for (let i = 0; i < pickList.length; i++) {
-          if(!(pickList[i][0]==myname)){
-            if(guess==pickList[i][1]){
-              gameOver();
-            } else {
-              if(guesses<0){
-                document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 color="white">You used up all guesses.</h3><h1>YOU LOSE</h1><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
-                socket.emit('win', {loser: myname});
-              }
-              guessResult();
-            }
-          }
-        }
-        guesses--;
-        document.getElementById('guess').innerHTML = guesses;
-      })
-    })
-
-  });
-
+  document.getElementById('hiddenChar').innerHTML='<div class="purple"><h5 class="center">Mystery Character</h5><div class="center" >'+hiddenChar[0]+' '+hiddenChar[1]+'<div><a><img src="'+hiddenChar[2]+'" style="width: 70%;border-radius: 1rem;"></a></div></div></div>';
 }
 
 function guessResult(){
@@ -178,3 +143,40 @@ function gameOver() {
   //display to loser:
   socket.emit('lose', {winner: myname});
 }
+
+function guessNum() {
+  console.log('guessed');
+  guesses--;
+  document.getElementById('guess').innerHTML = guesses;
+  if(guesses==0){
+    document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 color="white">You used up all guesses.</h3><h1>YOU LOSE</h1><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
+    socket.emit('win', {loser: myname});
+  }
+}
+
+document.getElementById('guess-btn').addEventListener("click", (e)=> {
+  var pieces = document.querySelectorAll(".gamepiece");
+  var guessed=false;
+  pieces.forEach(function(piece) {
+    piece.addEventListener('click', function() {
+      console.log("clicked");
+
+      while(!guessed){
+        console.log(piece.id);
+        guessed=true;
+        guess=piece.id;
+      }
+
+      for (let i = 0; i < pickList.length; i++) {
+        if(!(pickList[i][0]==myname)){
+          if(guess==pickList[i][1]){
+            gameOver();
+          } else {
+            guessResult();
+            guessNum();
+          }
+        }
+      }
+    })
+  })
+});
