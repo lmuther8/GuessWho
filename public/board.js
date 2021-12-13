@@ -1,4 +1,4 @@
-var port=9018;
+var port=9004;
 const Url='http://jimskon.com:'+port;
 var pickedChar = false;
 var guesses = 3;
@@ -9,10 +9,10 @@ var pickList = [];
 var guess='';
 
 socket.on('playerJoin', function(playerJoin) {
-  if (playerJoin.list.length == 1) {
+  if (playerJoin.list.length %2 != 0) {
     console.log("waiting player");
     waitingPLayer();
-  } else if (playerJoin.list.length == 2) {
+  } else {
     socket.emit('gameStart', {query: buildIDList(20)});
   }
 })
@@ -30,6 +30,18 @@ socket.on('start', function(start) {
 socket.on('getPick', function(picks) {
   console.log("getPick");
   pickList = picks.picks;
+})
+
+socket.on('losePrint', function(losePrint) {
+  if(myname!=losePrint.winner){
+    document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 color="white">'+losePrint.winner+' guessed correctly.</h3><h1 style="text-align: center;">YOU LOSE</h1><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
+  }
+})
+
+socket.on('winPrint', function(winPrint) {
+  if(myname!=winPrint.loser){
+    document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 color="white">'+winPrint.loser+' used up all guesses.</h3><h1 style="text-align: center;">!!! YOU WIN !!!</h1><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
+  }
 })
 
 function waitingPLayer() {
@@ -133,36 +145,36 @@ function startGuessButton() {
           guess=piece.id;
         }
 
-
         for (let i = 0; i < pickList.length; i++) {
-          //console.log("in for loop. pickList: "+pickList[i][0]+" my name: "+myname);
           if(!(pickList[i][0]==myname)){
-            //console.log("before 2nd if st. picklist: "+pickList[i][1]+" my guess: "+guess);
             if(guess==pickList[i][1]){
-              console.log("YOU WIN");
-              guessResult('win');
+              gameOver();
             } else {
-              console.log("guessWrong board");
-              guessResult('guess wrong');
+              if(guesses<0){
+                document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h3 color="white">You used up all guesses.</h3><h1>YOU LOSE</h1><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
+                socket.emit('win', {loser: myname});
+              }
+              guessResult();
             }
           }
         }
+        guesses--;
+        document.getElementById('guess').innerHTML = guesses;
       })
     })
-
-    guesses--;
-    document.getElementById('guess').innerHTML = guesses;
-
-    if(guesses<=0){
-      guessResult('lose');
-    }
 
   });
 
 }
 
-function guessResult(result){
+function guessResult(){
   console.log("MyName:"+myname);
-  console.log("MyResult:"+result);
-  socket.emit('guess', {name: myname, result: result});
+  socket.emit('guessWrong', {name: myname});
+}
+
+function gameOver() {
+  console.log('game over');
+  document.getElementById('main').innerHTML = '<div style="margin-left: auto;margin-right: auto;"><h1>!!! YOU WIN !!!</h1><a class="btn btn-warning btn-block" href="/">Main menu</a></div>';
+  //display to loser:
+  socket.emit('lose', {winner: myname});
 }

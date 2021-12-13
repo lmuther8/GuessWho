@@ -1,7 +1,8 @@
-var port=9018;
+var port=9004;
 const Url='http://jimskon.com:'+port;
 var pickedChar = false;
 var socket = io.connect('http://jimskon.com:'+port);
+var myid;
 
 document.getElementById('btn-space').addEventListener('click', function() {
   socket.emit('message', {operation: "localJoin"});
@@ -9,6 +10,8 @@ document.getElementById('btn-space').addEventListener('click', function() {
 })
 
 socket.on('localJoin', function(localJoin) {
+  myid = localJoin.id;
+  console.log(localJoin.id);
   if (localJoin.players %2 != 0) {
     console.log("waiting player");
     waitingPLayer();
@@ -22,9 +25,16 @@ socket.on('localStart', function(localStart) {
   getBoard(idlist);
 })
 
-socket.on('disconnect',function(){
+socket.on('disconnected',function(disconnected){
   console.log(socket.id);
-  socket.emit('localLeave');
+  for (var i = 0; i < disconnected.idList.length; i++) {
+    for (var j = 0; j < disconnected.idList[i].length; j++) {
+      if(disconnected.idList[i][j] == myid){
+        console.log("myid");
+      }
+    }
+  }
+  //socket.emit('localLeave');
 });
 
 

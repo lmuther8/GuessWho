@@ -1,5 +1,4 @@
 // Simple multi client chat
-// Jim Skon, 2021
 // Kenyon College
 // Run: node chatApp.js
 const express = require('express');
@@ -10,8 +9,9 @@ const fs = require('fs');
 const server = http.createServer(app);
 
 //Everyone must use own port > 9000
-const port=9018;
-const Url='http://jimskon.com:'+port
+const port=9004;
+const Url='http://jimskon.com:'+port;
+var id=0;
 
 //var localPlayers = 0
 
@@ -53,11 +53,12 @@ app.get('/board', function (req, res) {
     console.log(query)
     con.query(query, function(err,result,fields) {
 	     if (err) throw err;
-	     res.end( JSON.stringify(result));
+	     res.end(JSON.stringify(result));
     })
 })
 
 partners=[];
+localPartners=[];
 var localPlayers=0;
 var pickList=[];
 
@@ -92,18 +93,23 @@ io.sockets.on('connection', function(socket) {
   	}
     if (message.operation == 'localJoin') {
         console.log("Client: joins");
+        if(id%2==0){
+          localPartners.push([id,id+1]);
+        }
 
         localPlayers+=1;
         io.emit('message', {
             operation: 'localJoin',
-            players: localPlayers
+            players: localPlayers,
         });
         if (localPlayers %2 !=0) {
-          socket.emit('localJoin', {players: localPlayers});
+          socket.emit('localJoin', {players: localPlayers, id: id});
         }
         else {
-          socket.broadcast.emit('localJoin', {players: localPlayers});
+          socket.broadcast.emit('localJoin', {players: localPlayers, id: id});
         }
+
+        id+=1;
     }
   	// Join message {operation: 'join', name: clientname}
   	if (message.operation == 'signout') {
@@ -118,6 +124,18 @@ io.sockets.on('connection', function(socket) {
   		name: message.name,
   		partners: partners
   	    });
+
+        console.log("disconnecting");
+
+        socket.broadcast.emit('disconnected', {
+          idList: localPartners,
+          nameList: partners
+        });
+        // send back to sender
+        socket.emit('disconnected', {
+          idList: localPartners,
+          nameList: partners
+        });
   	}
   	// Message from client {operation: 'mess', name: clientname, test: message}
   	if (message.operation == 'mess') {
@@ -158,7 +176,6 @@ io.sockets.on('connection', function(socket) {
         }
 
   	}
-
     // if (message.operation == 'guessMessage') {
     //   console.log("guessMessage gamerserver");
     //   socket.broadcast.emit('message', {
@@ -182,20 +199,32 @@ io.sockets.on('connection', function(socket) {
       socket.emit('getPick', {picks: pickList});
 
     });
-    socket.on('localStart', function(localStart) {
-      console.log('localStart');
-      socket.broadcast.emit('localStart', {query: localStart.query});
-      socket.emit('localStart', {query: localStart.query});
-    });
     socket.on('switchTurn', function(switchTurn) {
       socket.broadcast.emit('switch');
       socket.emit('switch');
     });
-    socket.on('guess', function(guess) {
-      console.log('guess gameServer.js');
-      console.log("result:"+guess.result);
-      socket.broadcast.emit('guessMess', {name: guess.name, result: guess.result});
-      socket.emit('guessMess', {name: guess.name, result: guess.result});
+    socket.on('guessWrong', function(guess) {
+      socket.broadcast.emit('guessMess', {name: guess.name});
+      socket.emit('guessMess', {name: guess.name});
+    });
+    socket.on('lose', function(guess) {
+      console.log('lose');
+      socket.broadcast.emit('losePrint', {winner: guess.winner});
+      socket.emit('losePrint', {winner: guess.winner});
+    });
+    socket.on('win', function(win) {
+      console.log('win');
+      socket.broadcast.emit('winPrint', {loser: win.loser});
+      socket.emit('winPrint', {loser: win.loser});
+    });
+    socket.on('noMoves', function(noMoves) {
+      socket.broadcast.emit('movesEnd', {failer: noMoves.name});
+      socket.emit('movesEnd', {failer: noMoves.name});
+    });
+    socket.on('localStart', function(localStart) {
+      console.log('localStart');
+      socket.broadcast.emit('localStart', {query: localStart.query});
+      socket.emit('localStart', {query: localStart.query});
     });
 });
 
