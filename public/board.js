@@ -1,3 +1,4 @@
+""
 var port=9018;
 const Url='http://jimskon.com:'+port;
 var pickedChar = false;
