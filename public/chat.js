@@ -92,7 +92,7 @@ socket.on('message', function(message) {
     	    "<font style='color:#fdf993;'>" + message.name + ": </font>" + message.text + "<br />";
     }
   }
-})
+});
 
 document.getElementById('chatinput').style.display = 'none';
 document.getElementById('guessArea').style.display = 'none';
