@@ -133,7 +133,7 @@ document.getElementById('no').addEventListener("click", noText);
 
 
 socket.on('guessMess', function(guess) {
-  var message = "I guessed "+guess.name+"incorrectly.";
+  var message = "I guessed "+guess.guess+"incorrectly.";
   console.log("abt to emit");
   console.log(message);
 
@@ -144,7 +144,7 @@ socket.on('guessMess', function(guess) {
   //   room:room
   socket.emit('message', {
     operation: "mess",
-    name: myname,
+    name: guess.name,
     text: message,
     room:room
   });
