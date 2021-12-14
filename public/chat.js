@@ -400,7 +400,6 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
         stopPulse();
         console.log("Guess: "+guess+" Opponent Pick: "+opponentPick);
       }
-
       if (guess==opponentPick) {
         gameOver();
       }
@@ -408,7 +407,7 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
         guessWrong(guess);
         guessNum();
       }
-
+      document.querySelectorAll('.gamepiece').removeEventListener('click');
       // for (let i = 0; i < pickList.length; i++) {
       //   if(!(pickList[i][0]==myname)){
       //     if(guess==pickList[i][1]){
