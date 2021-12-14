@@ -399,7 +399,7 @@ pieces.forEach(function(piece) {
       gameOver();
     }
     else {
-      guessWrong();
+      guessWrong(guess);
       guessNum();
     }
   })
