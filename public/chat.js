@@ -132,7 +132,7 @@ socket.on('guessMess', function(guess) {
   console.log("abt to emit");
   console.log(message);
 
-  socket.emit('message', {
+  socket.broadcast.emit('message', {
     operation: "mess",
     name: 'wrong guess',
     text: message,
