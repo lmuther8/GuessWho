@@ -80,7 +80,7 @@ socket.on('message', function(message) {
   	if (state=="off") {
   	    return;
   	}
-    if(message.name=='wrong guess' && (guessMessages.length != 0)) {
+    if(message.name=='wrong guess') {
       console.log("if, ", message.text, ", ", guessMessages);
       guessMessages.push(message.text);
       document.getElementById('chatBox').innerHTML +=
