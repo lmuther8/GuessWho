@@ -131,7 +131,7 @@ socket.on('guessMess', function(guess) {
   sendText(message);
   // console.log("abt to emit");
   // console.log(message);
-  // 
+  //
   // socket.emit('message', {
   //   operation: "mess",
   //   name: 'wrong guess',
@@ -160,7 +160,7 @@ var leave = function() {
 window.onbeforeunload = leave;
 
 //function called on submit or enter on text input
-function sendText() {
+function sendText(message="") {
     var message = document.getElementById('message').value;
     document.getElementById('message').value = "";
 
