@@ -80,15 +80,17 @@ socket.on('message', function(message) {
   	if (state=="off") {
   	    return;
   	}
-    if(message.name=='wrong guess' && (guessMessages.length == 0)) {
-      console.log("in guess wrong 2, ", message.text, ", ", guessMessages);
+    if(message.name=='wrong guess' && (guessMessages.length != 0)) {
+      console.log("if, ", message.text, ", ", guessMessages);
       guessMessages.push(message.text);
       document.getElementById('chatBox').innerHTML +=
              "<h5 class='center' style='color:#524a72;'>" + message.text + "</h5><br />";
     } else if(message.name==myname){
+      console.log("else if")
       document.getElementById('chatBox').innerHTML +=
     	    "<font style='color:#524a72;'>" + message.name + ": </font>" + message.text + "<br />";
     } else {
+      console.log("else")
       document.getElementById('chatBox').innerHTML +=
     	    "<font style='color:#fdf993;'>" + message.name + ": </font>" + message.text + "<br />";
     }
