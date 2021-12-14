@@ -382,6 +382,7 @@ function stopPulse() {
 
 function guess(){
   console.log("clicked");
+  var guessed=false;
   while(!guessed){
     guessed=true;
     guess=piece.id;
@@ -399,7 +400,6 @@ function guess(){
 
 document.getElementById('guess-btn').addEventListener("click", (e)=> {
   var pieces = document.querySelectorAll(".gamepiece");
-  var guessed=false;
   pieces.forEach(function(piece) {
     piece.classList.add('guessing');
     piece.addEventListener('click', guess)
