@@ -403,7 +403,7 @@ pieces.forEach(function(piece) {
       guessNum();
     }
   })
-})
+});
 pieces.forEach(function(piece)){
   piece.removeEventListener()
 }
