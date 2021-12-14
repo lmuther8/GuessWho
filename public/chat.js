@@ -82,7 +82,7 @@ socket.on('message', function(message) {
   	}
     if(message.name=='wrong guess'|| !(message.text in guessMessages)) {
       guessMessages.push(message.text);
-      console.log("in guessPrint2");
+      console.log("in guess wrong 2", message.text, guessMessages);
       document.getElementById('chatBox').innerHTML +=
              "<h5 class='center' style='color:#524a72;'>" + message.text + "</h5><br />";
     } else if(message.name==myname){
