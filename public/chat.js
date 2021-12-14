@@ -380,6 +380,7 @@ function stopPulse() {
 }
 
 function makeGuessable(){
+<<<<<<< HEAD
 var pieces = document.querySelectorAll(".gamepiece");
 conosle.log("Guesses left:"+guesses);
 var guessed=false;
@@ -409,6 +410,33 @@ pieces.forEach(function(piece) {
 pieces.forEach(function(piece){
   piece.removeEventListener()
 })
+=======
+  var pieces = document.querySelectorAll(".gamepiece");
+  var guessed=false;
+  pieces.forEach(function(piece) {
+    piece.classList.add('guessing');
+    piece.addEventListener('click', function() {
+      console.log("clicked");
+      while(!guessed){
+        console.log(piece.id);
+        guessed=true;
+        guess=piece.id;
+        stopPulse();
+        console.log(guess, opponentPick)
+      }
+
+      if (guess==opponentPick) {
+        gameOver();
+      }
+      else {
+        guessWrong(guess);
+        guessNum();
+      }
+      new_piece = piece.cloneNode(true);
+      piece.replaceWith(new_piece);
+    })
+  });
+>>>>>>> ab9659ca1f1fe930aceaee8dfee82e863d9b3fbf
 };
 
 document.getElementById('guess-btn').addEventListener("click", makeGuessable);
