@@ -80,19 +80,20 @@ socket.on('message', function(message) {
   	if (state=="off") {
   	    return;
   	}
-    if(message.name=='wrong guess' && (!(message.text in guessMessages))) {
-      console.log("in guess wrong 2", message.text, guessMessages);
+    if(message.name=='wrong guess' && (guessMessages.length == 0) {
+      console.log("in guess wrong 2, ", message.text, ", ", guessMessages);
       guessMessages.push(message.text);
       document.getElementById('chatBox').innerHTML +=
-             "<h5 class='center' style='color:#524a72;'>" + message.text + "</h5><br />"; }
-    // } else if(message.name==myname){
-    //   document.getElementById('chatBox').innerHTML +=
-    // 	    "<font style='color:#524a72;'>" + message.name + ": </font>" + message.text + "<br />";
-    // } else {
-    //   document.getElementById('chatBox').innerHTML +=
-    // 	    "<font style='color:#fdf993;'>" + message.name + ": </font>" + message.text + "<br />";
-    // }
+             "<h5 class='center' style='color:#524a72;'>" + message.text + "</h5><br />";
+    } else if(message.name==myname){
+      document.getElementById('chatBox').innerHTML +=
+    	    "<font style='color:#524a72;'>" + message.name + ": </font>" + message.text + "<br />";
+    } else {
+      document.getElementById('chatBox').innerHTML +=
+    	    "<font style='color:#fdf993;'>" + message.name + ": </font>" + message.text + "<br />";
+    }
   }
+  guessMessages=[]
 })
 
 document.getElementById('chatinput').style.display = 'none';
