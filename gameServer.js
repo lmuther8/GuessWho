@@ -173,7 +173,7 @@ io.sockets.on('connection', function(socket) {
       io.sockets.to(switchTurn.room).emit('switch');
     });
     socket.on('guessWrong', function(guess) {
-      socket.broadcast.to(guess.room).emit('guessMess', {name: guess.name});
+      socket.to(guess.room).emit('guessMess', {name: guess.name, guess: guess.guess});
     });
     socket.on('lose', function(guess) {
       console.log('lose');

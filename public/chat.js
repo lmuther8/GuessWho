@@ -5,8 +5,11 @@ var myname="";
 var turn = false;
 var room = ""
 var opponentPick=""
+<<<<<<< HEAD
 // var guessMessages=[]
 
+=======
+>>>>>>> 2c84ef39d000cc92764459b7c436a8d276326ff5
 
 //from board
 const Url='http://jimskon.com:'+port;
@@ -82,7 +85,7 @@ socket.on('message', function(message) {
   	    return;
   	}
     if(message.name=='wrong guess') {
-      console.log("if, ", message.text, ", ", guessMessages);
+      console.log("if, ", message.text);
       guessMessages.push(message.text);
       document.getElementById('chatBox').innerHTML +=
              "<h5 class='center' style='color:#524a72;'>" + message.text + "</h5><br />";
@@ -96,7 +99,6 @@ socket.on('message', function(message) {
     	    "<font style='color:#fdf993;'>" + message.name + ": </font>" + message.text + "<br />";
     }
   }
-  guessMessages=[];
 })
 // Action if they push the join button
 document.getElementById('name-btn').addEventListener("click", (e) => {
@@ -130,16 +132,20 @@ document.getElementById('no').addEventListener("click", noText);
 
 
 socket.on('guessMess', function(guess) {
-  var message = ""+guess.name+" guessed wrong.";
+  var message = "I guessed "+guess.guess+" incorrectly.";
   console.log("abt to emit");
   console.log(message);
-
   socket.emit('message', {
     operation: "mess",
-    name: 'wrong guess',
+    name: guess.name,
     text: message,
     room:room
   });
+  message = ""
+  document.getElementById('chatinput').style.display = 'block';
+  document.getElementById('guessArea').style.display = 'block';
+  document.getElementById('waiting').style.display = 'none';
+
 });
 
 socket.on('switch', function() {
@@ -347,6 +353,9 @@ function displayhiddenChar(hiddenChar) {
 function guessWrong(guess){
   console.log("Wrong Guess");
   socket.emit('guessWrong', {name: myname,room:room, guess:guess});
+  document.getElementById('chatinput').style.display = 'none';
+  document.getElementById('guessArea').style.display = 'none';
+  document.getElementById('waiting').style.display = "block"
 }
 
 function gameOver() {
@@ -373,6 +382,7 @@ function stopPulse() {
   });
 }
 
+<<<<<<< HEAD
 document.getElementById('guess-btn').addEventListener("click", (e)=> {
   var pieces = document.querySelectorAll(".gamepiece");
   var guessed=false;
@@ -403,3 +413,32 @@ function rebuildBoard() {
   var new_element = old_element.cloneNode(true);
   old_element.parentNode.replaceChild(new_element, old_element);
 }
+=======
+function makeGuessable(){
+var pieces = document.querySelectorAll(".gamepiece");
+var guessed=false;
+pieces.forEach(function(piece) {
+  piece.classList.add('guessing');
+  piece.addEventListener('click', function() {
+    console.log("clicked");
+    while(!guessed){
+      console.log(piece.id);
+      guessed=true;
+      guess=piece.id;
+      stopPulse();
+      console.log(guess, opponentPick)
+    }
+
+    if (guess==opponentPick) {
+      gameOver();
+    }
+    else {
+      guessWrong(guess);
+      guessNum();
+    }
+  })
+})
+};
+
+document.getElementById('guess-btn').removeEventListener("click", makeGuessable);
+>>>>>>> 2c84ef39d000cc92764459b7c436a8d276326ff5
