@@ -150,6 +150,7 @@ socket.on('guessMess', function(guess) {
   });
   document.getElementById('chatinput').style.display = 'block';
   document.getElementById('guessArea').style.display = 'block';
+  document.getElementById('waiting').style.display = 'none';
 });
 
 socket.on('switch', function() {
