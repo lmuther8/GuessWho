@@ -1,4 +1,4 @@
-var port=9018;
+var port=9004;
 var socket = io.connect('http://jimskon.com:'+port);
 var state="off";
 var myname="";
@@ -16,7 +16,6 @@ var guess='';
 
 document.getElementById('answer').style.display = 'none';
 document.getElementById('waiting').style.display = 'none';
-
 
 
 // Watch for incoming messages from server (chatapp.js)
@@ -382,6 +381,7 @@ function stopPulse() {
 
 function makeGuessable(){
 var pieces = document.querySelectorAll(".gamepiece");
+conosle.log("Guesses left:"+guesses);
 var guessed=false;
 pieces.forEach(function(piece) {
   piece.classList.add('guessing');
@@ -396,17 +396,19 @@ pieces.forEach(function(piece) {
     }
 
     if (guess==opponentPick) {
+      console.log("game over");
       gameOver();
     }
     else {
+      console.log("guessWrong");
       guessWrong(guess);
       guessNum();
     }
   })
 });
-pieces.forEach(function(piece)){
+pieces.forEach(function(piece){
   piece.removeEventListener()
-}
+})
 };
 
 document.getElementById('guess-btn').addEventListener("click", makeGuessable);
