@@ -402,10 +402,10 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
   var pieces = document.querySelectorAll(".gamepiece");
   pieces.forEach(function(piece) {
     piece.classList.add('guessing');
-    piece.addEventListener('click', guess)
+    piece.addEventListener('click', guess);
     })
   });
   var pieces = document.querySelectorAll(".gamepiece");
   pieces.forEach(function(piece){
-    piece.removeEventListener('click', guess)
+    piece.removeEventListener('click', guess);
   });
