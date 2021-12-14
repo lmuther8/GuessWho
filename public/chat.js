@@ -5,7 +5,7 @@ var myname="";
 var turn = false;
 var room = ""
 var opponentPick=""
-var guessMessages=[]
+// var guessMessages=[]
 
 
 //from board
@@ -18,8 +18,9 @@ var guess='';
 
 document.getElementById('answer').style.display = 'none';
 document.getElementById('waiting').style.display = 'none';
-
-
+document.getElementById('chatinput').style.display = 'none';
+document.getElementById('guessArea').style.display = 'none';
+document.getElementById('status').style.display = 'none';
 
 // Watch for incoming messages from server (chatapp.js)
 socket.on('message', function(message) {
@@ -97,10 +98,6 @@ socket.on('message', function(message) {
   }
   guessMessages=[];
 })
-
-document.getElementById('chatinput').style.display = 'none';
-document.getElementById('guessArea').style.display = 'none';
-document.getElementById('status').style.display = 'none';
 // Action if they push the join button
 document.getElementById('name-btn').addEventListener("click", (e) => {
     myname = document.getElementById('yourname').value;
@@ -389,7 +386,6 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
         stopPulse();
         console.log("Guess: "+guess+" Opponent Pick: "+opponentPick);
       }
-
       if (guess==opponentPick) {
         gameOver();
       }
@@ -397,17 +393,13 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
         guessWrong(guess);
         guessNum();
       }
-
-      // for (let i = 0; i < pickList.length; i++) {
-      //   if(!(pickList[i][0]==myname)){
-      //     if(guess==pickList[i][1]){
-      //       gameOver();
-      //     } else {
-      //       guessResult();
-      //       guessNum();
-      //     }
-      //   }
-      // }
     })
   })
+  // rebuildBoard();
 });
+
+function rebuildBoard() {
+  var old_element = document.getElementById("gameBoard");
+  var new_element = old_element.cloneNode(true);
+  old_element.parentNode.replaceChild(new_element, old_element);
+}
