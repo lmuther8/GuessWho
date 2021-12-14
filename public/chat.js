@@ -5,7 +5,7 @@ var myname="";
 var turn = false;
 var room = ""
 var opponentPick=""
-var guesses=[]
+var guessMessages=[]
 
 
 //from board
