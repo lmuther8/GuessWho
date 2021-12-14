@@ -92,8 +92,8 @@ socket.on('message', function(message) {
       document.getElementById('chatBox').innerHTML +=
     	    "<font style='color:#fdf993;'>" + message.name + ": </font>" + message.text + "<br />";
     }
+    guessMessages=[];
   }
-  guessMessages=[];
 })
 
 document.getElementById('chatinput').style.display = 'none';
