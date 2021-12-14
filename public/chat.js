@@ -405,5 +405,4 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
     piece.addEventListener('click', guess)
     document.querySelectorAll('.gamepiece').removeEventListener('click', guess);
     })
-  })
-});
+  });
