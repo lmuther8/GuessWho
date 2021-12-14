@@ -380,37 +380,30 @@ function stopPulse() {
   });
 }
 
+function guess(){
+  console.log("clicked");
+  while(!guessed){
+    guessed=true;
+    guess=piece.id;
+    stopPulse();
+    console.log("Guess: "+guess+" Opponent Pick: "+opponentPick);
+  }
+  if (guess==opponentPick) {
+    gameOver();
+  }
+  else {
+    guessWrong(guess);
+    guessNum();
+  }
+}
+
 document.getElementById('guess-btn').addEventListener("click", (e)=> {
   var pieces = document.querySelectorAll(".gamepiece");
   var guessed=false;
   pieces.forEach(function(piece) {
     piece.classList.add('guessing');
-    piece.addEventListener('click', function() {
-      console.log("clicked");
-      while(!guessed){
-        guessed=true;
-        guess=piece.id;
-        stopPulse();
-        console.log("Guess: "+guess+" Opponent Pick: "+opponentPick);
-      }
-      if (guess==opponentPick) {
-        gameOver();
-      }
-      else {
-        guessWrong(guess);
-        guessNum();
-      }
-      document.querySelectorAll('.gamepiece').removeEventListener('click');
-      // for (let i = 0; i < pickList.length; i++) {
-      //   if(!(pickList[i][0]==myname)){
-      //     if(guess==pickList[i][1]){
-      //       gameOver();
-      //     } else {
-      //       guessResult();
-      //       guessNum();
-      //     }
-      //   }
-      // }
+    piece.addEventListener('click', guess)
+    document.querySelectorAll('.gamepiece').removeEventListener('click', guess);
     })
   })
 });
