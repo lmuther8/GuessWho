@@ -380,7 +380,7 @@ function stopPulse() {
   });
 }
 
-function makeguessable(piece) {
+function makeguessable() {
   console.log("clicked");
   var guessed=false;
   while(!guessed){
@@ -402,7 +402,7 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
   var pieces = document.querySelectorAll(".gamepiece");
   pieces.forEach(function(piece) {
     piece.classList.add('guessing');
-    piece.addEventListener('click', makeguessable(piece));
+    piece.addEventListener('click', makeguessable);
     })
   });
   var pieces = document.querySelectorAll(".gamepiece");
