@@ -73,13 +73,14 @@ socket.on('message', function(message) {
   	groupList=groupList.slice(0,-2);
   	document.getElementById('members').innerHTML = "<b>Players:</b> "+"<font color='blue'>"+groupList+"</font>";
   }
+
       // A text message: {operation: 'mess', name: clientname, text: message}
   if (message.operation == 'mess') {
     console.log("in mess");
   	if (state=="off") {
   	    return;
   	}
-    if(message.name=='wrong guess' || !(message.text in guessMessages) {
+    if(message.name=='wrong guess'|| !(message.text in guessMessages)) {
       guessMessages.push(message.text);
       console.log("in guessPrint2");
       document.getElementById('chatBox').innerHTML +=
@@ -92,7 +93,7 @@ socket.on('message', function(message) {
     	    "<font style='color:#fdf993;'>" + message.name + ": </font>" + message.text + "<br />";
     }
   }
-});
+})
 
 document.getElementById('chatinput').style.display = 'none';
 document.getElementById('guessArea').style.display = 'none';
