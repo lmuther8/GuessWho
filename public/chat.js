@@ -5,6 +5,7 @@ var myname="";
 var turn = false;
 var room = ""
 var opponentPick=""
+var guesses=[]
 
 
 //from board
@@ -78,7 +79,8 @@ socket.on('message', function(message) {
   	if (state=="off") {
   	    return;
   	}
-    if(message.name=='wrong guess') {
+    if(message.name=='wrong guess') & (!(message.text in guessMessages) {
+      guessMessages.push(message.text);
       console.log("in guessPrint2");
       document.getElementById('chatBox').innerHTML +=
              "<h5 class='center' style='color:#524a72;'>" + message.text + "</h5><br />";
@@ -128,16 +130,15 @@ document.getElementById('no').addEventListener("click", noText);
 
 socket.on('guessMess', function(guess) {
   var message = ""+guess.name+" guessed wrong.";
-  sendText(message);
-  // console.log("abt to emit");
-  // console.log(message);
-  //
-  // socket.emit('message', {
-  //   operation: "mess",
-  //   name: 'wrong guess',
-  //   text: message,
-  //   room:room
-  // });
+  console.log("abt to emit");
+  console.log(message);
+
+  socket.emit('message', {
+    operation: "mess",
+    name: 'wrong guess',
+    text: message,
+    room:room
+  });
 });
 
 socket.on('switch', function() {
@@ -160,7 +161,7 @@ var leave = function() {
 window.onbeforeunload = leave;
 
 //function called on submit or enter on text input
-function sendText(message="") {
+function sendText() {
     var message = document.getElementById('message').value;
     document.getElementById('message').value = "";
 
