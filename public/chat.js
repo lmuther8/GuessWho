@@ -383,6 +383,7 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
         guessed=true;
         guess=piece.id;
         stopPulse();
+        console.log(guess, opponentPick)
       }
 
       if (guess==opponentPick) {
