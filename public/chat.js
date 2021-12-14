@@ -380,32 +380,30 @@ function stopPulse() {
   });
 }
 
-function makeguessable() {
-  console.log("clicked");
-  var guessed=false;
-  while(!guessed){
-    guessed=true;
-    guess=piece.id;
-    stopPulse();
-    console.log("Guess: "+guess+" Opponent Pick: "+opponentPick);
-  }
-  if (guess==opponentPick) {
-    gameOver();
-  }
-  else {
-    guessWrong(guess);
-    guessNum();
-  }
-}
+function makeGuessable(){
+var pieces = document.querySelectorAll(".gamepiece");
+var guessed=false;
+pieces.forEach(function(piece) {
+  piece.classList.add('guessing');
+  piece.addEventListener('click', function() {
+    console.log("clicked");
+    while(!guessed){
+      console.log(piece.id);
+      guessed=true;
+      guess=piece.id;
+      stopPulse();
+      console.log(guess, opponentPick)
+    }
 
-document.getElementById('guess-btn').addEventListener("click", (e)=> {
-  var pieces = document.querySelectorAll(".gamepiece");
-  pieces.forEach(function(piece) {
-    piece.classList.add('guessing');
-    piece.addEventListener('click', makeguessable);
-    })
-  });
-  var pieces = document.querySelectorAll(".gamepiece");
-  pieces.forEach(function(piece){
-    piece.removeEventListener('click', makeguessable);
-  });
+    if (guess==opponentPick) {
+      gameOver();
+    }
+    else {
+      guessWrong();
+      guessNum();
+    }
+  })
+})
+};
+
+document.getElementById('guess-btn').addEventListener("click", makeGuessable);
