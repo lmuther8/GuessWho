@@ -127,7 +127,7 @@ document.getElementById('no').addEventListener("click", noText);
 
 
 socket.on('guessMess', function(guess) {
-  var message = " "+guess.name+" guessed wrong.";
+  var message = ""+guess.name+" guessed wrong.";
 
   console.log("abt to emit");
   console.log(message);
@@ -342,9 +342,9 @@ function displayhiddenChar(hiddenChar) {
   document.getElementById('hiddenChar').innerHTML='<div class="purple"><h5 class="center">Mystery Character</h5><div class="center" >'+hiddenChar[0]+' '+hiddenChar[1]+'<div><a><img src="'+hiddenChar[2]+'" style="width: 70%;border-radius: 1rem;"></a></div></div></div>';
 }
 
-function guessWrong(){
-  console.log("MyName:"+myname);
-  socket.emit('guessWrong', {name: myname,room:room});
+function guessWrong(guess){
+  console.log("Wrong Guess");
+  socket.emit('guessWrong', {name: myname,room:room, guess:guess});
 }
 
 function gameOver() {
@@ -379,18 +379,17 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
     piece.addEventListener('click', function() {
       console.log("clicked");
       while(!guessed){
-        console.log(piece.id);
         guessed=true;
         guess=piece.id;
         stopPulse();
-        console.log(guess, opponentPick)
+        console.log("Guess: "+guess+" Opponent Pick: "+opponentPick);
       }
 
       if (guess==opponentPick) {
         gameOver();
       }
       else {
-        guessWrong();
+        guessWrong(guess);
         guessNum();
       }
 
