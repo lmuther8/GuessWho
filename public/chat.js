@@ -5,8 +5,6 @@ var myname="";
 var turn = false;
 var room = ""
 var opponentPick=""
-var guessMessages=[]
-
 
 //from board
 const Url='http://jimskon.com:'+port;
@@ -81,7 +79,7 @@ socket.on('message', function(message) {
   	    return;
   	}
     if(message.name=='wrong guess') {
-      console.log("if, ", message.text, ", ", guessMessages);
+      console.log("if, ", message.text);
       guessMessages.push(message.text);
       document.getElementById('chatBox').innerHTML +=
              "<h5 class='center' style='color:#524a72;'>" + message.text + "</h5><br />";
@@ -95,7 +93,6 @@ socket.on('message', function(message) {
     	    "<font style='color:#fdf993;'>" + message.name + ": </font>" + message.text + "<br />";
     }
   }
-  guessMessages=[];
 })
 
 document.getElementById('chatinput').style.display = 'none';
@@ -136,21 +133,17 @@ socket.on('guessMess', function(guess) {
   var message = "I guessed "+guess.guess+" incorrectly.";
   console.log("abt to emit");
   console.log(message);
-
-  // socket.emit('message', {
-  //   operation: "mess",
-  //   name: 'wrong guess',
-  //   text: message,
-  //   room:room
   socket.emit('message', {
     operation: "mess",
     name: guess.name,
     text: message,
     room:room
   });
+  message = ""
   document.getElementById('chatinput').style.display = 'block';
   document.getElementById('guessArea').style.display = 'block';
   document.getElementById('waiting').style.display = 'none';
+
 });
 
 socket.on('switch', function() {
