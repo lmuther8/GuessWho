@@ -1,4 +1,4 @@
-// Simple multi client chat
+ // Simple multi client chat
 // Kenyon College
 // Run: node chatApp.js
 const express = require('express');
@@ -81,7 +81,7 @@ io.sockets.on('connection', function(socket) {
         console.log('Client: ' + message.name + " joins room: " + room);
         // Send join message to all other clients
   	    partners.push(message.name);
-  	    io.emit('message', {
+  	    io.sockets.to(String(room)).emit('message', {
   		      operation: 'join',
   		      name: message.name,
   		      partners: partners,
@@ -92,7 +92,7 @@ io.sockets.on('connection', function(socket) {
           socket.emit('playerJoin', {list:partners});
         }
         else { // makes a new room when third, fifth, etc. joins
-          socket.broadcast.emit('playerJoin', {list:partners});
+          socket.broadcast.to(String(room)).emit('playerJoin', {list:partners});
           room++;
           partners=[]
 
@@ -145,45 +145,26 @@ io.sockets.on('connection', function(socket) {
         });
   	}
   	// Message from client {operation: 'mess', name: clientname, test: message}
-  	if (message.operation == 'mess') {
+  	 if (message.operation == 'mess') {
   	    console.log('Message: ' + message.text);
 
         if(message.name=='win' || message.name=='lose' || message.name=='guess wrong'){
           console.log("win,lose,or guess wrong");
-          // socket.broadcast.emit('message', {
-          // operation: 'guessPrint',
-          // result: message.result,
-          // text: message.text
-          //   });
-            // sent back out to everyone
           io.sockets.to(message.room).emit('message', {
-          operation: 'guessPrint',
-          name: message.name,
-          text: message.text
-            });
-          //   // send back to sender
-          // socket.to(message.room).emit('message', {
-          // operation: 'guessPrint',
-          // name: message.name,
-          // text: message.text
-          //   });
-        } else {
-          // sent back out to everyone
-          io.sockets.to(message.room).emit('message', {
-        operation: 'mess',
-        name: message.name,
-        text: message.text
+            operation: 'guessPrint',
+            name: message.name,
+            text: message.text
           });
-        //   // send back to sender
-        //   socket.to(message.room).emit('message', {
-        // operation: 'mess',
-        // name: message.name,
-        // text: message.text
-        //   });
-     }
-
-  	}
-  });
+        }
+        else {
+          io.sockets.to(message.room).emit('message', {
+            operation: 'mess',
+            name: message.name,
+            text: message.text
+          });
+        }
+  	   }
+     });
     socket.on('gameStart', function(gameStart) {
       console.log('gameStart');
       pickList=[];
@@ -195,36 +176,28 @@ io.sockets.on('connection', function(socket) {
       console.log("playerpicked");
       pickList.push([playerPicked.name,playerPicked.pick]);
       console.table(pickList);
-      socket.to(playerPicked.room).emit('getPick', {name: playerPicked.name, pick: playerPicked.pick});
-      socket.broadcast.to(playerPicked.room).emit('getPick', {name: playerPicked.name, pick: playerPicked.pick});
-
+      io.sockets.to(playerPicked.room).emit('getPick', {name: playerPicked.name, pick: playerPicked.pick});
     });
     socket.on('switchTurn', function(switchTurn) {
-      socket.broadcast.to(switchTurn.room).emit('switch');
-      socket.to(switchTurn.room).emit('switch');
+      io.sockets.to(switchTurn.room).emit('switch');
     });
     socket.on('guessWrong', function(guess) {
-      socket.broadcast.to(guess.room).emit('guessMess', {name: guess.name});
-      socket.to(guess.room).emit('guessMess', {name: guess.name});
+      io.sockets.to(guess.room).emit('guessMess', {name: guess.name});
     });
     socket.on('lose', function(guess) {
       console.log('lose');
-      socket.broadcast.to(guess.room).emit('losePrint', {winner: guess.winner});
-      socket.to(guess.room).emit('losePrint', {winner: guess.winner});
+      io.sockets.to(guess.room).emit('losePrint', {winner: guess.winner});
     });
     socket.on('win', function(win) {
       console.log('win');
-      socket.broadcast.to(win.room).emit('winPrint', {loser: win.loser});
-      socket.to(win.room).emit('winPrint', {loser: win.loser});
+      io.sockets.to(win.room).emit('winPrint', {loser: win.loser});
     });
     socket.on('noMoves', function(noMoves) {
-      socket.broadcast.to(noMoves.room).emit('movesEnd', {failer: noMoves.name});
-      socket.to(noMoves.room).emit('movesEnd', {failer: noMoves.name});
+      io.sockets.to(noMoves.room).emit('movesEnd', {failer: noMoves.name});
     });
     socket.on('localStart', function(localStart) {
       console.log('localStart');
-      socket.broadcast.to(localStart.room).emit('localStart', {query: localStart.query});
-      socket.to(localStart.room).emit('localStart', {query: localStart.query});
+      io.sockets.to(localStart.room).emit('localStart', {query: localStart.query});
     });
 });
 

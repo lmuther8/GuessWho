@@ -6,12 +6,21 @@ var turn = false;
 var room = ""
 var opponentPick=""
 
+
+//from board
+const Url='http://jimskon.com:'+port;
+var pickedChar = false;
+var guesses = 3;
+var mypick = '';
+var guess='';
+
+
 document.getElementById('answer').style.display = 'none';
 document.getElementById('waiting').style.display = 'none';
 
 // Watch for incoming messages from server (chatapp.js)
 socket.on('message', function(message) {
-    // A join message: {operation: 'join', name: clientname}
+  // A join message: {operation: 'join', name: clientname}
   if (message.operation == 'join') {
   	if (state=="off") {
   	    console.log("Not logged in!");
@@ -199,19 +208,6 @@ function leaveSession(){
 
 }
 
-// var port=9018;
-const Url='http://jimskon.com:'+port;
-var pickedChar = false;
-var guesses = 3;
-// var socket = io.connect('http://jimskon.com:'+port);
-var myname = '';
-var mypick = '';
-var pickList = [];
-var guess='';
-var opponentPick="";
-var room="";
-
-
 socket.on('playerJoin', function(playerJoin) {
   if (playerJoin.list.length % 2 != 0) {
     console.log("waiting player");
@@ -340,7 +336,7 @@ function displayhiddenChar(hiddenChar) {
   document.getElementById('hiddenChar').innerHTML='<div class="purple"><h5 class="center">Mystery Character</h5><div class="center" >'+hiddenChar[0]+' '+hiddenChar[1]+'<div><a><img src="'+hiddenChar[2]+'" style="width: 70%;border-radius: 1rem;"></a></div></div></div>';
 }
 
-function guessResult(){
+function guessWrong(){
   console.log("MyName:"+myname);
   socket.emit('guessWrong', {name: myname,room:room});
 }
@@ -383,16 +379,24 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
         stopPulse();
       }
 
-      for (let i = 0; i < pickList.length; i++) {
-        if(!(pickList[i][0]==myname)){
-          if(guess==pickList[i][1]){
-            gameOver();
-          } else {
-            guessResult();
-            guessNum();
-          }
-        }
+      if (guess==opponentPick) {
+        gameOver();
       }
+      else {
+        guessWrong();
+        guessNum();
+      }
+
+      // for (let i = 0; i < pickList.length; i++) {
+      //   if(!(pickList[i][0]==myname)){
+      //     if(guess==pickList[i][1]){
+      //       gameOver();
+      //     } else {
+      //       guessResult();
+      //       guessNum();
+      //     }
+      //   }
+      // }
     })
   })
 });
