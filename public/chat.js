@@ -80,7 +80,7 @@ socket.on('message', function(message) {
   	if (state=="off") {
   	    return;
   	}
-    if(message.name=='wrong guess' && !(message.text in guessMessages)) {
+    if(message.name=='wrong guess' && (!(message.text in guessMessages))) {
       console.log("in guess wrong 2", message.text, guessMessages);
       guessMessages.push(message.text);
       document.getElementById('chatBox').innerHTML +=
