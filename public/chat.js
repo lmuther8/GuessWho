@@ -133,7 +133,7 @@ document.getElementById('no').addEventListener("click", noText);
 
 
 socket.on('guessMess', function(guess) {
-  var message = "I guessed "+guess.guess+"incorrectly.";
+  var message = "I guessed "+guess.guess+" incorrectly.";
   console.log("abt to emit");
   console.log(message);
 
