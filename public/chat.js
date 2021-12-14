@@ -148,8 +148,6 @@ socket.on('guessMess', function(guess) {
     text: message,
     room:room
   });
-  document.getElementById('chatinput').style.display = 'block';
-  document.getElementById('guessArea').style.display = 'block';
 });
 
 socket.on('switch', function() {
@@ -357,6 +355,8 @@ function displayhiddenChar(hiddenChar) {
 function guessWrong(guess){
   console.log("Wrong Guess");
   socket.emit('guessWrong', {name: myname,room:room, guess:guess});
+  document.getElementById('chatinput').style.display = 'none';
+  document.getElementById('guessArea').style.display = 'none';
 }
 
 function gameOver() {
