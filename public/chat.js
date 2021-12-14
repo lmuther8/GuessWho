@@ -148,8 +148,8 @@ socket.on('guessMess', function(guess) {
     text: message,
     room:room
   });
-  document.getElementById('chatinput').style.display = 'none';
-  document.getElementById('guessArea').style.display = 'none';
+  document.getElementById('chatinput').style.display = 'block';
+  document.getElementById('guessArea').style.display = 'block';
 });
 
 socket.on('switch', function() {
