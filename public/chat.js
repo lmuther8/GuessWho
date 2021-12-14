@@ -5,11 +5,6 @@ var myname="";
 var turn = false;
 var room = ""
 var opponentPick=""
-<<<<<<< HEAD
-// var guessMessages=[]
-
-=======
->>>>>>> 2c84ef39d000cc92764459b7c436a8d276326ff5
 
 //from board
 const Url='http://jimskon.com:'+port;
@@ -21,9 +16,8 @@ var guess='';
 
 document.getElementById('answer').style.display = 'none';
 document.getElementById('waiting').style.display = 'none';
-document.getElementById('chatinput').style.display = 'none';
-document.getElementById('guessArea').style.display = 'none';
-document.getElementById('status').style.display = 'none';
+
+
 
 // Watch for incoming messages from server (chatapp.js)
 socket.on('message', function(message) {
@@ -100,6 +94,10 @@ socket.on('message', function(message) {
     }
   }
 })
+
+document.getElementById('chatinput').style.display = 'none';
+document.getElementById('guessArea').style.display = 'none';
+document.getElementById('status').style.display = 'none';
 // Action if they push the join button
 document.getElementById('name-btn').addEventListener("click", (e) => {
     myname = document.getElementById('yourname').value;
@@ -382,38 +380,6 @@ function stopPulse() {
   });
 }
 
-<<<<<<< HEAD
-document.getElementById('guess-btn').addEventListener("click", (e)=> {
-  var pieces = document.querySelectorAll(".gamepiece");
-  var guessed=false;
-  pieces.forEach(function(piece) {
-    piece.classList.add('guessing');
-    piece.addEventListener('click', function() {
-      console.log("clicked");
-      while(!guessed){
-        guessed=true;
-        guess=piece.id;
-        stopPulse();
-        console.log("Guess: "+guess+" Opponent Pick: "+opponentPick);
-      }
-      if (guess==opponentPick) {
-        gameOver();
-      }
-      else {
-        guessWrong(guess);
-        guessNum();
-      }
-    })
-  })
-  // rebuildBoard();
-});
-
-function rebuildBoard() {
-  var old_element = document.getElementById("gameBoard");
-  var new_element = old_element.cloneNode(true);
-  old_element.parentNode.replaceChild(new_element, old_element);
-}
-=======
 function makeGuessable(){
 var pieces = document.querySelectorAll(".gamepiece");
 var guessed=false;
@@ -438,7 +404,9 @@ pieces.forEach(function(piece) {
     }
   })
 })
+pieces.forEach(function(piece)){
+  piece.removeEventListener()
+}
 };
 
-document.getElementById('guess-btn').removeEventListener("click", makeGuessable);
->>>>>>> 2c84ef39d000cc92764459b7c436a8d276326ff5
+document.getElementById('guess-btn').addEventListener("click", makeGuessable);
