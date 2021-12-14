@@ -406,4 +406,4 @@ pieces.forEach(function(piece) {
 })
 };
 
-document.getElementById('guess-btn').addEventListener("click", makeGuessable, false);
+document.getElementById('guess-btn').addEventListener("click", makeGuessable, true);
