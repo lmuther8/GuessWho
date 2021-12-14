@@ -76,7 +76,7 @@ socket.on('message', function(message) {
 
       // A text message: {operation: 'mess', name: clientname, text: message}
   if (message.operation == 'mess') {
-    console.log("in mess");
+    console.log(message.name);
   	if (state=="off") {
   	    return;
   	}
