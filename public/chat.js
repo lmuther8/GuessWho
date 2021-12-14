@@ -128,16 +128,16 @@ document.getElementById('no').addEventListener("click", noText);
 
 socket.on('guessMess', function(guess) {
   var message = ""+guess.name+" guessed wrong.";
-
-  console.log("abt to emit");
-  console.log(message);
-
-  socket.broadcast.emit('message', {
-    operation: "mess",
-    name: 'wrong guess',
-    text: message,
-    room:room
-  });
+  sendText(message);
+  // console.log("abt to emit");
+  // console.log(message);
+  // 
+  // socket.emit('message', {
+  //   operation: "mess",
+  //   name: 'wrong guess',
+  //   text: message,
+  //   room:room
+  // });
 });
 
 socket.on('switch', function() {
