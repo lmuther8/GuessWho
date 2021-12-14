@@ -405,4 +405,6 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
     piece.addEventListener('click', guess)
     })
   });
-  document.querySelectorAll('.gamepiece').removeEventListener('click', guess);
+  pieces.forEach(function(piece)){
+    piece.removeEventListener('click', guess)
+  }
