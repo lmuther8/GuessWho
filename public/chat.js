@@ -403,6 +403,6 @@ document.getElementById('guess-btn').addEventListener("click", (e)=> {
   pieces.forEach(function(piece) {
     piece.classList.add('guessing');
     piece.addEventListener('click', guess)
-    document.querySelectorAll('.gamepiece').removeEventListener('click', guess);
     })
   });
+  document.querySelectorAll('.gamepiece').removeEventListener('click', guess);
