@@ -72,7 +72,6 @@ const io = new Server(server);
 // When a client connects, we note it in the console
 io.sockets.on('connection', function(socket) {
     console.log('A client is connected!');
-    // watch for message from client (JSON)
 
     socket.on('message', function(message) {
 	// Join message {operation: 'join', name: clientname}
@@ -126,22 +125,14 @@ io.sockets.on('connection', function(socket) {
   	    var index = partners.indexOf(message.name);
   	    if (index !== -1) partners.splice(index, 1);
   	    console.log("P:"+partners+":"+index);
-  	    io.emit('message', {
-  		operation: 'leave',
-  		name: message.name,
-  		partners: partners
+  	    io.sockets.to(message.room).emit('message', {
+  		      operation: 'leave',
+  		        name: message.name,
+  		          partners: partners
   	    });
-
-        console.log("disconnecting");
-
-        socket.broadcast.emit('disconnected', {
+        socket.broadcast.to(message.room).emit('disconnected', {
           idList: localPartners,
-          nameList: partners
-        });
-        // send back to sender
-        socket.emit('disconnected', {
-          idList: localPartners,
-          nameList: partners
+            nameList: partners
         });
   	}
   	// Message from client {operation: 'mess', name: clientname, test: message}

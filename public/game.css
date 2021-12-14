@@ -221,6 +221,10 @@ button{
 .btn-block {
   width: auto;
 }
+.btn-block a {
+  color: black;
+  text-decoration: none;
+}
 
 .btn-warning {
   background-color: #c39b52;

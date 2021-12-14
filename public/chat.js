@@ -18,6 +18,8 @@ var guess='';
 document.getElementById('answer').style.display = 'none';
 document.getElementById('waiting').style.display = 'none';
 
+
+
 // Watch for incoming messages from server (chatapp.js)
 socket.on('message', function(message) {
   // A join message: {operation: 'join', name: clientname}
@@ -55,7 +57,7 @@ socket.on('message', function(message) {
   	}
   	groupList=groupList.slice(0,-2);
   	document.getElementById('members').innerHTML =
-  	    "<b>Chat Group:</b> "+"<font color='#ffffff94'>"+groupList+"</font>";
+  	    "<b>Players:</b> "+"<font color='#ffffff94'>"+groupList+"</font>";
   }
   if (message.operation == 'leave') {
   	if (state=="off") {
@@ -68,7 +70,7 @@ socket.on('message', function(message) {
   	    groupList+=message.partners[n]+", ";
   	}
   	groupList=groupList.slice(0,-2);
-  	document.getElementById('members').innerHTML = "<b>Chat Group:</b> "+"<font color='blue'>"+groupList+"</font>";
+  	document.getElementById('members').innerHTML = "<b>Players:</b> "+"<font color='blue'>"+groupList+"</font>";
   }
       // A text message: {operation: 'mess', name: clientname, text: message}
   if (message.operation == 'mess') {
@@ -149,9 +151,13 @@ socket.on('switch', function() {
   }
 });
 
-// Call function on page exit
-window.onbeforeunload = leaveSession;
 
+var leave = function() {
+    state="off";
+    socket.emit('message', { operation: "signout", name: myname, room:room });
+}
+// Call function on page exit
+window.onbeforeunload = leave;
 
 //function called on submit or enter on text input
 function sendText() {
