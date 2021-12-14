@@ -79,7 +79,7 @@ socket.on('message', function(message) {
   	if (state=="off") {
   	    return;
   	}
-    if(message.name=='wrong guess' && (!(message.text in guessMessages)) {
+    if(message.name=='wrong guess' && !(message.text in guessMessages) {
       guessMessages.push(message.text);
       console.log("in guessPrint2");
       document.getElementById('chatBox').innerHTML +=
