@@ -354,7 +354,7 @@ function displayhiddenChar(hiddenChar) {
 
 function guessWrong(guess){
   console.log("Wrong Guess");
-  socket.emit('guessMess', {name: myname,room:room, guess:guess});
+  socket.emit('guessWrong', {name: myname,room:room, guess:guess});
 }
 
 function gameOver() {

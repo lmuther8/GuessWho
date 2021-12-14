@@ -172,9 +172,9 @@ io.sockets.on('connection', function(socket) {
     socket.on('switchTurn', function(switchTurn) {
       io.sockets.to(switchTurn.room).emit('switch');
     });
-    // socket.on('guessWrong', function(guess) {
-    //   socket.emit.to(guess.room).emit('guessMess', {name: guess.name});
-    // });
+    socket.on('guessWrong', function(guess) {
+      socket.to(guess.room).emit('guessMess', {name: guess.name});
+    });
     socket.on('lose', function(guess) {
       console.log('lose');
       io.sockets.to(guess.room).emit('losePrint', {winner: guess.winner});
