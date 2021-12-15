@@ -99,7 +99,7 @@ io.sockets.on('connection', function(socket) {
     if (message.operation == 'localJoin') {
         console.log("Client: joins");
         socket.join(String(localRoom));
-
+        console.log(String(localRoom));
         localPartners.push(id);
         io.emit('message', {
             operation: 'localJoin',
