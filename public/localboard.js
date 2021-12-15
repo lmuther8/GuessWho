@@ -18,6 +18,7 @@ socket.on('localJoin', function(localJoin) {
     console.log("waiting player");
     waitingPLayer();
   } else {
+    console.("we got here")
     socket.emit('localStart', {query: buildIDList(20)});
   }
 })
