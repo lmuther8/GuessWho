@@ -25,6 +25,7 @@ socket.on('localJoin', function(localJoin) {
 socket.on('localStart', function(localStart) {
   console.log('localStart');
   var idlist = localStart.query;
+  console.log(idlist)
   getBoard(idlist);
 })
 
