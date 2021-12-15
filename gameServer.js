@@ -108,11 +108,11 @@ io.sockets.on('connection', function(socket) {
         });
         if (localPartners.length==1) {
           console.log('emit:'+localRoom);
-          socket.emit('localJoin', {players: localPartners});
+          socket.emit('localJoin', {players: localPartners,, room: String(localRoom)});
         }
         else {
           console.log('broadcast emit:'+room);
-          socket.broadcast.to(String(localRoom)).emit('localJoin', {players: localPartners});
+          socket.broadcast.to(String(localRoom)).emit('localJoin', {players: localPartners,, room: String(localRoom)});
           localRoom++;
           localPartners=[];
         }
