@@ -18,11 +18,11 @@ socket.on('localJoin', function(localJoin) {
     console.log("waiting player");
     waitingPLayer();
   } else {
-    socket.emit('localStart', {query: buildIDList(20)});
+    socket.emit('localStartGame', {query: buildIDList(20)});
   }
 })
 
-socket.on('localStart', function(localStart) {
+socket.on('localStartGame', function(localStart) {
   console.log('localStart!!!!!', localStart.query);
   var idlist = localStart.query;
   getBoard(idlist);
