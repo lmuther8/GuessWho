@@ -1,4 +1,4 @@
-var port=9004;
+var port=9018;
 var socket = io.connect('http://jimskon.com:'+port);
 var state="off";
 var myname="";
