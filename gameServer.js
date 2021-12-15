@@ -150,13 +150,13 @@ io.sockets.on('connection', function(socket) {
           });
         }
         else {
-          io.sockets.to(message.room).emit('message', {
-            operation: 'mess',
-            name: message.name,
-            text: message.text
-          });
+            io.sockets.to(message.room).emit('message', {
+              operation: 'mess',
+              name: message.name,
+              text: message.text
+            });
+          }
         }
-  	   }
      });
      socket.on('disconnect', function(disconnect) {
        console.log('disconnect');
@@ -190,7 +190,7 @@ io.sockets.on('connection', function(socket) {
       io.sockets.to(playerPicked.room).emit('getPick', {name: playerPicked.name, pick: playerPicked.pick});
     });
     socket.on('switchTurn', function(switchTurn) {
-      io.sockets.to(switchTurn.room).emit('switch');
+      io.sockets.to(switchTurn.room).emit('switch', {type:switchTurn.type, name:switchTurn.name});
     });
     socket.on('guessWrong', function(guess) {
       socket.to(guess.room).emit('guessMess', {name: guess.name, guess: guess.guess});

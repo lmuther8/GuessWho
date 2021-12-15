@@ -79,16 +79,13 @@ socket.on('message', function(message) {
   	    return;
   	}
     if(message.name=='wrong guess') {
-      console.log("if, ", message.text);
       guessMessages.push(message.text);
       document.getElementById('chatBox').innerHTML +=
              "<h5 class='center' style='color:#524a72;'>" + message.text + "</h5><br />";
     } else if(message.name==myname){
-      console.log("else if")
       document.getElementById('chatBox').innerHTML +=
     	    "<font style='color:#524a72;'>" + message.name + ": </font>" + message.text + "<br />";
     } else {
-      console.log("else")
       document.getElementById('chatBox').innerHTML +=
     	    "<font style='color:#fdf993;'>" + message.name + ": </font>" + message.text + "<br />";
     }
@@ -112,7 +109,7 @@ document.getElementById('send-btn').addEventListener("click", () => {
   sendText();
   document.getElementById('waiting').style.display = 'block';
   document.getElementById('answer').style.display = 'none';
-  socket.emit('switchTurn',{room:room});
+  socket.emit('switchTurn',{room:room, type:"not guess", name:myname});
 });
 
 // Watch for enter on message box
@@ -121,7 +118,7 @@ document.getElementById('message').addEventListener("keydown", (e)=> {
 	   sendText();
      document.getElementById('waiting').style.display = 'block';
      document.getElementById('answer').style.display = 'none';
-     socket.emit('switchTurn', {room:room});
+     socket.emit('switchTurn', {room:room, type:"not guess", name:myname});
   }
 });
 
@@ -130,25 +127,36 @@ document.getElementById('no').addEventListener("click", noText);
 
 
 socket.on('guessMess', function(guess) {
-  var message = "I guessed "+guess.guess+" incorrectly.";
-  console.log("abt to emit");
-  console.log(message);
-  socket.emit('message', {
-    operation: "mess",
-    name: guess.name,
-    text: message,
-    room:room
-  });
-  message = ""
-  document.getElementById('chatinput').style.display = 'block';
-  document.getElementById('guessArea').style.display = 'block';
-  document.getElementById('waiting').style.display = 'none';
+  // var message = "I guessed "+guess.guess+" incorrectly.";
+  // console.log("abt to emit");
+  // console.log(message);
+  // socket.emit('message', {
+  //   operation: "mess",
+  //   name: guess.name,
+  //   text: message,
+  //   room:room,
+  // });
+  // message = ""
+  // document.getElementById('chatinput').style.display = 'block';
+  // document.getElementById('guessArea').style.display = 'block';
+  // document.getElementById('waiting').style.display = 'none';
+  // document.getElementById('answer').style.display = 'none';
 
 });
 
-socket.on('switch', function() {
-  if (turn) {
+socket.on('switch', function(s) {
+  console.log(turn);
+  console.log("switch");
+  if (s.type=="guess" && s.name!=myname) {
+    turn = true;
+    document.getElementById('answer').style.display = 'none';
+    document.getElementById('waiting').style.display = 'none';
+    document.getElementById('chatinput').style.display = "block";
+    document.getElementById('guessArea').style.display = "block";
+  }
+  else if (turn) {
     turn = false;
+    document.getElementById('answer').style.display = 'none';
   }
   else {
     turn = true;
@@ -174,7 +182,7 @@ function sendText() {
 	     operation: "mess",
 	      name: myname,
 	       text: message,
-         room:room
+          room: room
     });
     document.getElementById('chatinput').style.display = 'none';
     document.getElementById('guessArea').style.display = 'none';
@@ -351,10 +359,19 @@ function displayhiddenChar(hiddenChar) {
 function guessWrong(guess){
   console.log("Wrong Guess");
   socket.emit('guessWrong', {name: myname,room:room, guess:guess});
-  socket.emit('switchTurn', {room:room});
+  socket.emit('switchTurn', {room:room, type:"guess", name:myname});
   document.getElementById('chatinput').style.display = 'none';
   document.getElementById('guessArea').style.display = 'none';
   document.getElementById('waiting').style.display = "block"
+  var message = "I guessed "+guess+" incorrectly.";
+  console.log("abt to emit");
+  console.log(message);
+  socket.emit('message', {
+    operation: "mess",
+    name: myname,
+    text: message,
+    room:room,
+  });
 }
 
 function gameOver() {
