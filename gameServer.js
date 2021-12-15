@@ -111,7 +111,7 @@ io.sockets.on('connection', function(socket) {
         }
         else {
           console.log('broadcast emit:'+room);
-          io.sockets.to(String(room)).emit('localJoin', {players: localPartners});
+          socket.broadcast.to(String(room)).emit('localJoin', {players: localPartners});
           room++;
           localPartners=[];
         }
