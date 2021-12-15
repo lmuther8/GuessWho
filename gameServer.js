@@ -100,7 +100,6 @@ io.sockets.on('connection', function(socket) {
         socket.join(String(room));
 
         localPartners.push(id);
-        console.log(localPartners, String(room));
         io.emit('message', {
             operation: 'localJoin',
             players: localPartners,
@@ -112,7 +111,7 @@ io.sockets.on('connection', function(socket) {
         }
         else {
           console.log('broadcast emit:'+room);
-          socket.broadcast.to(String(room)).emit('localJoin', {players: localPartners});
+          io.sockets.to(String(room)).emit('localJoin', {players: localPartners});
           room++;
           localPartners=[];
         }
