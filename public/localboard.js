@@ -12,15 +12,14 @@ document.getElementById('btn-space').addEventListener('click', function() {
 })
 
 socket.on('localJoin', function(localJoin) {
-  //myid = localJoin.id;
+  room = localJoin.room;
   console.log("localJoin");
   if (localJoin.players.length == 1) {
     console.log("waiting player");
-    room = localJoin.room;
     waitingPLayer();
   } else {
     console.log("we got here");
-    console.log(localJoin.room);
+    console.log(room);
     socket.emit('localStart', {query: buildIDList(20),room: room});
   }
 })
