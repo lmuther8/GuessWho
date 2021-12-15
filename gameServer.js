@@ -158,6 +158,12 @@ io.sockets.on('connection', function(socket) {
           }
         }
      });
+
+     socket.on('localStart', function(localStart) {
+       console.log('localStart');
+       io.sockets.to(localStart.room).emit('localStarted', {query:localStart.query})
+     })
+
      socket.on('disconnect', function(disconnect) {
        console.log('disconnect');
        //console.log(disconnect.rooms);
