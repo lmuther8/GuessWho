@@ -208,7 +208,7 @@ io.sockets.on('connection', function(socket) {
       io.sockets.to(noMoves.room).emit('movesEnd', {failer: noMoves.name});
     });
     socket.on('localStart', function(localStart) {
-      console.log('localStart');
+      console.log('localStarted');
       io.sockets.to(localStart.room).emit('localStart', {query: localStart.query});
     });
 });
