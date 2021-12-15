@@ -20,6 +20,7 @@ socket.on('localJoin', function(localJoin) {
     waitingPLayer();
   } else {
     console.log("we got here");
+    console.log(localJoin.room);
     socket.emit('localStart', {query: buildIDList(20),room: room});
   }
 })
