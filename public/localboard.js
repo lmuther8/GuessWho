@@ -2,7 +2,7 @@ var port=9018;
 const Url='http://jimskon.com:'+port;
 var pickedChar = false;
 var socket = io.connect('http://jimskon.com:'+port);
-//var myid;
+var room = ""
 
 
 document.getElementById('btn-space').addEventListener('click', function() {
@@ -16,10 +16,11 @@ socket.on('localJoin', function(localJoin) {
   console.log("localJoin");
   if (localJoin.players.length == 1) {
     console.log("waiting player");
+    room = localJoin.room;
     waitingPLayer();
   } else {
     console.log("we got here");
-    socket.emit('localStart', {query: buildIDList(20)});
+    socket.emit('localStart', {query: buildIDList(20),room: room});
   }
 })
 
