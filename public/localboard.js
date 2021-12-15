@@ -23,9 +23,9 @@ socket.on('localJoin', function(localJoin) {
   }
 })
 
-socket.on('localStart', function(localStart) {
-  console.log('localStart');
-  var idlist = localStart.query;
+socket.on('localStartGame', function(localStartGame) {
+  console.log('localStartGame');
+  var idlist = localStartGame.query;
   getBoard(idlist);
 })
 
