@@ -9,11 +9,8 @@ const fs = require('fs');
 const server = http.createServer(app);
 
 //Everyone must use own port > 9000
-const port=9018;
+const port=9004;
 const Url='http://jimskon.com:'+port;
-var id=0;
-
-//var localPlayers = 0
 
 function openSQL() {
     // Login to MySQL
@@ -62,6 +59,7 @@ localPartners=[];
 var localPlayers=0;
 var pickList=[];
 var room=1;
+var id=1;
 
 console.log("Loaded index file");
 // Loading socket.io
@@ -93,29 +91,33 @@ io.sockets.on('connection', function(socket) {
         else { // makes a new room when third, fifth, etc. joins
           socket.broadcast.to(String(room)).emit('playerJoin', {list:partners});
           room++;
-          partners=[]
+          partners=[];
 
         }
   	}
     if (message.operation == 'localJoin') {
         console.log("Client: joins");
-        if(id%2==0){
-          localPartners.push([id,id+1]);
-        }
+        socket.join(String(room));
 
-        localPlayers+=1;
+        localPartners.push(id);
         io.emit('message', {
             operation: 'localJoin',
-            players: localPlayers,
+            players: localPartners,
+            room: String(room)
         });
-        if (localPlayers %2 !=0) {
-          socket.emit('localJoin', {players: localPlayers, id: id});
+        if (localPartners.length==1) {
+          console.log('emit:'+room);
+          socket.emit('localJoin', {players: localPartners});
         }
         else {
-          socket.broadcast.emit('localJoin', {players: localPlayers, id: id});
+          console.log('broadcast emit:'+room);
+          socket.broadcast.to(String(room)).emit('localJoin', {players: localPartners});
+          room++;
+          localPartners=[];
         }
 
-        id+=1;
+        id++;
+
     }
   	// Join message {operation: 'join', name: clientname}
   	if (message.operation == 'signout') {
@@ -155,6 +157,24 @@ io.sockets.on('connection', function(socket) {
           });
         }
   	   }
+     });
+     socket.on('disconnect', function(disconnect) {
+       console.log('disconnect');
+       //console.log(disconnect.rooms);
+       //console.log(disconnect.room);
+       // pickList=[];
+       // console.log(typeof(gameStart.room));
+       // io.sockets.to(gameStart.room).emit('start', {query: gameStart.query});
+
+     });
+     socket.on('disconnecting', function(disconnect) {
+       console.log('disconnecting');
+       //console.log(disconnect.rooms);
+       //console.log(disconnect.room);
+       // pickList=[];
+       // console.log(typeof(gameStart.room));
+       // io.sockets.to(gameStart.room).emit('start', {query: gameStart.query});
+
      });
     socket.on('gameStart', function(gameStart) {
       console.log('gameStart');

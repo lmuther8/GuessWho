@@ -1,19 +1,20 @@
-var port=9018;
+var port=9004;
 const Url='http://jimskon.com:'+port;
 var pickedChar = false;
 var socket = io.connect('http://jimskon.com:'+port);
-var myid;
+//var myid;
 
 
 document.getElementById('btn-space').addEventListener('click', function() {
+  console.log("pressed");
   socket.emit('message', {operation: "localJoin"});
   document.getElementById('btn-space').innerHTML='';
 })
 
 socket.on('localJoin', function(localJoin) {
-  myid = localJoin.id;
-  console.log(localJoin.id);
-  if (localJoin.players %2 != 0) {
+  //myid = localJoin.id;
+  console.log("localJoin");
+  if (localJoin.players.length == 1) {
     console.log("waiting player");
     waitingPLayer();
   } else {
@@ -22,22 +23,10 @@ socket.on('localJoin', function(localJoin) {
 })
 
 socket.on('localStart', function(localStart) {
-  var idlist = localStart.query
+  console.log('localStart');
+  var idlist = localStart.query;
   getBoard(idlist);
 })
-
-socket.on('disconnected',function(disconnected){
-  console.log(socket.id);
-  for (var i = 0; i < disconnected.idList.length; i++) {
-    for (var j = 0; j < disconnected.idList[i].length; j++) {
-      if(disconnected.idList[i][j] == myid){
-        console.log("myid");
-      }
-    }
-  }
-  //socket.emit('localLeave');
-});
-
 
 function waitingPLayer() {
   document.getElementById('gameBoard').innerHTML='<h2>Waiting For Another Player To Start</h2>';
