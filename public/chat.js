@@ -18,6 +18,7 @@ document.getElementById('answer').style.display = 'none';
 document.getElementById('waiting').style.display = 'none';
 
 
+
 // Watch for incoming messages from server (chatapp.js)
 socket.on('message', function(message) {
   // A join message: {operation: 'join', name: clientname}
@@ -350,6 +351,7 @@ function displayhiddenChar(hiddenChar) {
 function guessWrong(guess){
   console.log("Wrong Guess");
   socket.emit('guessWrong', {name: myname,room:room, guess:guess});
+  socket.emit('switchTurn', {room:room});
   document.getElementById('chatinput').style.display = 'none';
   document.getElementById('guessArea').style.display = 'none';
   document.getElementById('waiting').style.display = "block"
@@ -382,7 +384,6 @@ function stopPulse() {
 function makeGuessable(){
   var pieces = document.querySelectorAll(".gamepiece");
   var guessed=false;
-
   pieces.forEach(function(piece) {
     piece.classList.add('guessing');
     piece.addEventListener('click', function() {
@@ -393,17 +394,17 @@ function makeGuessable(){
         guess=piece.id;
         stopPulse();
         console.log(guess, opponentPick)
-
-        if (guess==opponentPick) {
-          gameOver();
-        }
-        else {
-          guessWrong(guess);
-          guessNum();
-        }
       }
-      // new_piece = piece.cloneNode(true);
-      // piece.replaceWith(new_piece);
+
+      if (guess==opponentPick) {
+        gameOver();
+      }
+      else {
+        guessWrong(guess);
+        guessNum();
+      }
+      new_piece = piece.cloneNode(true);
+      piece.replaceWith(new_piece);
     })
   });
 };
