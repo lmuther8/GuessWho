@@ -59,6 +59,7 @@ localPartners=[];
 var localPlayers=0;
 var pickList=[];
 var room=1;
+var localRoom=1;
 var id=1;
 
 console.log("Loaded index file");
@@ -97,22 +98,22 @@ io.sockets.on('connection', function(socket) {
   	}
     if (message.operation == 'localJoin') {
         console.log("Client: joins");
-        socket.join(String(room));
+        socket.join(String(localRoom));
 
         localPartners.push(id);
         io.emit('message', {
             operation: 'localJoin',
             players: localPartners,
-            room: String(room)
+            room: String(localRoom)
         });
         if (localPartners.length==1) {
-          console.log('emit:'+room);
+          console.log('emit:'+localRoom);
           socket.emit('localJoin', {players: localPartners});
         }
         else {
           console.log('broadcast emit:'+room);
-          socket.broadcast.to(String(room)).emit('localJoin', {players: localPartners});
-          room++;
+          socket.broadcast.to(String(localRoom)).emit('localJoin', {players: localPartners});
+          localRoom++;
           localPartners=[];
         }
 
@@ -209,8 +210,8 @@ io.sockets.on('connection', function(socket) {
     });
     socket.on('localStart', function(localStart) {
       console.log('localStarted');
-      socket.broadcast.to(localStart.room).emit('localStartGame',{query: localStart.query});
-      // io.sockets.to(localStart.room).emit('localStartGame', {query: localStart.query});
+      // socket.broadcast.to(localStart.room).emit('localStartGame',{query: localStart.query});
+      io.sockets.to(localStart.room).emit('localStartGame', {query: localStart.query});
     });
 });
 

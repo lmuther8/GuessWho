@@ -411,17 +411,14 @@ function makeGuessable(){
         guess=piece.id;
         stopPulse();
         console.log(guess, opponentPick)
+        if (guess==opponentPick) {
+          gameOver();
+        }
+        else {
+          guessWrong(guess);
+          guessNum();
+        }
       }
-
-      if (guess==opponentPick) {
-        gameOver();
-      }
-      else {
-        guessWrong(guess);
-        guessNum();
-      }
-      new_piece = piece.cloneNode(true);
-      piece.replaceWith(new_piece);
     })
   });
 };
