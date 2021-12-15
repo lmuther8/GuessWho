@@ -108,7 +108,7 @@ io.sockets.on('connection', function(socket) {
         });
         if (localPartners.length==1) {
           console.log('emit:'+localRoom);
-          socket.emit('localJoin', {players: localPartners,, room: String(localRoom)});
+          socket.emit('localJoin', {players: localPartners, room: String(localRoom)});
         }
         else {
           console.log('broadcast emit:'+room);
