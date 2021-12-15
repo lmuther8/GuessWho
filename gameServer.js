@@ -209,7 +209,7 @@ io.sockets.on('connection', function(socket) {
       io.sockets.to(noMoves.room).emit('movesEnd', {failer: noMoves.name});
     });
     socket.on('localStart', function(localStart) {
-      console.log('localStarted');
+      console.log('localStarted', localStart.room);
       // socket.broadcast.to(localStart.room).emit('localStartGame',{query: localStart.query});
       io.sockets.to(localStart.room).emit('localStartGame', {query: localStart.query});
     });
